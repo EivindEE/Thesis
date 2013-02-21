@@ -1,0 +1,9 @@
+*.aux
+*.pdf
+*.toc
+*.bib
+*.log
+*.tex.gz
+*.project
+*.classpath
+bibliography.tex
