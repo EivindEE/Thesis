@@ -32,7 +32,9 @@
 \usepackage[square, numbers, comma, sort&compress]{natbib} % Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
 \hypersetup{urlcolor=black, colorlinks=true} % Colors hyperlinks in blue - change to black if annoying
 \title{\ttitle} % Defines the thesis title - don't touch this
-
+\def\theartefact{madame}
+\def\Theartefact{Madame}
+\def\THEARTEFACT{MADAME}
 \begin{document}
 
 \frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
@@ -60,7 +62,7 @@
 
 \begin{titlepage}
 \begin{center}
-\includegraphics[width=8cm]{uib-emblem-svart} \\[0.5cm]
+\includegraphics[width=8cm]{Figures/uib-emblem-svart} \\[0.5cm]
 % \includegraphics{uib-emblem-svart}\vfill % University/department logo - uncomment to place it
 \textsc{\LARGE \univname}\\[1.5cm] % University name
 \textsc{\Large Master Thesis}\\[0.5cm] % Thesis type
@@ -72,7 +74,7 @@
 \begin{minipage}{0.4\textwidth}
 \begin{flushleft} \large
 \emph{Author:}\\
-\href{http://thunemedia.no}{\authornames} % Author name - remove the \href bracket to remove the link
+\href{http://elseth.me}{\authornames} % Author name - remove the \href bracket to remove the link
 \end{flushleft}
 \end{minipage}
 \begin{minipage}{0.4\textwidth}
@@ -99,10 +101,10 @@
 
 \null\vfill % Add some space to move the quote down the page a bit
 
-\textit{``Understanding is important, but it’s only the beginning. It’s got to lead to a change in behavior. The question interaction designers need to ask ourselves, then, is this: how can our work help people to not only understand the change needed, but also to begin making it?"}
+\textit{``It depends upon what the meaning of the word 'is' is"}
 
 \begin{flushright}
-Tom Igoe
+-- Bill Clinton
 \end{flushright}
 
 \vfill\vfill\vfill\vfill\vfill\vfill\null % Add some space at the bottom to position the quote just right
@@ -116,8 +118,7 @@ Tom Igoe
 \addtotoc{Abstract} % Add the "Abstract" page entry to the Contents
 
 \abstract{\addtocontents{toc}{\vspace{1em}} % Add a gap in the Contents, for aesthetics
-
-Todo lorem ipsum dolor sit amet.
+In this thesis I will describe the methods used in creating the artefact: \theartefact\ \Theartefact\ \THEARTEFACT\ 
 }
 
 \clearpage % Start a new page
