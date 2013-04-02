@@ -26,11 +26,10 @@
 %----------------------------------------------------------------------------------------
 
 \documentclass[11pt, a4paper, oneside]{Thesis} % Paper size, default font size and one-sided paper
-
 \graphicspath{{./Pictures/}} % Specifies the directory where pictures are stored
 
-\usepackage[square, numbers, comma, sort&compress]{natbib} % Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
-\hypersetup{urlcolor=black, colorlinks=true} % Colors hyperlinks in blue - change to black if annoying
+\usepackage[square, comma, sort&compress]{natbib} % Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
+%\hypersetup{urlcolor=black, colorlinks=true} % Colors hyperlinks in blue - change to black if annoying
 \title{\ttitle} % Defines the thesis title - don't touch this
 \def\theartefact{madame}
 \def\Theartefact{Madame}
@@ -221,10 +220,10 @@ TODO
 
 \label{Bibliography}
 
-\lhead{\emph{Bibliography}} % Change the page header to say "Bibliography"
+%\lhead{\emph{Bibliography}} % Change the page header to say "Bibliography"
 
-\bibliographystyle{harvard} % Use the "unsrtnat" BibTeX style for formatting the Bibliography
+\bibliographystyle{apalike} % Use the "unsrtnat" BibTeX style for formatting the Bibliography
 
-\bibliography{Bibliography} % The references (bibliography) information are stored in the file named "Bibliography.bib"
+\bibliography{library} % The references (bibliography) information are stored in the file named "Bibliography.bib"
 
 \end{document}  
