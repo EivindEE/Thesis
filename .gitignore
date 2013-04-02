@@ -10,6 +10,7 @@
 *.lot
 *.fls
 *.gz
+*.swp
 ._Thesis.tex
 ._Thesis.cls
 Thesis.pdf
