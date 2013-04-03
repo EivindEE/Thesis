@@ -89,11 +89,14 @@ An example( see figure \ref{Hyponyme}, page \pageref{Hyponyme})
 would be that \{dog\} has the hypernyme \{domestic\_animal\}, which again have the hyponyme \{cat\},
 \{cat\} would then be considered a sibling term of \{dog\}.
 
-The algorithms define different orders of looking at the 
 
-Our assumption is that when using sibling terms, if we find a mapping to an ontology, 
-then we can use the super term of that term.
+Our hopes for this mapping tree is that in the cases where there is no direct mapping from the synset to a term in the 
+ontologies we are mapping to, we can always preserve the semantics of the synset by using one of the synsets ancestors.
+For the siblings we hope that if we find a mapping, 
+then the parent term of the term we have mapped to in the ontology will correspond to the meaning of the synset.
+Both these propositions will be tested as a part of the work with the thesis.
 
+The algorithms define different orders of looking at the synsets
 
 \subsubsection{Generating the search tree}
 The first step of the algorithm is the same for both algorithms.
