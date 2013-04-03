@@ -12,26 +12,76 @@
 
 \section{The design of \theartefact}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ultricies lacinia euismod. Nam tempus risus in dolor rhoncus in interdum enim tincidunt. Donec vel nunc neque. In condimentum ullamcorper quam non consequat. Fusce sagittis tempor feugiat. Fusce magna erat, molestie eu convallis ut, tempus sed arcu. Quisque molestie, ante a tincidunt ullamcorper, sapien enim dignissim lacus, in semper nibh erat lobortis purus. Integer dapibus ligula ac risus convallis pellentesque.
+
 
 %-----------------------------------
 %	SUBSECTION 1
 %-----------------------------------
 \subsection{Requirements}
 
-Nunc posuere quam at lectus tristique eu ultrices augue venenatis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam erat volutpat. Vivamus sodales tortor eget quam adipiscing in vulputate ante ullamcorper. Sed eros ante, lacinia et sollicitudin et, aliquam sit amet augue. In hac habitasse platea dictumst.
+
 
 %-----------------------------------
 %	SUBSECTION 2
 %-----------------------------------
 
 \subsection{Design}
-Morbi rutrum odio eget arcu adipiscing sodales. Aenean et purus a est pulvinar pellentesque. Cras in elit neque, quis varius elit. Phasellus fringilla, nibh eu tempus venenatis, dolor elit posuere quam, quis adipiscing urna leo nec orci. Sed nec nulla auctor odio aliquet consequat. Ut nec nulla in ante ullamcorper aliquam at sed dolor. Phasellus fermentum magna in augue gravida cursus. Cras sed pretium lorem. Pellentesque eget ornare odio. Proin accumsan, massa viverra cursus pharetra, ipsum nisi lobortis velit, a malesuada dolor lorem eu neque.
+Common use case:
+User comes to site -> Basic site generated from template on server
+
+The user enters URL of page to tag:
+	-> URL gets sent to proxy module on server
+	-> Proxy fetches the HTML of the target URL
+	-> Proxy comments out script and iframe tags
+	-> Proxy replaces relative image URIs with absolute image URIs.
+	-> Proxy sends back an object containing the sites head and body tag
+	-> The content of the body tag is used to populate the content container in the web app.
+
+The user highlights a word on the page to add meta data to:
+	-> The text of the highlighted selection gets sent to the lexitags server for disambiguation
+	-> The results from lexitags are filtered
+		-> If the results contain WordNet terms, then the DBPedia results are filtered away
+	-> The results are then sorted
+		-> Primarily by source, WordNet terms first, then the first and second level schema.org terms
+		-> Secondarily they are sorted lexically
+	-> Then the results are displayed on the web page 
+
+	If the user cannot find a match with the highlighted text, 
+	it is posible to write your own word into a search box. 
+	The semantics of this word will then be linked to the highlighted text.
+
+The user click the sense of the word which match the intended semantics of the highlighted word
+	-> The term, either a WN synset or a DBP entity gets sent to the mapping module on the server
+	-> The mapping module find the mappings into other ontologies 
+		that most closely matches the semantics of the term.
+	-> The server returns the entity types that best fit the term, and their namespaces
+		-> If no schema.org mapping is found, schema:Thing is returned as it is always correct.
+	-> The web app adds a tag which surrounds the selected text, and adds the entity value to it using RDFa
+		-> This new tag contains keywords which will highlight it on the page
+	-> The web app then asks the server for the schema.org properties of it's schema type(s).
+	-> The server returns all the applicable properties
+	-> The web app adds all the returned properties to the markup of the page with empty values
+
+The user clicks a marked up section
+	-> The web app displays all the possible attributes the section can have
+		-> If values have already been inserted, these are shown as the default values
+	-> The user inputs the values the attributes should have
+	-> When the submit button is click, the attributes get updated to the correct values
+
+The user clicks the export button
+	-> The html on the page is cleaned
+		-> Temporary markup(tooltips, popover) is removed
+		-> Attributes without values are removed
+	-> The html is sent to the server
+		-> The exporter comments in the script and iframe tags
+		-> The html is put in the database
+	-> The server returns the id of the new web page
+	-> The web app displays the URL to the new marked up website. 
+
+\subsection{Designing the algorithms}
 
 %----------------------------------------------------------------------------------------
 %	SECTION 2
 %----------------------------------------------------------------------------------------
 
 \section{The development process}
-
-Sed ullamcorper quam eu nisl interdum at interdum enim egestas. Aliquam placerat justo sed lectus lobortis ut porta nisl porttitor. Vestibulum mi dolor, lacinia molestie gravida at, tempus vitae ligula. Donec eget quam sapien, in viverra eros. Donec pellentesque justo a massa fringilla non vestibulum metus vestibulum. Vestibulum in orci quis felis tempor lacinia. Vivamus ornare ultrices facilisis. Ut hendrerit volutpat vulputate. Morbi condimentum venenatis augue, id porta ipsum vulputate in. Curabitur luctus tempus justo. Vestibulum risus lectus, adipiscing nec condimentum quis, condimentum nec nisl. Aliquam dictum sagittis velit sed iaculis. Morbi tristique augue sit amet nulla pulvinar id facilisis ligula mollis. Nam elit libero, tincidunt ut aliquam at, molestie in quam. Aenean rhoncus vehicula hendrerit.
