@@ -79,7 +79,49 @@ The user clicks the export button
 	-> The web app displays the URL to the new marked up website. 
 
 \subsection{Designing the algorithms}
+We will now describe the two algorithms that were developed to find mappings between the WordNet synsets and the ontologies.
+We use two axes for navigating the WordNet graph, the hypernymes and the hyponymes.
+As described in \ref{TheoryWordNet}, a hypernyme can be described as category words into which more specialized words fall.
+Hyponyme is the inverse relation, where a hyponyme is a word which can be generalized into some more general category.
+For simplicity we will also use one additional term. 
+We will use \emph{sibling} to refere to words which are hyponymes of a words hypernyme. 
+An example( see figure \ref{Hyponyme}, page \pageref{Hyponyme}) 
+would be that \{dog\} has the hypernyme \{domestic\_animal\}, which again have the hyponyme \{cat\},
+\{cat\} would then be considered a sibling term of \{dog\}.
 
+The algorithms define different orders of looking at the 
+
+Our assumption is that when using sibling terms, if we find a mapping to an ontology, 
+then we can use the super term of that term.
+
+
+\subsubsection{Generating the search tree}
+The first step of the algorithm is the same for both algorithms.
+A search tree is generated using a perl script 
+\footnote{Perl script found at \url{https://raw.github.com/EivindEE/SemTag/master/scripts/parents.pl}.}.
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[width=0.60\textwidth]{Hyponyme_own.png}
+        \caption{The hyponyme relation, modified from \protect \citet{Miller1990}}
+        \label{Hyponyme}
+    \end{center}
+\end{figure}
+
+
+
+\subsubsection{The sibling first algorithm}
+The sibling first algorithm traverses the search tree by first looking if there is a direct mapping from the base synset to the ontologies. 
+If a direct mapping is not found, it will look at the hypernyms and see if it has a mapping. 
+After looking at the hypernyms it will look at the sibling senses. 
+It will then go on to look at the hypernyms of the hypernyms, and then their sibling states. 
+It will continue to follow the hypernym chain upwards until there are no more hypernyms, or a mappings has been found.
+
+\subsubsection{The ancestors first algorithm}
+The ancestor first algorithm will follow the hypernym chain upwards looking for mappings.
+The algorithm is written to follow the hypernym chain again, looking at the sibling senses, if no mapping is found.
+But since every WordNet noun is a hyponyme of {entity}, which should map to the most general object in an ontology,
+it will likely never be touched.
 %----------------------------------------------------------------------------------------
 %	SECTION 2
 %----------------------------------------------------------------------------------------
