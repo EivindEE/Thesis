@@ -94,3 +94,69 @@ One critique of WordNet comes from \citet{Mika2005} who points out that while Wo
 This tie would be obvious for most humans, and would most lightly be caught through clustering tags, but would not be caught by WordNet.
 
 \citet{Passant2008} has also suggested a system where taggs are disambiguated by the user at input time. A difference between the systems is that Passant and Laublet suggested using URIs to online resources for disambiguation.
+
+\section{WordNet}
+In a written dictionary the most efficient way to organize data is to list the words alphabetically, 
+since the act of finding words is the most labor intensive part.
+As long as the dictionary is tied to an analog form it is hard to structure the content otherwise as it would make
+finding words to difficult. 
+With the advent of computer dictionaries, the act of looking up words is no longer time consuming or difficult, 
+and the posibility to experiment with new structures for the dictionary became possible.
+
+There are several differences between ordinary dictionaries and WordNet. 
+The motivation behind WordNet was to create a dictionary that categorized words by the concepts they represented.
+To accomplish this the structure was based on earlier psycholexicologic research\citep{Miller1990}.
+ 
+One of the ways this psycholexicological background comes to sight is in that WordNet separates words into five syntactical categories: nouns, verbs, adjectives, adverbs and function words.
+This was based in part on work done by \citet{Fillenbaum1965} which showed that participants would most frequently 
+assosiate words with other words from the same syntactical category.
+
+This way of categorizing the words is able to take advantage of the fact that the different syntactical categories have different semantic structures.
+In this thesis we will use the noun category of WordNet, and benefit from it's topoligical hierarchy.
+For completeness we'll also mention that verbs are organized as entailment relations, 
+while adjectives and adverbs are organized as N-dimentional hyperspaces\citep{Miller1990}.
+
+The word 'word' is ambigious as it can be used to describe the representation of a word, and its underlying semantics.
+Natural language is built on conventions that tie together utterances or symbols, with some thing or idea.
+A symbol or utterance is the form of a word, while the thing or idea it represents is the words meaning.
+We can represent this idea using Table \ref{table:LexicalMatrix}( see page \pageref{table:LexicalMatrix}).
+The table shows a lexical matrix, which means to make explisit the relation between form $F$ and meaning  $M$.
+It also shows how both a single form can refere to several meanings, 
+and how a single meaning can be represented using several forms.
+Within the categories mentioned WordNet again try to organize the content not by form, 
+but by the meaning of the word.
+
+
+The primary relation between words are similarity of meaning.
+
+Syncronic ≈ contemporary ≈ as it exists at one point in time
+
+$\{x,x',\dots\}$ $\{y,y',\dots\}$
+
+Using the terms from table \ref{table:LexicalMatrix} we can say that a strong definition of synonymy is to say that is 
+a relation between two word forms $F$ and $F'$ such that one can always substitute them in a sentence without changing the truth value of 
+that sentence.
+
+We can define a synset $S$ as a set of word forms $\{F,F',\dots\}$, 
+where each $F$ has a mapping to the same word meaning $M$.
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{|c||ccccccc|}
+		\hline
+	        Word     & 	~		 & ~		 & Word Forms & ~ & ~ & ~ & ~		  \\ 
+	        Meanings & F$_1$     & F$_2$     & F$_3$      & . & . & . & F$_n$     \\ \hline
+	        M$_1$    & E$_{1,1}$ & E$_{1,2}$ & ~          & ~ & ~ & ~ & ~         \\ 
+	        M$_2$    & ~         & E$_{2,2}$ & ~          & ~ & ~ & ~ & ~         \\ 
+	        M$_3$    & ~         & ~         & E$_{3,3}$  & ~ & ~ & ~ & ~         \\ 
+	        .        & ~         & ~         & ~          & . & ~ & ~ & ~         \\ 
+	        .        & ~         & ~         & ~          & ~ & . & ~ & ~         \\ 
+	        .        & ~         & ~         & ~          & ~ & ~ & . & ~         \\  
+	        M$_m$    & ~         & ~         & ~          & ~ & ~ & ~ & E$_{m,n}$ \\
+		\hline
+	\end{tabular}
+	\caption{A lexical matrix, from \citet{Miller1990}}
+	\label{table:LexicalMatrix}
+\end{table}
+
+
+	
