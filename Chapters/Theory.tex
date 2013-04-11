@@ -120,7 +120,8 @@ The word 'word' is ambigious as it can be used to describe the representation of
 Natural language is built on conventions that tie together utterances or symbols, with some thing or idea.
 A symbol or utterance is the form of a word, while the thing or idea it represents is the words meaning.
 We can represent this idea using Table \ref{table:LexicalMatrix}( see page \pageref{table:LexicalMatrix}).
-The table shows a lexical matrix, which means to make explisit the relation between form $F$ and meaning  $M$.
+The table shows a lexical matrix, which means to make explisit the relation between form $F$ and meaning $M$.
+The forms and meanings are linked using entries $E_{(x,y)}$ which would state that meaning $M_x$ has the form $F_y$.
 It also shows how both a single form can refere to several meanings, 
 and how a single meaning can be represented using several forms.
 Within the categories mentioned WordNet then tries to organize the words not by form, 
@@ -138,6 +139,26 @@ WordNet uses a weaker definition where one says that whether two forms are synon
 semantic context that they are inn, and that two words can be synonymes with respect to this semantic context\citep{Miller1990}.
 This weaker definition still necessitates that words must be from the same syntactic category to be synonymous, 
 and explains together with \citet{Fillenbaum1965} why it's useful to separate the syntactic categories.
+
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{|c||ccccccc|}
+		\hline
+	        Word     & 	~		 & ~		 & Word Forms & ~ & ~ & ~ & ~		  \\ 
+	        Meanings & F$_1$     & F$_2$     & F$_3$      & . & . & . & F$_n$     \\ \hline
+	        M$_1$    & E$_{1,1}$ & E$_{1,2}$ & ~          & ~ & ~ & ~ & ~         \\ 
+	        M$_2$    & ~         & E$_{2,2}$ & ~          & ~ & ~ & ~ & ~         \\ 
+	        M$_3$    & ~         & ~         & E$_{3,3}$  & ~ & ~ & ~ & ~         \\ 
+	        .        & ~         & ~         & ~          & . & ~ & ~ & ~         \\ 
+	        .        & ~         & ~         & ~          & ~ & . & ~ & ~         \\ 
+	        .        & ~         & ~         & ~          & ~ & ~ & . & ~         \\  
+	        M$_m$    & ~         & ~         & ~          & ~ & ~ & ~ & E$_{m,n}$ \\
+		\hline
+	\end{tabular}
+	\caption{A lexical matrix showing the relation between the forms and meanings of words, from \citet{Miller1990}}
+	\label{table:LexicalMatrix}
+\end{table}
+
 
 \subsection{Hyponymy and hypernymy}
 Hyponymy and hypernymy is the main way that nouns are organized in WordNet.
@@ -162,31 +183,3 @@ Hyponymy is the inverse relation of hypernymy.
 This means that if $M$ is a hypernym of $M'$, then $M'$ is a hyponym of $M$. 
 The fact that \{animal\} is a hypernym of \{labrador\} means that \{labrador\} is a hyponym of \{animal\}.
 Hyponymy is also transitive and asymmetric\citep{Miller1990}.
-
-
-
-$\{x,x',\dots\}$ $\{y,y',\dots\}$
-
-We can define a synset $S$ as a set of word forms $\{F,F',\dots\}$, 
-where each $F$ has a mapping to the same word meaning $M$.
-\begin{table}[ht]
-	\centering
-	\begin{tabular}{|c||ccccccc|}
-		\hline
-	        Word     & 	~		 & ~		 & Word Forms & ~ & ~ & ~ & ~		  \\ 
-	        Meanings & F$_1$     & F$_2$     & F$_3$      & . & . & . & F$_n$     \\ \hline
-	        M$_1$    & E$_{1,1}$ & E$_{1,2}$ & ~          & ~ & ~ & ~ & ~         \\ 
-	        M$_2$    & ~         & E$_{2,2}$ & ~          & ~ & ~ & ~ & ~         \\ 
-	        M$_3$    & ~         & ~         & E$_{3,3}$  & ~ & ~ & ~ & ~         \\ 
-	        .        & ~         & ~         & ~          & . & ~ & ~ & ~         \\ 
-	        .        & ~         & ~         & ~          & ~ & . & ~ & ~         \\ 
-	        .        & ~         & ~         & ~          & ~ & ~ & . & ~         \\  
-	        M$_m$    & ~         & ~         & ~          & ~ & ~ & ~ & E$_{m,n}$ \\
-		\hline
-	\end{tabular}
-	\caption{A lexical matrix, from \citet{Miller1990}}
-	\label{table:LexicalMatrix}
-\end{table}
-
-
-	
