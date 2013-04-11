@@ -123,19 +123,49 @@ We can represent this idea using Table \ref{table:LexicalMatrix}( see page \page
 The table shows a lexical matrix, which means to make explisit the relation between form $F$ and meaning  $M$.
 It also shows how both a single form can refere to several meanings, 
 and how a single meaning can be represented using several forms.
-Within the categories mentioned WordNet again try to organize the content not by form, 
-but by the meaning of the word.
+Within the categories mentioned WordNet then tries to organize the words not by form, 
+but by similarity of meaning.
+
+This organisation is done by grouping words which are synonymes into sets. 
+We will describe these sets of synonymes( synsets), by enclosing one or more word forms in curly brackets.
+We could for example use the synset \{dog, domestic dog, Canis familiaris\} to describe the common dog. 
+When precision is not the point we will use a short form like \{dog\} to describe the same meaning.
+To organize words into synsets in this way ont first needs to have a clear idea about what one means by synonymy.
+A strict definition of synonymy would claim that for form $F$ and $F'$ to be synonymous one must be able
+to replace one with the other in any sentence without changing the truth value of that sentence.
+This is similar to using Leibniz law of identity to qualify synonymy.
+WordNet uses a weaker definition where one says that whether two forms are synonymes is dependent on the 
+semantic context that they are inn, and that two words can be synonymes with respect to this semantic context\citep{Miller1990}.
+This weaker definition still necessitates that words must be from the same syntactic category to be synonymous, 
+and explains together with \citet{Fillenbaum1965} why it's useful to separate the syntactic categories.
+
+\subsection{Hyponymy and hypernymy}
+Hyponymy and hypernymy is the main way that nouns are organized in WordNet.
+Hypo- and hypernymy are a different type of relation between words than synonymy.
+While synonymy is a relation between different forms of a word, 
+hypo- and hypernymy are relations between word meanings.
+The two are the inverse relation of each other and we will explain them by defining what makes something a hypernym.
+The concept $M$ is the hypernym of some other concept $M'$ if $M$ is such that native speakers of English would agree
+with claims of the type "$M'$ is a type of $M$". 
+As an example: \{animal\} would be a hypernym of \{dog\}, 
+since a native user of English would agree that "a dog is a type of animal".
+Hypernymy is transitive, meaning that if $M$ is a hypernym of $M'$, and $M'$ is a hypernym of $M''$, 
+then $M$ is a hypernym of $M''$.
+So since we know that dog is a type of animal, and that labrador is a type of dog, 
+we also know that \{animal\} is a hypernym of \{labrador\}.
+In addition to being transitive, hypernymy is also asymmetric.
+This means that the fact that $M$ is a hypernym of $M'$ entails that $M'$ cannot be a hypernym of $M$.
+When we know that \{animal\} is the hypernym of \{labrador\}, 
+we also know that \{labrador\} is not a hypernym of \{animal\}\citep{Miller1990}.
+
+Hyponymy is the inverse relation of hypernymy. 
+This means that if $M$ is a hypernym of $M'$, then $M'$ is a hyponym of $M$. 
+The fact that \{animal\} is a hypernym of \{labrador\} means that \{labrador\} is a hyponym of \{animal\}.
+Hyponymy is also transitive and asymmetric\citep{Miller1990}.
 
 
-The primary relation between words are similarity of meaning.
-
-Syncronic ≈ contemporary ≈ as it exists at one point in time
 
 $\{x,x',\dots\}$ $\{y,y',\dots\}$
-
-Using the terms from table \ref{table:LexicalMatrix} we can say that a strong definition of synonymy is to say that is 
-a relation between two word forms $F$ and $F'$ such that one can always substitute them in a sentence without changing the truth value of 
-that sentence.
 
 We can define a synset $S$ as a set of word forms $\{F,F',\dots\}$, 
 where each $F$ has a mapping to the same word meaning $M$.
