@@ -30,8 +30,10 @@
 
 \usepackage[square, comma, sort&compress]{natbib} % Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
 \usepackage[intoc]{nomencl}
+\usepackage{mfirstuc}
 \makenomenclature
 \renewcommand{\nomname}{List of Abbreviations}
+\newcommand*{\nom}[2]{#1\nomenclature{\makefirstuc{#1}}{#2}}
 %\hypersetup{hidelinks=true} % Go to http://en.wikibooks.org/wiki/LaTeX/Hyperlinks for information about configuration
 \title{\ttitle} % Defines the thesis title - don't touch this
 \def\theartefact{madame}
