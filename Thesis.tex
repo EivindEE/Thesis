@@ -29,6 +29,9 @@
 \graphicspath{{./Figures/}} % Specifies the directory where pictures are stored
 
 \usepackage[square, comma, sort&compress]{natbib} % Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
+\usepackage[intoc]{nomencl}
+\makenomenclature
+\renewcommand{\nomname}{List of Abbreviations}
 %\hypersetup{hidelinks=true} % Go to http://en.wikibooks.org/wiki/LaTeX/Hyperlinks for information about configuration
 \title{\ttitle} % Defines the thesis title - don't touch this
 \def\theartefact{madame}
@@ -148,7 +151,13 @@ TODO
 \lhead{\emph{List of Tables}} % Set the left side page header to "List of Tables"
 \listoftables % Write out the List of Tables
 
-\input{./Chapters/Abbreviations}
+%----------------------------------------------------------------------------------------
+%	LIST OF NOMENCLATURES
+%----------------------------------------------------------------------------------------
+
+\clearpage % Start a new page
+\setstretch{1.5} % Set the line spacing to 1.5, this makes the following tables easier to read
+\printnomenclature[5em]
 
 %----------------------------------------------------------------------------------------
 %	DEDICATION
