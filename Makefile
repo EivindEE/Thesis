@@ -6,3 +6,6 @@ all:
 	pdflatex Thesis
 	pdflatex Thesis
 	@echo "Wordcount of Thesis: $(wc)"
+	
+o: all
+	open Thesis.pdf
