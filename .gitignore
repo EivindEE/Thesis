@@ -11,6 +11,9 @@
 *.fls
 *.gz
 *.swp
+*.ilg
+*.nlo
+*.nls
 ._Thesis.tex
 ._Thesis.cls
 Thesis.pdf
