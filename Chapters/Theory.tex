@@ -224,7 +224,7 @@ It could also ease the burden of working with legacy databases and knowledge sto
 as one can just map them to this common ontology, and use the language of the ontology to communicate.
 It can also help combine different domain specific ontologies. 
 By having a common set of terms, even if just a subset, 
-it becomes easier to integrate the different ontologies\cp{Niles2001}.
+it becomes easier to integrate the different ontologies\citep{Niles2001}.
 
 The process involved in creating SUMO consisted of several steps.
 To start with it was necessary to identify high lever ontologies which where not hampered by licensing issues.
@@ -237,10 +237,12 @@ justice, and song.
 In addition to these types there is a unifying top level type called entity, which encompasses all things physical and abstract.
 
 Before the merge could start, the different ontologies were translated into the same knowledge representation format,
-to make sure they conformed to the same syntax.
+to make sure they conformed to the same syntax\citep{Niles2001}.
+SUMO is written in the SUO knowledge interchange format, 
+but is also translated to the web ontology language(\nom{OWL}{Web Ontology Language})\citep{Benzmuller2012}.
 Then the ontologies which contained the highest level concepts were merged by unifying those concepts that were equal,
 and positioning the other concepts in relation to them.
-This upmost level was then used as a basis for aligning the other lower level ontologies\cp{Niles2001}.
+This upmost level was then used as a basis for aligning the other lower level ontologies\citep{Niles2001}.
 
 
 Merging the lower level terms fell into four general cases.
@@ -253,11 +255,10 @@ or which had little practical use were discarded.
 
 In other cases a term would refere to the same meaning as some other term in the ontology. 
 In these cases where it was only the term chosen to convey the meaning that differed one can map both term to the same
-term in the final ontology,
+term in the final ontology.
 
 In the last case the terms has overlapping meaning. 
 In these cases one either kept both the terms, or picked which one to use in the merged ontology.
-
 
 \begin{figure}[h]
     \begin{center}
@@ -267,3 +268,6 @@ In these cases one either kept both the terms, or picked which one to use in the
     \end{center}
 \end{figure}
 
+\section{Schema.org}
+Schema.org\footnote{http://schema.org} is a joint venture by Google, Yahoo, and Bing, 
+with the expressed goal of creating richer search results by getting content creators add meta data to their pages\citep{Guha2011}.
