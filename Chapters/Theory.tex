@@ -280,7 +280,66 @@ In these cases one either kept both the terms, or picked which one to use in the
         \label{SUMOUpper}
     \end{center}
 \end{figure}
-
 \section{Schema.org}
-Schema.org\footnote{http://schema.org} is a joint venture by Google, Yahoo, and Bing, 
-with the expressed goal of creating richer search results by getting content creators add meta data to their pages\citep{Guha2011}.
+Schema.org\footnote{\url{http://schema.org}} is a joint venture by Google, Yahoo, and Bing, 
+with the expressed goal of creating richer search results by getting content creators add meta data to their pages.
+The enrichment the meta data is supposed to provide is mainly by providing information for rich snippets\citep{Guha2011}.
+Rich snippets are small pieces of HTML which in some way can add information to a search result, 
+showing the number of stars a product got in a review, a picture of the author, some multimedia content etc\citep{Mayer2009}.
+Schema.org is tied closely to the microdata format\footnote{\url{http://dev.w3.org/html5/md-LC/}}, 
+but does at the moment still allow RDFa.
+
+Schema.org is not a general or upper level, or a domain specific ontology,
+but can be regarded as a middle level ontology.
+That is to say that it does not try to be neither an all encompassing ontology, 
+nor an ontology which covers everything within a domain.
+The role as a midlevel ontology involves covering the most common use cases without having the entire hierarchy modeled.
+The top levels of schema.org are:
+\begin{itemize}
+	\item Thing
+	\begin{itemize}
+		\item Class
+		\item CreativeWork
+		\item Event
+		\item Intangible
+		\item MedicalEntity
+		\item Organization
+		\item Person
+		\item Place
+		\item Product
+		\item Property
+	\end{itemize}
+\end{itemize}
+Inspecting the ontology shows that it is clearly geared toward search engine and commercial usage, 
+both in the concepts that are selected, and in the hierarchal structure of the ontology\citep{Ronallo2012}.
+
+If schema.org does not contain the term needed they suggest extending the scheme by adding sub-types or sub-properties.
+The mechanism they provide for extending the vocabulary is string concatenation.
+Schema.org defines person using the following URL:
+\begin{verbatim}
+	http://schema.org/Person
+\end{verbatim}
+If you need to say that this person is a minister you would then extend Person by adding Minister at the end:
+\begin{verbatim}
+	http://schema.org/Person/Minister
+\end{verbatim}
+The intention is to have the extension mechanism working in a way that will give search engines some information, 
+even when they come across unknown terms. 
+It is also intended as a way to let the ontology grow organically, 
+as terms which become common can be included in the schema.
+
+This extension mechanism does however not conform with the microdata specification as \citet{Tennison2011} explains.
+The specification says that URIs should be opaque identifiers, 
+and that one should not infere meaning through string parsing.
+The mechanism also comes into difficulties when it comes to disambiguation.
+It is impossible to infere from the URI it self if Person/Minister referes to a clergyman, or to a minister of state.
+This problem would also persist when incorporating the term in the schema, 
+and might make markup that used to be correct say something that was unintended.
+
+
+
+
+
+
+
+
