@@ -24,16 +24,18 @@
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
-
+%!TEX encoding = UTF-8 Unicode
 \documentclass[11pt, a4paper, oneside]{Thesis} % Paper size, default font size and one-sided paper
 \usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{00A0}{~}
 \graphicspath{{./Figures/}} % Specifies the directory where pictures are stored
 
 \usepackage[square, comma, sort&compress]{natbib} % Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
 \usepackage[intoc]{nomencl}
 \usepackage{mfirstuc}
 \makenomenclature
-\renewcommand{\nomname}{List of Abbreviations}
+%\renewcommand{\nomname}{List of Abbreviations}
 \newcommand*{\nom}[2]{#1\nomenclature{\makefirstuc{#1}}{#2}}
 \newcommand*{\cp}[1]{\citep{#1}}
 \newcommand*{\ct}[1]{\citet{#1}}
