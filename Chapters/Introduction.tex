@@ -2,7 +2,7 @@
 
 \chapter{Introduction} % Main chapter title
 
-\label{Introduction} % Change X to a consecutive number; for referencing this chapter elsewhere, 
+\label{Introduction}
 use \ref{Introduction}
 
 \lhead{Chapter \ref{Introduction}. \emph{Introduction}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
@@ -11,35 +11,35 @@ use \ref{Introduction}
 %	SECTION 1: Background
 %----------------------------------------------------------------------------------------
 
-\section{Background}
-The internet is now an ingrained part of our everyday life, 
-and the amount of content and services that are available through it is growing at an ever increasing rate. 
-For all this information to be of use to humans it is necessary to have some interface through which to access the parts of it that are relevant to us. 
-\citet{Shirky2007} tells of the early attempts to structure the web, 
-using ontologies and hierarchies created by experts. 
-This soon got clunky as the number of documents increased, 
-and this way of organizing information fell out of favor to be replaced by searching for information using keywords. 
-It is this phase of organizing information we are in now. 
+% \section{Background} Should this be used as the main introduction before the motivation? ala Aleksander Larsen
+The internet is now an ingrained part of our everyday life,
+and the amount of content and services that are available through it is growing at an ever increasing rate.
+For all this information to be of use to humans it is necessary to have some interface through which to access the parts of it that are relevant to us.
+\citet{Shirky2007} tells of the early attempts to structure the web,
+using ontologies and hierarchies created by experts.
+This soon got clunky as the number of documents increased,
+and this way of organizing information fell out of favor to be replaced by searching for information using keywords.
+It is this phase of organizing information we are in now.
 
-\citet{Berners-Lee2001} suggested that we could do better than this. 
-With searching as it works today users have to manually check the results from the search engine, 
-and compare the results from several documents, following links as is necessary. 
-Instead of forcing users to go through this process, 
-this new idea was to enrich the documents we put on the web with meta data that could be read and reasoned about by computers. 
-By doing this we could move the tedious task of siphoning though websites looking for relevant information from users 
+\citet{Berners-Lee2001} suggested that we could do better than this.
+With searching as it works today users have to manually check the results from the search engine,
+and compare the results from several documents, following links as is necessary.
+Instead of forcing users to go through this process,
+this new idea was to enrich the documents we put on the web with meta data that could be read and reasoned about by computers.
+By doing this we could move the tedious task of siphoning though websites looking for relevant information from users
 over to specialized software agents that could collect information on the topic and return the answer to the user.
 
 This does create some extra work for content creators on the internet.
-Adding meta data to content is not a trivial task. 
-Using RDFa allows the content creator to add arbitrary meta data, 
+Adding meta data to content is not a trivial task.
+Using RDFa allows the content creator to add arbitrary meta data,
 but requires knowledge both of which ontologies exists that contain the meaning the creator wants to convey,
 and knowledge about how those ontologies are structured to use them in the correct way.
 
 
-Ontology is the philosophical discipline of finding out which things exist, 
-the maner in which one can say that these exist and how these can be categorized. 
-When we talk about ontologies in the context of the semantic web, 
-an ontology can be explained as the collection of the things that we can talk about using that language, 
+Ontology is the philosophical discipline of finding out which things exist,
+the maner in which one can say that these exist and how these can be categorized.
+When we talk about ontologies in the context of the semantic web,
+an ontology can be explained as the collection of the things that we can talk about using that language,
 and how these things relate to each other.
 
 %----------------------------------------------------------------------------------------
@@ -48,57 +48,85 @@ and how these things relate to each other.
 
 \section{Motivation}
 At the moment, adding semantic markup to websites is unfeasible for most content creators on the web.
-Adding proper meta data does not only mean that you need to know HTML, 
-but also that you need to understand the concept of ontologies and set theory. 
-In addition you need to know of the implementation of \nom{RDFa}{Resource Description  Framework in attributes}, microdata or microformats, 
+Adding proper meta data does not only mean that you need to know HTML,
+but also that you need to understand the concept of ontologies and set theory.
+In addition you need to know of the implementation of \nom{RDFa}{Resource Description Framework in attributes}, microdata or microformats,
 as well as the content of the specific ontologies you intent to use on your site.
 
 
-The prototype tool will be created using Node.js\footnote{Homepage at: \url{http://nodejs.org}}, 
-a JavaScript platform based on Google Chromes JavaScript runtime, 
-and using MongoDB\footnote{Homepage at: \url{http://www.mongodb.org}} as a database solution.
-I've had some experience with these platforms before the work with the tool started, 
+The prototype tool will be created using Node.js\footnote{\url{http://nodejs.org}},
+a JavaScript platform based on Google Chromes JavaScript runtime,
+and using MongoDB\footnote{\url{http://www.mongodb.org}} as a database solution.
+I've had some experience with these platforms before the work with the tool started,
 and the ability to rapidly create prototypes, and the flexibility and simplicity inherent in using the same language
 server side, client side and in database communication, inspired me to try using and learning these tools for the thesis.
 
-It is estimated that the amount of information created by humans before 2005, 
+It is estimated that the amount of information created by humans before 2005,
 
 is smaller that the amount of information created after 2005.
 
-I chose to develop using node.js because it's a new and exciting technology which would make it posible to write the entire app using one programming language for front end, 
-server side and as the database query language.
+I chose to develop using node.js because it's a new and exciting technology which would make it posible to write
+the entire app using one programming language for front end, server side and as the database query language.
 
-Creating a web app allows me to work with both back end server side components, 
-and front end work. 
+Creating a web app allows me to work with both back end server side components,
+and front end work.
 
 %----------------------------------------------------------------------------------------
 %	SECTION 3: Research Questions
 %----------------------------------------------------------------------------------------
 
-\section{Research Questions}
-In this thesis I want to see if it is feasible to use WordNet synsets as an intermediary 
-to find mappings from natural languages into formal ontologies using mapping files.
-The thesis will look at different strategies for mapping synsets to ontologies. 
-The strategies will try to balance finding mappings which are at an equal, 
+\section{Research Question}
+The main research question in this thesis is:
 
-or similar level of abstraction with having a low level of incorrect mappings.
-In the cases where there are incorrect mappings, 
-we will try to analyse the results to see if we can find the cause of the mistakes to see if they are caused by the 
-mapping algorithms, or by incomplete or erroneous mappings.
+\emph{"Can we create a tool which allows naïve users to easily add meta data to their websites using natural language?"}
 
-We will also look at how the different strategies work when used in the wild, 
-and see if the potential mistakes we find
-in the previous section will create practical difficulties for the tool. 
-The combination of these results should give us enough information to 
-\subsection{Goals}
+In this context we will understand "naïve users" to indicate users who do not have any training in the use of semantic technologies,
+and who do not have any knowledge about the ontologies we use.
 
-The tool should be able to:
-\begin{itemize}
-	\item Let users add meta data using natural language
-	\item Let users disambiguate
-	\item Create mappings into several existing ontologies
-	\item Be flexible enough that new ontologies can be added
-\end{itemize}
+To answer this question we will develop a tool called \theartefact.
+The tool will consist of a logical backend tied to a web frontend,
+and the different modules will be created in an iterative way to get working proofs of concepts for testing early,
 
-\subsection{Sub-questions}
-Insert research sub-goals
+There are several sub questions that we will need to examine to answer this question.
+We will need to examine if WordNet is suitable as an intermediary for mapping natural language to ontologies.
+\Theartefact\ will use mapping files,
+files with key-value pairs connecting WordNet senses to entities from ontologies,
+and we will need to find out if we can create an algorithm that reliably finds mappings which are both
+at a similar level of abstraction, and which have the correct semantic content.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%In this thesis I want to see if it is feasible to use WordNet synsets as an intermediary
+%to find mappings from natural languages into formal ontologies using mapping files.
+%The thesis will look at different strategies for mapping synsets to ontologies.
+%The strategies will try to balance finding mappings which are at an equal,
+%
+%or similar level of abstraction with having a low level of incorrect mappings.
+%In the cases where there are incorrect mappings,
+%we will try to analyse the results to see if we can find the cause of the mistakes to see if they are caused by the
+%mapping algorithms, or by incomplete or erroneous mappings.
+%
+%We will also look at how the different strategies work when used in the wild,
+%and see if the potential mistakes we find
+%in the previous section will create practical difficulties for the tool.
+%The combination of these results should give us enough information to
+%\subsection{Goals}
+%
+%The tool should be able to:
+%\begin{itemize}
+%	\item Let users add meta data using natural language
+%	\item Let users disambiguate
+%	\item Create mappings into several existing ontologies
+%	\item Be flexible enough that new ontologies can be added
+%\end{itemize}
+%
+%\subsection{Sub-questions}
+%Insert research sub-goals
+
+
+\section{Target audience}
+The main goal of the work with \theartefact is to lower the barrier of entry for enhancing websites with meta data.
