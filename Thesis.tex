@@ -44,6 +44,7 @@
 \def\theartefact{madame}
 \def\Theartefact{Madame}
 \def\THEARTEFACT{MADAME}
+\def\website{\url{http://madame.elseth.me}}
 \begin{document}
 
 \frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
@@ -144,7 +145,7 @@ TODO
 \clearpage % Start a new page
 
 %----------------------------------------------------------------------------------------
-%	LIST OF CONTENTS/FIGURES/TABLES PAGES
+%	LIST OF CONTENTS/FIGURES/TABLES/NOMENCLATURES PAGES
 %----------------------------------------------------------------------------------------
 
 \pagestyle{fancy} % The page style headers have been "empty" all this time, now use the "fancy" headers as defined before to bring them back
@@ -158,13 +159,7 @@ TODO
 \lhead{\emph{List of Tables}} % Set the left side page header to "List of Tables"
 \listoftables % Write out the List of Tables
 
-%----------------------------------------------------------------------------------------
-%	LIST OF NOMENCLATURES
-%----------------------------------------------------------------------------------------
-
-\clearpage % Start a new page
-\setstretch{1.5} % Set the line spacing to 1.5, this makes the following tables easier to read
-\printnomenclature[5em]
+\printnomenclature[5em] % Print the page header and list of nomenclature
 
 %----------------------------------------------------------------------------------------
 %	DEDICATION
