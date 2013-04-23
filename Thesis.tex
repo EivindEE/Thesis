@@ -33,9 +33,9 @@
 
 \usepackage[square, comma, sort&compress]{natbib} % Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
 \usepackage[intoc]{nomencl}
-\usepackage{mfirstuc}
 \makenomenclature
 %\renewcommand{\nomname}{List of Abbreviations}
+\usepackage{mfirstuc} % Added for function which makes the first character of a word upper case 
 \newcommand*{\nom}[2]{#1\nomenclature{\makefirstuc{#1}}{#2}}
 \newcommand*{\cp}[1]{\citep{#1}}
 \newcommand*{\ct}[1]{\citet{#1}}
