@@ -384,13 +384,17 @@ The main contributions of the project has been\citep{Auer2007}:
 	\item Developing APIs for accessing the dataset
 \end{itemize}
 
-The
+The extraction process is described in \citet{Auer2007a}.
+DBPedia extracts information from templates on the Wikipedia pages.
+The algorithm used looks through templates which have a high probability of containing structured information.
+These templates are parsed looking for pairs of attributes and values.
+The attributes correspond to predicates, and the values to objects of RDF statements.
+The subject of the statements would be the topic of the page it self,
+and it's given a unique URI in the DBPedia namespace by using it's Wikipedia URL.
+There is also some post processing of the results to enhance the data further.
+If the object of the statement is another Wikipedia resource,
+the same process that exists for the subject is used to find the targets URL and link it to that.
+In the cases where the object is a literal of a known type, then the data type information is added.
 
-
-
-
-\citep{Auer2007}
-\citep{Auer2007a}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+DBPedia is not a static ontology and in continuously being updated with data from Wikipedia,
+making sure it's up to date with the newest terms and information.
