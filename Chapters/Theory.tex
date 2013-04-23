@@ -66,27 +66,46 @@ The method does get good results in creating the hierarchy, but does also show s
 \citet{Weinberger2008} suggests a method for removing ambiguity from tags,
  by suggesting additional tags to the user when the tag entered can belong to one of several distinct sets 
 
-While there are many difficulties attached to merging the social and semantic web, and with lifting semantic data from tags, there are many researchers who stress the need for this \citep{Passant2007,Mika2005, Gruber2007}.
+While there are many difficulties attached to merging the social and semantic web, 
+and with lifting semantic data from tags, there are many researchers who stress the need for this \citep{Passant2007,Mika2005, Gruber2007}.
 
 \subsection{RDF}
 On the semantic web, ontologies are represented using collection of \nom{RDF}{Resource Description Framework} triplets. 
 These triplets are in the form of <subject, predicate, object>, much like simple declarative sentences \citep{Berners-Lee2001}. 
-An informal triplet could be:
+Let's suppose we wanted to say that I know my supervior Csaba.
+An informal triplet describing this could be:
 \begin{verbatim}
-     <Eivind, likes, dogs>. 
+     <Eivind, knows, Csaba> 
 \end{verbatim}
 "Eivind" is here the thing one talks about, the thing one wants to describe in some way.
-The predicate "likes" is a relation the subject of the triplet has to some other thing.
-The object is the thing with which the subjects relates with respect to the predicate, in this case it is the thing that is liked.
+The predicate "knows" is a relation the subject of the triplet has to some other thing.
+The object is the thing with which the subjects relates with respect to the predicate, in this case it is the thing that is known.
 When representing triplets using RDF one has to use a more stringent form. 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! FORTSETT HER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-Each subject and predicate, and some objects, is represented by an URI( Universal Resource Identifier), which links to the resource that describes it.
+The reason one describes things in RDF form is to give computers some way of reasoning about them, 
+so there must be some way to separate this "Eivind" from the other "Eivind"s out there,
+there are after all alot of people named Eivind.
+Disambiguation is achived by using \nom{IRI}{Internationalized Resource Identifier}s to represent the resources one wants to talk about.
+Using IRIs makes it posible to separate the thing one talks about from all the other similary named things, 
+since each should uniquely identify a single thing.
+The IRIs will also often be \nom{URL}{Uniform Resource Locator}s 
+that point to a location that describe the resource one talks about.
+But the only requirement for choosing an IRI is that it is a unique identifier. 
 
+An example using IRIs to describe each resource could be as such:
+\begin{verbatim}
+     < 
+       "http://eivind.elseth.me",
+       "http://xmlns.com/foaf/0.1/knows",
+       "http://csabaveres.net" 
+     > 
+\end{verbatim}
+Here the first IRI identifies who we mean by "Eivind", namely "http://eivind.elseth.me".
+The second IRI identifies what we mean by knows, and the third who it is that Eivind knows.
+A machine parsing this can dereference the URLs to glean more information about the different resources.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{DBPedia}
+The subject and predicate of a triplet must always be resources represented by IRIs.
+The objects can be either resources or literals, depending on what the predicate of the triplet is.
+A predicate describing something like "has name" would likely point to a string literal containing the name of the subject\citep{Hebeler2009Chp3}.
 
 \section{WordNet}
 In a written dictionary the most efficient way to organize data is to list the words alphabetically, 
@@ -346,9 +365,8 @@ This problem would also persist when incorporating the term in the schema,
 and might make markup that used to be correct say something that was unintended.
 
 
-
-
-
-
-
-
+\section{DBPedia}
+\citep{Auer2007}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
