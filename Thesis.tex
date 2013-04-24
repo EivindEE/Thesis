@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Thesis 
+% Thesis
 % LaTeX Template
 % Version 1.2 (29/7/12)
 %
@@ -7,7 +7,7 @@
 % http://www.latextemplates.com
 %
 % Original authors:
-% Steven Gunn 
+% Steven Gunn
 % http://users.ecs.soton.ac.uk/srg/softwaretools/document/templates/
 % and
 % Sunil Patel
@@ -31,11 +31,11 @@
 \DeclareUnicodeCharacter{00A0}{~}
 \graphicspath{{./Figures/}} % Specifies the directory where pictures are stored
 
-\usepackage[square, comma, sort&compress]{natbib} % Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
+\usepackage[square, comma, sort&compress]{natbib} % Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers'
 \usepackage[intoc]{nomencl}
 \makenomenclature
 %\renewcommand{\nomname}{List of Abbreviations}
-\usepackage{mfirstuc} % Added for function which makes the first character of a word upper case 
+\usepackage{mfirstuc} % Added for function which makes the first character of a word upper case
 \newcommand*{\nom}[2]{#1\nomenclature{\makefirstuc{#1}}{#2}}
 \newcommand*{\cp}[1]{\citep{#1}}
 \newcommand*{\ct}[1]{\citet{#1}}
@@ -80,7 +80,7 @@
 \HRule \\[0.4cm] % Horizontal line
 {\huge \bfseries \ttitle}\\[0.4cm] % Thesis title
 \HRule \\[1.5cm] % Horizontal line
- 
+
 \begin{minipage}{0.4\textwidth}
 \begin{flushleft} \large
 \emph{Author:}\\
@@ -90,14 +90,14 @@
 \begin{minipage}{0.4\textwidth}
 \begin{flushright} \large
 \emph{Supervisor:} \\
-{\supname} % Supervisor name - remove the \href bracket to remove the link  
+{\supname} % Supervisor name - remove the \href bracket to remove the link
 \end{flushright}
 \end{minipage}\\[2cm]
- 
+
 % \large \textit{A thesis submitted in fulfilment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
 \textit{in the}\\[0.1cm]
 \groupname\\\deptname\\[0.5cm] % Research group name and department name
- 
+
 {\large \today}\\[1cm] % Date
 \end{center}
 
@@ -128,7 +128,7 @@
 \addtotoc{Abstract} % Add the "Abstract" page entry to the Contents
 
 \abstract{\addtocontents{toc}{\vspace{1em}} % Add a gap in the Contents, for aesthetics
-In this thesis I will describe the methods used in creating the artefact: \theartefact\ \Theartefact\ \THEARTEFACT\ 
+In this thesis I will describe the methods used in creating the artefact: \theartefact\ \Theartefact\ \THEARTEFACT\
 }
 
 \clearpage % Start a new page
@@ -185,12 +185,12 @@ TODO
 % Uncomment the lines as you write the chapters
 
 \input{./Chapters/Introduction}
-\input{./Chapters/Theory} 
+\input{./Chapters/Theory}
 \input{./Chapters/Methodology}
 \input{./Chapters/DesignAndDevelopment}
-\input{./Chapters/Findings} 
-\input{./Chapters/Analysis-Discussion} 
-\input{./Chapters/Conclusion} 
+\input{./Chapters/Findings}
+\input{./Chapters/Analysis-Discussion}
+\input{./Chapters/Conclusion}
 
 %----------------------------------------------------------------------------------------
 %	THESIS CONTENT - APPENDICES
@@ -223,4 +223,4 @@ TODO
 
 \bibliography{bib/library} % The references (bibliography) information are stored in the file named "Bibliography.bib"
 
-\end{document}  
+\end{document}
