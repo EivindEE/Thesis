@@ -179,7 +179,7 @@
 %	defined as \examname above so you cite it as \examname
 %----------------------------------------------------------------------------------------
 
-\thesistitle{Meta data made simple} % Your thesis title - this is used in the title and abstract
+\thesistitle{Meta data made easy} % Your thesis title - this is used in the title and abstract
 %-------------------------------------------------  
 \supervisor{ \textsc{Csaba Veres}} % You supervisor's name - this is used in the title page
 %-------------------------------------------------   
