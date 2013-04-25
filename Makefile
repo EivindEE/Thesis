@@ -9,3 +9,5 @@ all:
 	
 o: all
 	open Thesis.pdf
+l:
+	@echo "Wordcount of Thesis: $(wc)"
