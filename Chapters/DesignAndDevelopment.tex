@@ -29,11 +29,6 @@ The modules that were created were:
 	\item A module that puts the document back in its initial state and saves it to a persisten storage
 \end{itemize}
 
-
-\subsection{Iteration 1}
-The first iteration started with getting to
-
-
 \section{Run through of common use}
 Common use case:
 User comes to site -> Basic site generated from template on server
@@ -154,3 +149,31 @@ it will likely never be touched.
 %----------------------------------------------------------------------------------------
 
 \section{The development process}
+
+
+\subsection{Iteration 1}
+The first iteration started with getting to know the technologies.
+Quite some time was spent getting comfortable working with the \nom{DOM}
+{The Document Object model, convention for interacting with HTML elements},
+and the peculiarities of the different mainstream browsers.
+
+\subsubsection{Representing other websites}
+On of the issues that come up early was how to display the websites that the user wanted to add metadata to.
+Early attempts tried using the iframe\footnote{http://www.w3.org/TR/html5/embedded-content-0.html\#the-iframe-element}
+element of \nom{HTML}{HyperText Markup Language}.
+Embedding the target website in an iframe was the first try as it would allow the page to display in the same maner
+as it does when accessed directly.
+Using the iframe element in this maner would however constitute cross-domain communication and is not allowed.
+
+This problem was not solved in the first iteration.
+After trying to find a workaround it was decided that displaying html from other websites was not essential to the work,
+and that the focus should be shifted to adding markup.
+The solution we landed on was to insert some placeholder text which was used for testing purposes.
+This placeholder text is still displayed on the website to give visitors something to try the tool on before using it
+to add markup to their own pages.
+
+\subsubsection{Finding the terms to tags}
+
+
+\subsubsection{Getting disambiguating terms}
+
