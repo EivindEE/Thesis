@@ -7,7 +7,7 @@ all:
 	pdflatex Thesis
 	@echo "Wordcount of Thesis: $(wc)"
 	
-o: all
+o: all #Compile and open
 	open Thesis.pdf
-l:
+l:     # print word count
 	@echo "Wordcount of Thesis: $(wc)"
