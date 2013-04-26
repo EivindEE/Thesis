@@ -152,13 +152,27 @@ it will likely never be touched.
 
 
 \subsection{Iteration 1}
-The first iteration started with getting to know the technologies.
+The first iteration started with getting to know the technologies, and setting up a framework
 Quite some time was spent getting comfortable working with the \nom{DOM}
 {The Document Object model, convention for interacting with HTML elements},
 and the peculiarities of the different mainstream browsers.
+At this point we also set up the server that the web app would run on.
+
+\subsubsection{Server setup}
+Setting up a basic server in node.js can be done in a single line of code,
+but requires a lot of low level handeling of requests and responses
+including parsing request url to find the correct handler.
+We decided to instead go for express\footnote{\url{http://expressjs.com}},
+a web app framework which simplifies routing requests to the correct handler and handeling static files.
+%Additional benefits of using the framework included simplified logging of requests, and
+It was also decided to use the jade\footnote{\url{http://jade-lang.com}}
+templating language to generate the \nom{HTML}{HyperText Markup Language} that was used on the website.
+Using a templating language made the distinction between structure and content clearer,
+and enabled reuse of structure and content between different versions of the website during development.
+
 
 \subsubsection{Representing other websites}
-On of the issues that come up early was how to display the websites that the user wanted to add metadata to.
+One of the issues that come up early was how to display the websites that the user wanted to add metadata to.
 Early attempts tried using the iframe\footnote{http://www.w3.org/TR/html5/embedded-content-0.html\#the-iframe-element}
 element of \nom{HTML}{HyperText Markup Language}.
 Embedding the target website in an iframe was the first try as it would allow the page to display in the same maner
@@ -172,8 +186,6 @@ The solution we landed on was to insert some placeholder text which was used for
 This placeholder text is still displayed on the website to give visitors something to try the tool on before using it
 to add markup to their own pages.
 
-\subsubsection{Finding the terms to tags}
+\subsubsection{Interaction method}
 
-
-\subsubsection{Getting disambiguating terms}
 
