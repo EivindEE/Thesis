@@ -32,13 +32,52 @@
 \graphicspath{{./Figures/}} % Specifies the directory where pictures are stored
 
 \usepackage[square, comma, sort&compress]{natbib} % Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers'
+
+% Packages for use with nomenclature
 \usepackage[intoc]{nomencl}
 \makenomenclature
 %\renewcommand{\nomname}{List of Abbreviations}
 \usepackage{mfirstuc} % Added for function which makes the first character of a word upper case
 \newcommand*{\nom}[2]{#1\nomenclature{\makefirstuc{#1}}{#2}}
-\newcommand*{\cp}[1]{\citep{#1}}
-\newcommand*{\ct}[1]{\citet{#1}}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{
+   language=JavaScript,
+   backgroundcolor=\color{lightgray},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
+
 %\hypersetup{hidelinks=true} % Go to http://en.wikibooks.org/wiki/LaTeX/Hyperlinks for information about configuration
 \title{\ttitle} % Defines the thesis title - don't touch this
 \def\theartefact{madame}
@@ -158,6 +197,8 @@ TODO
 
 \lhead{\emph{List of Tables}} % Set the left side page header to "List of Tables"
 \listoftables % Write out the List of Tables
+
+\lstlistoflistings
 
 \printnomenclature[5em] % Print the page header and list of nomenclature
 
