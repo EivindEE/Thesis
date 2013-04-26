@@ -189,3 +189,100 @@ to add markup to their own pages.
 \subsubsection{Interaction method}
 
 
+\subsection{Creating the mapping files}
+An important part of the early work was to generate files that the tool could use to find mappings from WordNet synsets
+into the ontologies which were used.
+The ontologies that were chosen for the project, SUMO  and schema.org, already had these kinds of mapping files.
+The mapping files were however in different formats and inn formats that were unsuitable for use in a javascript based application.
+The format we wanted was one that gave up the option to ask if there was a mapping for a given WordNet synset,
+inn other words what we wanted was a dictionary.
+Javascript objects are themselves dictionaries, making it natural to choose to them as the representation.
+The structure of the objects is very simple, the synsets are used as the keys to entities in the target ontologies:
+\begin{lstlisting}[caption=Excerpt from the \href{https://github.com/EivindEE/Madame/blob/master/mappings/wn2schema.js}{wn2schema.js} mapping file]
+exports.mapping = {
+	"abstraction#n#6": "Intangible",
+	"accounting_firm#n#1": "AccountingService",
+	"address#n#6": "PostalAddress",
+	// The rest of the mappings
+	"work_unit#n#1": "Energy"
+};
+\end{lstlisting}
+
+Since we use javascript objects to represent the mappings, querying a mapping object to check if it contains a mapping for a certain synset would then just consist of checking if
+the object has a property with the given name:
+\begin{lstlisting}[caption=Testing if a mapping exists]
+    if (mapping['synset-to-check']) {
+        // it contains a mapping
+    } else {
+        // it does not contain a mapping
+    }
+\end{lstlisting}
+
+The mapping files were to large to translate to javascript objects by hand, with the SUMO mapping file alone
+covering more than 82.000 mappings, so we used regular expressions to modify the files globaly.
+The schema.org mapping file\footnote{\url{https://github.com/mhausenblas/schema-org-rdf}}
+that was used as the basis for the wn2schema mapping file is written inn \nom{RDF/XML}{An XML representation of RDF}.
+The first step in creating the mapping file was to remove the parts of the file that were irrelevant to the problem at hand.
+The original file contains triples describing schema.org properties,
+the schema.org entities and the hierarchal ordering of entities.
+This information is handled at other places in the tool we are creating and could be safely removed.
+Only the elements mapping synsets to schema.org terms were kept, and all other information except the names were removed.
+At this point the XML tags were stripped so only the synset reference and the schema type remained.
+Since we now had the correct elements in the correct place we needed only to surround them with the correct quotation
+marks, separate them with a colon and add a comma at the end to separate it from the next property.
+
+The SUMO\footnote{\url{http://sigmakee.cvs.sourceforge.net/sigmakee/KBs/WordNetMappings/}} mapping followed a similar pattern,
+but the original format was different as it used the WordNet database format.
+We used the WordNetMappings30-noun file as our basis so for this mapping we did not have to remove non noun phrases.
+The fact that each line in the file corresponded to a line in the mapping file made the process of translation easier,
+there was however one caveat in that the file used the offset to identify the synset,
+instead of the normal word\#category\#number which we use.
+We put some work into finding a way of substituting the offset for the synset id,
+but found that it was simpler to find the offset for the synsets that were queried.
+-- Unifying the way the properties are named is one of the things that can simplify the generalization of the process at a later stage.
+
+
+%% Trying Perl syntax
+\begin{lstlisting}[language=perl, caption=experiment]
+my @parents = parent($synset);
+my @all_parents;
+while ( @parents){
+	my $parent = shift @parents;
+	push(@parents, parent($parent));
+	push(@all_parents, $parent);
+}
+
+my @all_parents_with_siblings;
+push(@all_parents_with_siblings, {"synset" => $_ , "offset" => $wn->offset($_) ,"siblings" => [siblings($_)]}) for @all_parents;
+
+my %json = ("chain" => [uniq(@all_parents_with_siblings)], "synset" => $synset, "offset"=> $wn->offset($synset), "siblings" => [siblings($synset)]);
+my $json = JSON->new->utf8->pretty->encode(\%json);
+print $json;
+
+sub parent {
+	my @parents = $wn->querySense($_[0], "hype");
+	if ($#parents > 0) {
+		return ();
+	}
+	return @parents;
+}
+
+sub siblings {
+	my $synset = $_[0];
+	my @parents = parent($synset); # Find parents of synset
+	my @siblings;
+	my @sibling_and_offset;
+	push(@siblings, $wn->querySense($_, "hypo")) for @parents;
+	my $index = 0;
+	for my $value (@siblings) { # Removes term from siblings
+		if ($value eq $synset) {
+			splice @siblings, $index, 1;
+		}
+		$index += 1;
+	}
+	for my $sibling (@siblings) {
+		push (@sibling_and_offset, {"synset" => $sibling, "offset" => $wn->offset($sibling)});
+	}
+	return @sibling_and_offset;
+}
+\end{lstlisting}
