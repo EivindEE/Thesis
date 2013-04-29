@@ -197,8 +197,10 @@ The mapping files were however in different formats and inn formats that were un
 The format we wanted was one that gave up the option to ask if there was a mapping for a given WordNet synset,
 inn other words what we wanted was a dictionary.
 Javascript objects are themselves dictionaries, making it natural to choose to them as the representation.
-The structure of the objects is very simple, the synsets are used as the keys to entities in the target ontologies:
-\begin{lstlisting}[caption=Excerpt from the \href{https://github.com/EivindEE/Madame/blob/master/mappings/wn2schema.js}{wn2schema.js} mapping file]
+The structure of the objects is very simple,
+the synsets are used as the keys to entities in the target ontologies as seen en listing \ref{wn2schemaMapping}.
+
+\begin{lstlisting}[label=wn2schemaMapping,caption={Excerpt from the \href{https://github.com/EivindEE/Madame/blob/master/mappings/wn2schema.js}{wn2schema.js} mapping file}]
 exports.mapping = {
 	"abstraction#n#6": "Intangible",
 	"accounting_firm#n#1": "AccountingService",
@@ -240,6 +242,83 @@ instead of the normal word\#category\#number which we use.
 We put some work into finding a way of substituting the offset for the synset id,
 but found that it was simpler to find the offset for the synsets that were queried.
 -- Unifying the way the properties are named is one of the things that can simplify the generalization of the process at a later stage.
+
+
+
+\section{Building the hypernym chain}
+The first attempt at mapping used only direct mappings from synset into the ontologies,
+but this was obviously not good enough.
+There are at the time of writing 577 schema.org entities\footnote{\url{http://schema.org/docs/full.html}}
+and the mapping file used in \theartefact contains 155 mappings from WordNet.
+For it to be feasible to map from natural language to smaller ontologies like schema.org we need to expand the search
+from just direct mapping to mappings from more general terms.
+
+The idea we had for this project was to use the hypernyms and siblings of the synset to find other synsets
+which had overlapping semantic content.
+For the hypernymes this was assumed to be unproblematic, since a hyponym is in a is-a relationship to its hypernym.
+With regards to the sibling synsets we had a theory that we could find the mappings these sibling synsets
+and use the supertype of the mapped entity is the corresponding ontology.
+Our theory was that the super set of a the mapping of a sibling synset would match with the semantics of the synset.
+
+Javascript does not have a library for 	querying the WordNet database,
+so this part of the project needed to be coded in another language.
+
+We decided to write a perl script\footnote{\url{https://github.com/EivindEE/Madame/blob/master/scripts/parents.pl}} to generate a hypernym chain.
+The script was called by using the node
+child\_process.exec\footnote{\url{http://nodejs.org/api/child\_process.html\#child\_process\_child\_process\_exec\_command\_options\_callback}}
+function, which calls a command line utility and uses the output stream as the input to the callback function.
+We use the term "hypernym chain", or just "chain" for short to speak of the all the hypernyms of the synset at hand.
+With all the hypernyms meaning  the transitive closure of the hypernym relation with regards to the synset.
+These hypernymes are organized into a list, ordered by closeness to the synset for which we build the chain.
+The hypernym chain could also be described as a list of ancestors,
+which might seem more intuitive, but the term hypernym chain was used in \citet{Veres2011} and will be used here.
+
+The first version of the script was structured to use a breadth first search to find all the hypernyms of the synset,
+looking first at the synset it self and putting the hypernyms into a queue and repeating the process for each item in the queue.
+The hypernyms found were put into the hypernym chain in the order they were discovered,
+meaning that the most direct ancestor would be at the start of the list.
+The hypernym chain would then be iterated over to find the sibling synsets of each of the hypernyms.
+The result of the algorithm would be returned as a JSON string.
+An example of the output of the script can be seen in listing \ref{HypernymChain}(page \pageref{HypernymChain}).
+
+\begin{lstlisting}[label=HypernymChain, caption={Excerpt from the hypernym chain for student\#n\#1}]
+{
+   "chain" : [
+      {
+         "synset" : "enrollee#n#1",
+         "siblings" : [ { "synset" : "self#n#2", "offset" : "09604981" ...},
+         ],
+         "offset" : "10059162"
+      },
+      {
+         "synset" : "person#n#1",
+         "siblings" : [],
+         "offset" : "00007846"
+      }
+   ],
+   "synset" : "student#n#1",
+   "siblings" : [],
+   "offset" : "10665698"
+}
+\end{lstlisting}
+
+\subsection{Problems with multiple hypernymes}
+The initial version used a breadth first approach when listing the hypernyms.
+This approach turned out to be inappropriate as it lead to incorrect mappings.
+The problem was discovered when mapping the synset quotation\#noun\#2,
+described as "a short note recognizing a source of information or of a quoted passage",
+which was mapped to the schema.org term MusicRecording.
+This error was caused by the fact that the hypernym chain of quotation\#noun\#2 contains
+section\#n\#1 which is a hyponym of both music\#n\#1 and writing\#n\#2.
+The fact that quotation\#noun\#2 is a hyponym of music\#n\#1 seems to violate rules for hyponymy discussed in \ref{Hypernymy},
+but it is difficult to say if this is an error in WordNet, or simply a more liberal use of the rule.
+
+Examples like this made us believe that we could not trust the hypernymy relation to preserve the semantics of a
+synset when there is more than one hypernym.
+For the algorithm this means that we will cut the search for hypernyms when we come across a synset with more than one hypernym.
+This does mean that the hypernym chain will not always be complete which is unfortunate,
+especially since a lot of where there are multiple hypernyms does conserve the semantics of the synset.
+
 
 
 %% Trying Perl syntax
