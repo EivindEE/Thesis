@@ -190,7 +190,7 @@ to add markup to their own pages.
 When we first faced to problem of how to let users interact with the web app we felt that using the highlighting or
 selection of text to be the most intuitive approach.
 We also believed that this would be the simplest interaction method to implement.
-The simple case of taking selected text and doing something with it can be implemented as in listing \ref{DOMSelection}.
+The simple case of taking selected text and displaying it in the console can be implemented as in listing \ref{DOMSelection}.
 
 \begin{lstlisting}[caption={Logging selected text}, label=DOMSelection]
 	var logSelection = function () {
@@ -199,7 +199,68 @@ The simple case of taking selected text and doing something with it can be imple
 	document.addEventListener('mouseup', logSelection);
 \end{lstlisting}
 
+The "mouseup" event is triggered every time the user has pressed and then released the mouse pointer on the website.
+This event is not available on mobile and tablet type browsers,
+but adding listeners for corresponding events should not be difficult if we later see the need for this.
 
+In the web app the selected text is sent to the web server to find possible disambiguations for the text.
+The lexitags service that we use for disambiguation now is targeted towards disambiguating single words.
+It does handle some composite terms and some proper nouns, but this is outside the normal use case.
+The service can also become unstable when the query reaches a certain length, about 500 characters.
+To circumvent this problem we do a simple check for the length of the text string.
+If the length of the string is more than the longest allowed length,
+the query is instead replaced with a shorter query indicating that the selection is of a larger section of text.
+
+The response from the server is a JSON string containing the terms that were found to be possible senses of the selected text.
+Each of these senses have an explanation property which gives a short textual description of the meaning of the sense.
+These senses are displayed as a list on the web site.
+The senses that are returned come from different sources.
+They can come either from WordNet and take the form of WordNet synsets, or they can be resources from DBPedia.
+Both of these can be used to generate mappings,
+but the most interesting mapping for this thesis lies in generating mappings from WordNet so the synsets are given preference in the list.
+Lexitags also returns the top level resources from schema.org as shown in figure \ref{TopLevelSchemaOrg}(page \pageref{TopLevelSchemaOrg}).
+These are sorted to the bottom of the list as these are fallbacks for when none of the of the terms suggested for
+the word turn out to be reasonable suggestions for the selected text.
+
+To select one of the terms from the list as the meaning of the selected text the user clicks the sense in the list.
+When a sense is clicked it is sent to the server to be mapped.
+The servers uses the best fit algorithm described in \ref{BestFitMapping}(page \pageref{BestFitMapping}) to find the ontology references
+that fits the sens best and attaches these references to the selection using RDFa.
+The algorithm used to attach the meta data to the selection can handle an arbitrary amount of namespaces and references.
+If there is duplication of references these will be dropped.
+
+One of the difficult aspects of adding the meta data to the selections was making sure that the HTML was well-formed
+after the meta data was inserted.
+One of the rules regarding the well-formednes of a HTML document says that two elements can't overlap as in listing \ref{OverlappingHTML}.
+
+\begin{lstlisting}[language=HTML, caption=Example of overlapping elements, label=OverlappingHTML]
+	<a>
+		<b>
+	</a>
+		</b>
+\end{lstlisting}
+
+The interaction method consists of letting the user make arbitrary selections and then adding meta data to the selection.
+This could easily lead to overlapping elements in the HTML.
+To avoid this malformed HTML we check the range of the selected text and see if surrounding it with a tag
+containing metadata would result in a well-formed document, and modify the range if needed.
+If the start and end of the selection are in the same element then adding metadata is safe.
+If that is not the case we find the smallest change we need to make to the scope of the range to make it safe.
+There are two general cases her, when either the start or the end of the range is in a descendant element of the other,
+and when both start and end are descendants of a common element but not of each other.
+
+In the first case we need to find out which element is the descendant of which.
+We do that by following the ancestor links of each element.
+When we find that either the start or end element has the other as an ancestor we use the ancestor which is the direct
+child of the other element and place the start or end tag right before or after that tag, depending on which element
+descended from which.
+
+When the elements are not descendants of each other we know that they must be descendants of some other element.
+If nothing else they must both be descendants of the root element.
+We use a similar approach for this case as we do for the fist,
+but instead of finding the ancestor which is the direct child of the other node we find the one which is a child of the
+closest common node.
+We then surround these elements with the metadata tag.
 
 \section{Creating the mapping files}
 An important part of the early work was to generate files that the tool could use to find mappings from WordNet synsets
@@ -212,7 +273,7 @@ Javascript objects are themselves dictionaries, making it natural to choose to t
 The structure of the objects is very simple,
 the synsets are used as the keys to entities in the target ontologies as seen en listing \ref{wn2schemaMapping}.
 
-\begin{lstlisting}[label=wn2schemaMapping,caption={Excerpt from the \href{https://github.com/EivindEE/Madame/blob/master/mappings/wn2schema.js}{wn2schema.js} mapping file}]
+\begin{lstlisting}[label=wn2schemaMapping, caption={Excerpt from the \href{https://github.com/EivindEE/Madame/blob/master/mappings/wn2schema.js}{wn2schema.js} mapping file}]
 exports.mapping = {
 	"abstraction#n#6": "Intangible",
 	"accounting_firm#n#1": "AccountingService",
@@ -222,9 +283,10 @@ exports.mapping = {
 };
 \end{lstlisting}
 
-Since we use javascript objects to represent the mappings, querying a mapping object to check if it contains a mapping for a certain synset would then just consist of checking if
-the object has a property with the given name:
-\begin{lstlisting}[caption=Testing if a mapping exists]
+Since we use javascript objects to represent the mappings,
+querying a mapping object to check if it contains a mapping for a certain synset would then just consist of checking if
+the object has a property with the given name as in listing \ref{LabelExists}.
+\begin{lstlisting}[label=LabelExists,caption=Testing if a mapping exists]
     if (mapping['synset-to-check']) {
         // it contains a mapping
     } else {
@@ -291,9 +353,9 @@ The hypernyms found were put into the hypernym chain in the order they were disc
 meaning that the most direct ancestor would be at the start of the list.
 The hypernym chain would then be iterated over to find the sibling synsets of each of the hypernyms.
 The result of the algorithm would be returned as a JSON string.
-An example of the output of the script can be seen in listing \ref{HypernymChain}(page \pageref{HypernymChain}).
+An example of the output of the script can be seen in listing \ref{PerlHypernymChain}(page \pageref{PerlHypernymChain}).
 
-\begin{lstlisting}[label=HypernymChain, caption={Excerpt from the hypernym chain for student\#n\#1}]
+\begin{lstlisting}[label=PerlHypernymChain, caption={Excerpt from the hypernym chain for student\#n\#1}]
 {
    "chain" : [
       {
@@ -368,5 +430,5 @@ This does mean that the hypernym chain will not always be complete which is unfo
 especially since a lot of where there are multiple hypernyms does conserve the semantics of the synset.
 
 \section{Best fit mapping}
-
+\label{BestFitMapping}
 \fig{HypernymChain}{{A hypernym chain with siblings}}
