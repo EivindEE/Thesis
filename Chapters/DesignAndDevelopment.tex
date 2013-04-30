@@ -151,14 +151,14 @@ it will likely never be touched.
 \section{The development process}
 
 
-\subsection{Iteration 1}
+\section{Iteration 1}
 The first iteration started with getting to know the technologies, and setting up a framework
 Quite some time was spent getting comfortable working with the \nom{DOM}
 {The Document Object model, convention for interacting with HTML elements},
 and the peculiarities of the different mainstream browsers.
 At this point we also set up the server that the web app would run on.
 
-\subsubsection{Server setup}
+\section{Server setup}
 Setting up a basic server in node.js can be done in a single line of code,
 but requires a lot of low level handeling of requests and responses
 including parsing request url to find the correct handler.
@@ -171,7 +171,7 @@ Using a templating language made the distinction between structure and content c
 and enabled reuse of structure and content between different versions of the website during development.
 
 
-\subsubsection{Representing other websites}
+\section{Representing other websites}
 One of the issues that come up early was how to display the websites that the user wanted to add metadata to.
 Early attempts tried using the iframe\footnote{http://www.w3.org/TR/html5/embedded-content-0.html\#the-iframe-element}
 element of \nom{HTML}{HyperText Markup Language}.
@@ -186,10 +186,22 @@ The solution we landed on was to insert some placeholder text which was used for
 This placeholder text is still displayed on the website to give visitors something to try the tool on before using it
 to add markup to their own pages.
 
-\subsubsection{Interaction method}
+\section{Interaction method}
+When we first faced to problem of how to let users interact with the web app we felt that using the highlighting or
+selection of text to be the most intuitive approach.
+We also believed that this would be the simplest interaction method to implement.
+The simple case of taking selected text and doing something with it can be implemented as in listing \ref{DOMSelection}.
+
+\begin{lstlisting}[caption={Logging selected text}, label=DOMSelection]
+	var logSelection = function () {
+		console.log(window.getSelection().getRangeAt(0).toString());
+	};
+	document.addEventListener('mouseup', logSelection);
+\end{lstlisting}
 
 
-\subsection{Creating the mapping files}
+
+\section{Creating the mapping files}
 An important part of the early work was to generate files that the tool could use to find mappings from WordNet synsets
 into the ontologies which were used.
 The ontologies that were chosen for the project, SUMO  and schema.org, already had these kinds of mapping files.
@@ -302,9 +314,45 @@ An example of the output of the script can be seen in listing \ref{HypernymChain
 }
 \end{lstlisting}
 
+\begin{lstlisting}[language=perl, label=HypernymChainCode, caption={Excerpt from the hypernym chain perl script}]
+my @hypernym = hypernym($synset);
+my @hypernyms;
+while ( @hypernym){
+	my $hypernym = shift @hypernym;
+	push(@hypernym, hypernym($hypernym));
+	push(@hypernyms, $hypernym);
+}
+
+my @hypernyms_with_siblings;
+push(@hypernyms_with_siblings, {"synset" => $_ , "offset" => $wn->offset($_) ,"siblings" => [siblings($_)]}) for @hypernyms;
+
+my %result_map = ("chain" => [uniq(@hypernyms_with_siblings)], "synset" => $synset, "offset"=> $wn->offset($synset), "siblings" => [siblings($synset)]);
+my $json = JSON->new->utf8->pretty->encode(\%result_map);
+print $json;
+
+sub hypernym {
+	my @hypernym = $wn->querySense($_[0], "hype");
+	if ($#hypernym > 0) {
+		return ();
+	}
+	return @hypernym;
+}
+sub siblings {
+	my $synset = $_[0];
+	my @hypernym = hypernym($synset); # Find hypernym of synset
+	my @siblings;
+	my @sibling_and_offset;
+	push(@siblings, $wn->querySense($_, "hypo")) for @hypernym;
+	for my $sibling (@siblings) {
+		push (@sibling_and_offset, {"synset" => $sibling, "offset" => $wn->offset($sibling)});
+	}
+	return @sibling_and_offset;
+}
+\end{lstlisting}
+
 \subsection{Problems with multiple hypernymes}
 The initial version used a breadth first approach when listing the hypernyms.
-This approach turned out to be inappropriate as it lead to incorrect mappings.
+When starting work on the best fit algorithms we saw that this approach seemed to be inappropriate as it lead to incorrect mappings.
 The problem was discovered when mapping the synset quotation\#noun\#2,
 described as "a short note recognizing a source of information or of a quoted passage",
 which was mapped to the schema.org term MusicRecording.
@@ -319,49 +367,6 @@ For the algorithm this means that we will cut the search for hypernyms when we c
 This does mean that the hypernym chain will not always be complete which is unfortunate,
 especially since a lot of where there are multiple hypernyms does conserve the semantics of the synset.
 
+\section{Best fit mapping}
 
-
-%% Trying Perl syntax
-\begin{lstlisting}[language=perl, caption=experiment]
-my @parents = parent($synset);
-my @all_parents;
-while ( @parents){
-	my $parent = shift @parents;
-	push(@parents, parent($parent));
-	push(@all_parents, $parent);
-}
-
-my @all_parents_with_siblings;
-push(@all_parents_with_siblings, {"synset" => $_ , "offset" => $wn->offset($_) ,"siblings" => [siblings($_)]}) for @all_parents;
-
-my %json = ("chain" => [uniq(@all_parents_with_siblings)], "synset" => $synset, "offset"=> $wn->offset($synset), "siblings" => [siblings($synset)]);
-my $json = JSON->new->utf8->pretty->encode(\%json);
-print $json;
-
-sub parent {
-	my @parents = $wn->querySense($_[0], "hype");
-	if ($#parents > 0) {
-		return ();
-	}
-	return @parents;
-}
-
-sub siblings {
-	my $synset = $_[0];
-	my @parents = parent($synset); # Find parents of synset
-	my @siblings;
-	my @sibling_and_offset;
-	push(@siblings, $wn->querySense($_, "hypo")) for @parents;
-	my $index = 0;
-	for my $value (@siblings) { # Removes term from siblings
-		if ($value eq $synset) {
-			splice @siblings, $index, 1;
-		}
-		$index += 1;
-	}
-	for my $sibling (@siblings) {
-		push (@sibling_and_offset, {"synset" => $sibling, "offset" => $wn->offset($sibling)});
-	}
-	return @sibling_and_offset;
-}
-\end{lstlisting}
+\fig{HypernymChain}{{A hypernym chain with siblings}}
