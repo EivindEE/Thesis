@@ -13,3 +13,4 @@ l:     # print word count
 	@echo "Wordcount of Thesis: $(wc)"
 s: # Single latex run, Intended to give page count
 	pdflatex Thesis
+	@echo "Wordcount of Thesis: $(wc)"
