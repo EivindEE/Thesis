@@ -42,7 +42,7 @@ The user enters URL of page to tag:
 	\item Proxy sends back an object containing the sites head and body tag
 	\item The content of the body tag is used to populate the content container in the web app.
 \end{itemize}
-The user highlights a word on the page to add meta data to:
+The user highlights a word on the page to add metadata to:
 \begin{itemize}
 	\item The text of the highlighted selection gets sent to the lexitags server for disambiguation
 	\item The results from lexitags are filtered
@@ -226,11 +226,11 @@ To select one of the terms from the list as the meaning of the selected text the
 When a sense is clicked it is sent to the server to be mapped.
 The servers uses the best fit algorithm described in \ref{BestFitMapping}(page \pageref{BestFitMapping}) to find the ontology references
 that fits the sens best and attaches these references to the selection using RDFa.
-The algorithm used to attach the meta data to the selection can handle an arbitrary amount of namespaces and references.
+The algorithm used to attach the metadata to the selection can handle an arbitrary amount of namespaces and references.
 If there is duplication of references these will be dropped.
 
-One of the difficult aspects of adding the meta data to the selections was making sure that the HTML was well-formed
-after the meta data was inserted.
+One of the difficult aspects of adding the metadata to the selections was making sure that the HTML was well-formed
+after the metadata was inserted.
 One of the rules regarding the well-formednes of a HTML document says that two elements can't overlap as in listing \ref{OverlappingHTML}.
 
 \begin{lstlisting}[language=HTML, caption=Example of overlapping elements, label=OverlappingHTML]
@@ -240,7 +240,7 @@ One of the rules regarding the well-formednes of a HTML document says that two e
 		</b>
 \end{lstlisting}
 
-The interaction method consists of letting the user make arbitrary selections and then adding meta data to the selection.
+The interaction method consists of letting the user make arbitrary selections and then adding metadata to the selection.
 This could easily lead to overlapping elements in the HTML.
 To avoid this malformed HTML we check the range of the selected text and see if surrounding it with a tag
 containing metadata would result in a well-formed document, and modify the range if needed.
@@ -261,6 +261,45 @@ We use a similar approach for this case as we do for the fist,
 but instead of finding the ancestor which is the direct child of the other node we find the one which is a child of the
 closest common node.
 We then surround these elements with the metadata tag.
+This metadata element is styled with a distinct color to let the user know that the text is tagged.
+
+When the metadata element is created,
+the schema.org type is sent back to the server to get a list of the possible properties of that type.
+On the server we use a JSON representation of the schema.org ontology to find the properties that a type can have.
+The representation we use was retrieved from \url{http://schema.rdfs.org} which is a support site that tries to
+promote linked data.
+For each of the types in schema.org the JSON file provides the properties specific to that type,
+and all the properties it has inherited from its super types.
+We combine the information about which properties a type can have with a short description of what the property represents,
+and information about the range of the property, that is the range of values that are valid values of the property.
+The resulting JSON object is then returned to the website.
+These properties are then added to the metadata element as separate elements,
+with the description and range stored as data attributes of the element.
+
+Users can click text that has been tagged with metadata.
+This triggers a popover view which displays the properties that the element can have,
+and which types of values are allowed for each property as shown in figure \ref{PropertiesFull}.
+If the property allows other schema.org types as their value we do a scan of the content of the website to check if
+there are elements of the correct type on the page.
+Elements of the correct type that are found are put in a combo box and can be selected as values for the property.
+In all cases the user is presented with the option of writing the value of the property in an input field.
+If the property already has a value it will be displayed in the input field when the popover is displayed.
+
+%\fig{Sidebar}{The information tab of the sidebar},
+To export a page after adding metadata the user clicks on the export tab in the sidebar and on the export button.
+This will provide the user with a link the the website with the metadata added as shown in figure \ref{SidebarExported}.
+The exported site is parsed to put the javascript and iframes back inn so that the website look the same as it did
+before it was imported into \theartefact.
+On the export pane we also give the user the option to add a google plus id to an authorship tag on the page.
+This is treated as a separate task as it pertains not to the content of the page, but to the page it self.
+It is also not a part of the schema.org ontology, but is included as it is a natural way to increase the visibility of
+the website in search results using metadata.
+
+
+
+\fig{SidebarExported}{The export tab after exporting the current page}
+\fig{PropertiesFull}{{The properties popover for schema:Event}}
+
 
 \section{Creating the mapping files}
 An important part of the early work was to generate files that the tool could use to find mappings from WordNet synsets
@@ -271,7 +310,7 @@ The format we wanted was one that gave up the option to ask if there was a mappi
 inn other words what we wanted was a dictionary.
 Javascript objects are themselves dictionaries, making it natural to choose to them as the representation.
 The structure of the objects is very simple,
-the synsets are used as the keys to entities in the target ontologies as seen en listing \ref{wn2schemaMapping}.
+the synsets are used as the keys to entities in the target ontologies as seen in listing \ref{wn2schemaMapping}.
 
 \begin{lstlisting}[label=wn2schemaMapping, caption={Excerpt from the \href{https://github.com/EivindEE/Madame/blob/master/mappings/wn2schema.js}{wn2schema.js} mapping file}]
 exports.mapping = {
@@ -431,4 +470,43 @@ especially since a lot of where there are multiple hypernyms does conserve the s
 
 \section{Best fit mapping}
 \label{BestFitMapping}
+
+The first step in finding the best mappings for a given synset is finding which mappings exist.
+This is done by traversing the hypernym chain and checking for each synset in the chain if it has a mapping to
+one of the ontologies we are mapping to.
+When the hypernym chain has been modified to include mappings to the different ontologies we can use the different
+best fit algorithms and use their traversal of the chain to find which of these mappings that are the best according to
+the algorithms.
+Both algorithms will start by looking at the synset itself.
+We use the direct mappings of the synset should they exist as we have no reason to believe that we can do better than a
+direct mapping.
+Given that there are ontologies that have not been mapped to we use the best fit algorithms to find the missing mappings.
+
+\subsection{Hypernyms first}
+The hypernyms first algorithm traverses the hypernym chain by first looking at the direkt hypernym of the synset for mappings.
+It will then follow the hypernym chain upwards as long as no mappings has been found.
+If there are ontologies that have not received a mapping it will start looking at the siblings of the synset and see
+if any of them have a mapping.
+As long as there are ontologies without mappings it will then follow the hypernym chain upwards again,
+this time looking at the siblings of the hypernyms.
+If the mapping we find belongs to a sibling of the synset or one of its hypernyms we use the super type of the mapped
+type as the type that is mapped to.
+
+\subsection{Hypernym then siblings}
+The hypernym first algorithm is conservative.
+Since hypernymy is a "is a type of" relationship there is little chance that the resulting mappings can be mistaken.
+It does however move quite quickly up the hypernym chain leading to mappings to types that are at higher level
+of abstraction than the synset.
+Our other try at creating an algorithm tries to stay at a closer level of abstraction by looking at the siblings earlier
+in the traversal.
+
+The algorithm still starts by looking at the hypernym.
+Since we use the super type of the mapped type when looking at sibling synsets,
+it is reasonable to assume that a mapping from the hypernym would we at an equal level of abstraction as the
+super type of a sibling mapping.
+The algorithm diverges from the hypernyms first by looking at the siblings of the synset after looking at the hypernym.
+It will then follow the same procedure up the chain, first looking at each synsets hypernym,
+then looking at its siblings before moving up the chain and repeating the process.
+
+%%% Include in discusion section on other traversals that could give better
 \fig{HypernymChain}{{A hypernym chain with siblings}}
