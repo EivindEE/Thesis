@@ -51,6 +51,7 @@
 }
 
 \usepackage{listings}
+\renewcommand*{\lstlistlistingname}{List of Listings}
 \usepackage{color}
 \definecolor{lightgray}{rgb}{.9,.9,.9}
 \definecolor{darkgray}{rgb}{.4,.4,.4}
@@ -207,8 +208,11 @@ TODO
 \lhead{\emph{List of Tables}} % Set the left side page header to "List of Tables"
 \listoftables % Write out the List of Tables
 
-\lstlistoflistings
+\newpage
+\lstlistoflistings{List of Listings}
+\addcontentsline{toc}{chapter}{List of Listings}
 
+\newpage
 \printnomenclature[5em] % Print the page header and list of nomenclature
 
 %----------------------------------------------------------------------------------------
