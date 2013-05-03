@@ -2,16 +2,80 @@
 
 \chapter{Analysis and Discussion} % Main chapter title
 
-\label{AnalysisAndDiscussion} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+\label{AnalysisAndDiscussion}
 
-\lhead{Chapter \ref{AnalysisAndDiscussion}. \emph{Analysis and Discussion}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
-
-%----------------------------------------------------------------------------------------
-%	Design Research
-%----------------------------------------------------------------------------------------
-\section{Design Research}
+\lhead{Chapter \ref{AnalysisAndDiscussion}. \emph{Analysis and Discussion}}
 
 %----------------------------------------------------------------------------------------
 %	Design Research
 %----------------------------------------------------------------------------------------
-\section{Design Research}
+\section{Comparing the algorithms}
+\label{ComparingAlgorithms}
+To compare the two algorithms we generated a list of english nouns
+which we sent through the lexitags server to get synsets that corresponded to the meanings of each word.
+Both these lists were preprocessed to remove duplicates and to format them as javascript objects
+\footnote{\url{https://github.com/EivindEE/Madame/tree/master/testing}}.
+The final list of synsets contained 4350 unique synsets.
+We wrote a short script that we used to run the synsets through the best fit algorithms,
+and write a report of the results.
+For the schema.org version of the test we wrote the average depth of the mapped type,
+as well as the total number of times the two algorithms had the same and different mappings.
+The debth was calculated as the distance from the root node in the tree,
+i.e. schema:Thing it self had a depth of 0,
+schema:Person which inherits directly from schema:Thing has a depth of 1 and so on.
+For the SUMO version the depth of each type was unavailable,
+so we only have numbers showing the agreement between the algorithms.
+The full results from the tests can be found at the URL \url{https://github.com/EivindEE/Master-thesis/tree/master/AlgComparison}.
+
+The results from the SUMO test display no difference between the two algorithms when mapping from WordNet to SUMO.
+This indicates that there must have beena mapping either directly from the synset,
+or from the direct hypernym of the synset for each of the 4350 synsets in our test.
+
+The schema.org results are more interesting.
+Our predictions beforhand was that the hypernymes first approach would have fewer incorrect mappings,
+but would give results at a more shallow depth.
+The last prediction was the easiest to test.
+For each mapping we registered the depth of the type in the schema.org hierarchy.
+These depths were averaged over the total number of mappings made.
+
+As seen in table \ref{table:AlgorithmComparison} both algorithms map fairly high in the hierachy.
+The hypernymes first approach maps to a type at level 0.69 on average when considering all the synsets,
+or to a type at level 0.72 when ignoring the cases where the two algorithms gave the same result.
+As predicted the hypernym then siblings approach does a little better, though not much,
+mapping to types at level 0.8, or 1.2 when excluding identical mappings.
+Looking at the data it is obvious that the hyponymes first approach much more frequently leads to mappings to Thing and Intangible.
+The hypernym first algorithm maps to Thing 449, and Intagible 481 times,
+while hypernymes then siblings maps to Thing 334 and Intangible 81 times.
+Neither Thing nor Intangible are very interesting mappings in the ontology.
+As described in \ref{schemadotorg}, Thing is the most general category, meaning that every concept belongs to this category.
+Intangible is described\footnote{\url{http://schema.org/Intangible}} as "a utility class that serves as the umbrella for a number of 'intangible' things",
+and does not have any special properties in the ontology.
+Even if these mappings are quite uninteresting it is not always obvious that there are types in schema.org which are better fits for the synsets.
+
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{lll}
+										& Hypernyms First 	& Hypernym then siblings	\\
+		\emph{For all}					&					&							\\
+		Avg. depth total				& 0.688506 			& 0.804138					\\
+		No mapping found				& 598				& 598						\\
+		\emph{For different mappings}	&					&							\\
+		Avg. depth different			& 0.721507			& 1.183823					\\
+		Mappings to "Thing"				& 449				& 334						\\
+		Mappings to "Intangible"		& 481				& 81						\\
+		Errors (first 250 mappings)		& 2 				& 114 						\\
+		Error rate (first 250 mappings)	& 0.8\%				& 45.6\%					\\
+	\end{tabular}
+	\caption{Comparison of the mapping algorithms}
+	\label{table:AlgorithmComparison}
+\end{table}
+
+Noun list from http://www.desiquintans.com/articles.php?page=nounlist
+
+https://github.com/EivindEE/Master-thesis/blob/master/AlgComparison/AlgComparisonResultsBig
+https://github.com/EivindEE/Master-thesis/blob/master/AlgComparison/compare-different
+%----------------------------------------------------------------------------------------
+%	Design Research
+%----------------------------------------------------------------------------------------
+\section{Suitability of WordNet for mapping natural language}
