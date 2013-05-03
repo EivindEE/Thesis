@@ -300,6 +300,34 @@ the website in search results using metadata.
 \fig{SidebarExported}{The export tab after exporting the current page}
 \fig{PropertiesFull}{{The properties popover for schema:Event}}
 
+\section{Importing web pages}
+We created a proxy to get the html from other websites.
+The proxy would take a URL and get the resource located there.
+If the resource is not of the right type i.e. not a HTML document with a body element,
+the proxy would return an error.
+When the resource has been downloaded the content of the body element of the document is parsed to comment out code that
+could be harmful, that could make the page display incorrectly, or that could disrupt the way the webapp functions.
+The parts of the page that we comment out are the script, iframe and comment elements.
+The script elements could disrupt the way the web app works, either by overwriting the behavior of functions,
+or otherwise alter the behavior of the web app.
+In addition the script elements are not visible on the page so interacting with them would be hard.
+Removing them was also convenient durring developement.
+The scripts in the tags would often rely on variables or functions that should have been loaded elsewhere,
+and they would cluttre the console making it more difficult to find the relevant information.
+Iframes were excluded since they could make the web app appear to be inconsistent.
+The iframes look like a part of the page,
+but it would not be possible to alter their content since the HTML belongs to a different document.
+The difference between the document and the iframe would be invisible to the user,
+so it was decided that it would be better to remove the element all together.
+The comment elements were removed to make sure that the page would display as it should.
+Since we use comments to remove iframes and scripts, and since these elements could them selves contain comments,
+the content of the comments would sometimes be displayed as text elements on the page.
+
+\Theartefact is only designed to add metadata to the body element of the document,
+so the page is split into body and head parts before it is returned to the webapp.
+The document is returned as a JSON string with one property containing the processed body,
+and one containing the content of the head.
+
 
 \section{Creating the mapping files}
 An important part of the early work was to generate files that the tool could use to find mappings from WordNet synsets
@@ -510,3 +538,20 @@ then looking at its siblings before moving up the chain and repeating the proces
 
 %%% Include in discusion section on other traversals that could give better
 \fig{HypernymChain}{{A hypernym chain with siblings}}
+
+
+\section{Exporting the document}
+We use MongoDB\footnote{\url{http://www.mongodb.org}} as a database for storing the web pages after the user has added metadata.
+MongoDB is a NoSQL database which uses javascript as its database interaction language.
+MongoDB uses a dynamic schema for storing data,
+meaning that each document in a collection does not need to have the same structure.
+This makes it suitable for projects with a rapid development style since the schema does not have to be
+finalized at early stages of development.
+The artefact uses mongoose\footnode{\url{https://github.com/learnboost/mongoose}} as a tool for modeling the objects.
+Mongoose allows us to abstract a lot of the database logic away and simplifies connecting with the database.
+When receiving a document to store the module removes all the extra comments that were added when the document was
+imported, and puts the document back in its original state.
+We also store the namespaces used in the document and the date on which the document was created.
+When the document has been stored successfully the URL of the newly created webpage is returned to the user.
+If there was an error during the process the user is alerted about what went wrong.
+
