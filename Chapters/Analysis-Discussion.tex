@@ -27,14 +27,24 @@ For the SUMO version the depth of each type was unavailable,
 so we only have numbers showing the agreement between the algorithms.
 The full results from the tests can be found at the URL \url{https://github.com/EivindEE/Master-thesis/tree/master/AlgComparison}.
 
-The results from the SUMO test display no difference between the two algorithms when mapping from WordNet to SUMO.
+As one can read from the numbers it table \ref{table:AlgorithmResults} the results from the SUMO test
+display no difference between the two algorithms when mapping from WordNet to SUMO.
+The two algorithms return identical mappings in 100\% of the test cases.
 This indicates that there must have beena mapping either directly from the synset,
 or from the direct hypernym of the synset for each of the 4350 synsets in our test.
+This makes it hard to say anything relevant about the algoritms from these results.
 
 The schema.org results are more interesting.
+The two algorithms still perform fairly equally.
+Reading from table \ref{table:AlgorithmResults} we can see that the algorithms are equal in 75\% of the cases,
+but we can examine the 25\% that are different and see which perform better in those cases.
+We can also see that the algorithms were unable to find a mapping in 13.7\% of the cases.
+These cases can't tell us much about which algorithm we should prefere,
+but could be a good starting point for finding parts of the WordNet to schema.org mapping which could be enhanced.
+
 Our predictions beforhand was that the hypernymes first approach would have fewer incorrect mappings,
 but would give results at a more shallow depth.
-The last prediction was the easiest to test.
+The last prediction was the easiest to test, as we know the schema.org hierarchy and can calculate the depth of each type.
 For each mapping we registered the depth of the type in the schema.org hierarchy.
 These depths were averaged over the total number of mappings made.
 
@@ -44,28 +54,105 @@ or to a type at level 0.72 when ignoring the cases where the two algorithms gave
 As predicted the hypernym then siblings approach does a little better, though not much,
 mapping to types at level 0.8, or 1.2 when excluding identical mappings.
 Looking at the data it is obvious that the hyponymes first approach much more frequently leads to mappings to Thing and Intangible.
-The hypernym first algorithm maps to Thing 449, and Intagible 481 times,
-while hypernymes then siblings maps to Thing 334 and Intangible 81 times.
-Neither Thing nor Intangible are very interesting mappings in the ontology.
+The hypernym first algorithm maps to schema:Thing 449, and schema:Intagible 481 times,
+while hypernymes then siblings maps to schema:Thing 334 and schema:Intangible 81 times.
+Neither schema:Thing nor schema:Intangible are very interesting mappings in the ontology.
 As described in \ref{schemadotorg}, Thing is the most general category, meaning that every concept belongs to this category.
 Intangible is described\footnote{\url{http://schema.org/Intangible}} as "a utility class that serves as the umbrella for a number of 'intangible' things",
 and does not have any special properties in the ontology.
 Even if these mappings are quite uninteresting it is not always obvious that there are types in schema.org which are better fits for the synsets.
 
+To judge the correctness of the algorithms,
+we went through the results from when the two algorithms gave different mappings and checked the mappings manually.
+The process consisted of looking up each synset that was mapped,
+and the types it had been mapped to and check if the two corresponded.
+The results were divided into three categories.
+If it was clear that the synset and type corresponded, they were marked as correct.
+If it was clear that they didn't correspond they were marked as incorrect.
+There were also some cases where it was unclear whether or not a mapping were correct.
+These mappings included mapping bill\#n\#3("a piece of paper money"), to schema:Quantity("Quantities such as distance, time, mass, weight"),
+where the description of schema:Quantity\footnote{\url{http://schema.org/Quantity}} further says
+"Particular instances of say Mass are entities like '3 Kg' or '4 milligrams'",
+making it unclear if a bill could be an instance of the schema:Quantity type even if it seems unnatural.
+
+Since the manual inspection of the mappings was a time consuming process we decided to only inspect 250 mappings,
+and see if the results of checking these would be sufficient to say anything about the algorithms.
+We excluded mappings the schema:Thing and schema:Intangible, as one could normally argue reasonably for these.
+
+We had predicted a higher error rate in the hypernym then sibling algorithm,
+but the difference in the error rate between the algorithms was much larger than we had anticipated.
+Again pointing to table \ref{table:AlgorithmComparison} we can see that the hypernyms first algorithm
+made correct mappings in 96\% of the test cases,
+while giving incorrect mappings in 0.8\% test cases and questionable mappings in 3.2\% of the cases.
+The hypernym then sibling algorithm on the other hand gave a correct mapping in only 47.6\% of the cases checked.
+It gave incorrect mappings in 45.6\% and unclear mappings in 7.2\% of the cases.
+The fact that it gave correct mappings in less than 50\% of the instances where the results were different was very surprising.
+This high degree of incorrect mappings indicates that using sibling synsets as the basis for mapping in unfruitful.
+%%% EXPAND
+
+The fact that the hypernyms first algorithm gave incorrect mappings at all are a bit alarming.
+As described in section \ref{Hypernymy} about hyper- and hyponymy, hypernymy should be a transitive "type of" relation.
+Each hypernym should then be a more general type of the synset provided and not break the semantics of the synset.
+The mappings from WordNet to schema.org indicate that the semantic content of the synset are equal to the
+semantic content of the schema.org type mapped to.
+Since both hypernymy and mappings should preserve the semantics of the synsets, the mappings should be correct.
+The fact that the hypernyms first algorithm gives incorrect mappings indicate that either the integrity of the hypernym relation is broken,
+or that the mappings are incorrect.
+The two cases where the hypernyms first approach gave incorrect mappings where with birth\#n\#1 and birthday\#n\#2,
+which both mapped to schema:Quantity via their hypernym measure\#n\#2 \{measure, quantity, amount\}.
+
+The hypernym chain linking birth\#n\#1 to measure\#n\#2 is:
+\begin{verbatim}
+	birth#n#1
+	beginning#n#2
+	point#n#6
+	measure#n#2
+\end{verbatim}
+
+And from birthday\#n\#2:
+\begin{verbatim}
+	birthday#n#2
+	date#n#1
+	day#n#1
+	time_unit#n#1
+	measure#n#2
+\end{verbatim}
+
+The problem in both chains seem to be that one goes from something that happened at a single instance in time,
+to a collection of things.
+The there
+%% Write more here
+
+\begin{table}[h] %%%% Should I change the results so that the no results found are ignored?
+	\centering
+	\begin{tabular}{lll}
+										& Schema.org	& SUMO			\\
+		Total number of synsets tested 	& 4350			& 4350			\\
+		Number of identical mappings 	& 3262 (75\%)	& 4350 (100\%)	\\
+		Number  of different mappings	& 1088 (25\%)	& 0	(0\%)		\\
+		No result found					& 598  (13.7\%)	& 0	(0\%)
+	\end{tabular}
+	\caption{The testing results}
+	\label{table:AlgorithmResults}
+\end{table}
 
 \begin{table}[h]
 	\centering
 	\begin{tabular}{lll}
-										& Hypernyms First 	& Hypernym then siblings	\\
-		\emph{For all}					&					&							\\
-		Avg. depth total				& 0.688506 			& 0.804138					\\
-		No mapping found				& 598				& 598						\\
-		\emph{For different mappings}	&					&							\\
-		Avg. depth different			& 0.721507			& 1.183823					\\
-		Mappings to "Thing"				& 449				& 334						\\
-		Mappings to "Intangible"		& 481				& 81						\\
-		Errors (first 250 mappings)		& 2 				& 114 						\\
-		Error rate (first 250 mappings)	& 0.8\%				& 45.6\%					\\
+											& Hypernyms First 	& Hypernym then siblings	\\
+		\emph{For all mappings}				&					&							\\
+		Avg. depth total					& 0.688506 			& 0.804138					\\
+		\emph{For different mappings}		&					&							\\
+		Avg. depth different				& 0.721507			& 1.183823					\\
+		Mappings to "Thing"					& 449				& 334						\\
+		Mappings to "Intangible"			& 481				& 81						\\
+		\emph{For the 250 examined mappings}&					&							\\
+		Correct mappings					& 240				& 119						\\
+		Correct mapping	rate				& 96\%				& 47.6\%					\\
+		Unclear								& 8					& 18						\\
+		Unclear	rate						& 3.2\%				& 7.2\%						\\
+		Errors								& 2 				& 114 						\\
+		Error rate							& 0.8\%				& 45.6\%					\\
 	\end{tabular}
 	\caption{Comparison of the mapping algorithms}
 	\label{table:AlgorithmComparison}
