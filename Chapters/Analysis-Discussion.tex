@@ -70,10 +70,31 @@ The results were divided into three categories.
 If it was clear that the synset and type corresponded, they were marked as correct.
 If it was clear that they didn't correspond they were marked as incorrect.
 There were also some cases where it was unclear whether or not a mapping were correct.
-These mappings included mapping bill\#n\#3("a piece of paper money"), to schema:Quantity("Quantities such as distance, time, mass, weight"),
-where the description of schema:Quantity\footnote{\url{http://schema.org/Quantity}} further says
-"Particular instances of say Mass are entities like '3 Kg' or '4 milligrams'",
-making it unclear if a bill could be an instance of the schema:Quantity type even if it seems unnatural.
+
+We decided it was necessary to include a category for unclear mappings to highlight the fact that some of the categories
+are fuzzy and require some more documentation,
+or that they might entail things than seem unnatural.
+One of the instances were it was unclear if a mapping should be judged to be correct was for the mapping of dairy\#n\#1,
+"a farm where dairy products are produced", which mapps to schema:FoodEstablishment.
+Schema:FoodEstablishment is described as "[a] food-related business", which a dairy most certainly is.
+The sub typing of schema:FoodEstablishment however seems to indicate otherwise.
+The sub types of schema:FoodEstablishment are:
+\begin{itemize}
+	\item Bakery
+	\item BarOrPub
+	\item Brewery
+	\item CafeOrCoffeeShop
+	\item FastFoodRestaurant
+	\item IceCreamShop
+	\item Restaurant
+	\item Winery
+\end{itemize}
+This seems to indicate an establishment where private customers come to purchase goods,
+making a more industrial venue seem out of place.
+Another schema.org term that provided some difficulty was schema:Place,
+which has the description "[e]ntities that have a somewhat fixed, physical extension".
+Again the sub types seem to indicate that it should be used for geographical sections.
+From the description of the type it is unclear if it can be used to describe things like borders and edges of things.
 
 Since the manual inspection of the mappings was a time consuming process we decided to only inspect 250 mappings,
 and see if the results of checking these would be sufficient to say anything about the algorithms.
@@ -82,13 +103,15 @@ We excluded mappings the schema:Thing and schema:Intangible, as one could normal
 We had predicted a higher error rate in the hypernym then sibling algorithm,
 but the difference in the error rate between the algorithms was much larger than we had anticipated.
 Again pointing to table \ref{table:AlgorithmComparison} we can see that the hypernyms first algorithm
-made correct mappings in 96\% of the test cases,
-while giving incorrect mappings in 0.8\% test cases and questionable mappings in 3.2\% of the cases.
-The hypernym then sibling algorithm on the other hand gave a correct mapping in only 47.6\% of the cases checked.
-It gave incorrect mappings in 45.6\% and unclear mappings in 7.2\% of the cases.
-The fact that it gave correct mappings in less than 50\% of the instances where the results were different was very surprising.
+made correct mappings in 94\% of the test cases,
+while giving incorrect mappings in 2.0\% test cases and questionable mappings in 4\% of the cases.
+The hypernym then sibling algorithm on the other hand gave a correct mapping in only 26.8\% of the cases checked.
+It gave incorrect mappings in 62.4\% and unclear mappings in 20.8\% of the cases.
+The fact that it gave correct mappings at a rate of close to 25\% of the instances where the results were different was very surprising.
 This high degree of incorrect mappings indicates that using sibling synsets as the basis for mapping in unfruitful.
-%%% EXPAND
+We will however examine the incorrect mappings of both algorithms to try to uncover the causes,
+and if they are caused by weaknesses in the algorithms, or in WordNet or the mapping from WordNet to schema.org.
+
 
 The fact that the hypernyms first algorithm gave incorrect mappings at all are a bit alarming.
 As described in section \ref{Hypernymy} about hyper- and hyponymy, hypernymy should be a transitive "type of" relation.
@@ -98,30 +121,92 @@ semantic content of the schema.org type mapped to.
 Since both hypernymy and mappings should preserve the semantics of the synsets, the mappings should be correct.
 The fact that the hypernyms first algorithm gives incorrect mappings indicate that either the integrity of the hypernym relation is broken,
 or that the mappings are incorrect.
-The two cases where the hypernyms first approach gave incorrect mappings where with birth\#n\#1 and birthday\#n\#2,
-which both mapped to schema:Quantity via their hypernym measure\#n\#2 \{measure, quantity, amount\}.
 
-The hypernym chain linking birth\#n\#1 to measure\#n\#2 is:
+
+%%%%% There were six cases
+%% Rewrite and update
+All the cases where the hypernyms first approach was deemed to have incorrect mappings were instances where the synset
+mapped to schema:Quantity via their hypernym measure\#n\#2 \{measure, quantity, amount\}.
+
+The hypernym chain linking birth\#n\#1, death\#n\#5, death\#n\#4 and end\#n\#2 to measure\#n\#2 ended with:
 \begin{verbatim}
-	birth#n#1
-	beginning#n#2
+	beginning#n#2 / end#n#2
 	point#n#6
 	measure#n#2
 \end{verbatim}
 
-And from birthday\#n\#2:
+and birthday\#n\#2 had the chain:
 \begin{verbatim}
-	birthday#n#2
 	date#n#1
 	day#n#1
 	time_unit#n#1
 	measure#n#2
 \end{verbatim}
 
-The problem in both chains seem to be that one goes from something that happened at a single instance in time,
+
+In schema.org the type Quantity is described as "[q]uantities such as distance, time, mass, weight".
+The synset measure\#n\#2 is described as "how much there is or how many there are of something that you can quantify".
+The mapping between these appear reasonable and do not seem to be the cause of error.
+
+What makes the mappings seem unreasonable is that the synset one starts with in some way or another points towards
+something that happens at a single instance in time.
+A birth or death is just a single instance, not a quantity of things.
+The problem in both these chains seem to be that one goes from something that happened at a single instance in time,
 to a collection of things.
-The there
-%% Write more here
+The cause of the error then seems to be an inconsistency within the hypernym relation in WordNet.
+We will contact the maintainers and ask if they agree.
+
+We also analysed the results where the hypernym then siblings algorithm mapped incorrectly.
+The distribution of incorrect mappings can be seen in figure \ref{fig:incorrect}(page \pageref{fig:incorrect}).
+
+\begin{figure}[ht]
+	\centering
+    \begin{tikzpicture}
+        \begin{axis}[
+	        title={Incorrect mappings},
+            xbar,
+            width=12cm, height=8cm,
+            symbolic y coords={Place,Landform,Enumeration,SportsActivityLocation,EntertainmentBusiness,CreativeWork,CivicStructure,MusicPlaylist,LodgingBusiness,Residence,FoodEstablishment},
+            ytick=data,
+            nodes near coords, nodes near coords align={horizontal},
+          ]
+            \addplot[fill=blue] coordinates {
+               (46,Place)
+               (36,Landform)
+               (34,Enumeration)
+               (17,SportsActivityLocation)
+               (8,EntertainmentBusiness)
+               (5,CreativeWork)
+               (4,CivicStructure)
+               (2,MusicPlaylist)
+               (2,LodgingBusiness)
+               (1,Residence)
+               (1,FoodEstablishment)
+            };
+        \end{axis}
+    \end{tikzpicture}
+	\caption{Distribution of incorrect mappings in hypernym then siblings algorithm}
+	\label{fig:incorrect}
+\end{figure}
+
+We picked the two most common incorrect mappings as objects of further study.
+We went through all the cases of incorrect mapping to schema:Place.
+This examination showed that in 45 of the 46 cases the mapping to schema:Place came as a result of
+the synset being a hyponym of whole\#n\#2, which has the sibling geological\_formation\#n\#1 which again has a mapping to
+schema:Landform, a sub type of schema:Place.
+The last instance is the mapping from attention\#n\#3 which has the sibling tourist\_attraction\#n\#1 mapping to
+schema:TouristAttraction.
+
+For the mappings to schema:Landform all of the incorrect mappings came as a result of the synsets being hyponyms of
+part\#n\#3, which has the sibling synset body\_of\_water\#n\#1 mapping to schema:BodyOfWater which is a sub type of
+schema:Landscape.
+Common for all these mappings is that the hypernyms are reasonable.
+There is no reason to believe that these are cases where the hypernym chain breaks the semantics of the synset.
+The mappings from WordNet to schema.org also seem to be sound.
+This means that the source of the change in semantics must be looking at the siblings of the synset or its hypernyms.
+There were instances of siblings both of the original synset and of the hypernyms,
+so it does not appear that closeness to the synset needs to have any influence on whether or not the sibling gives
+an accurate mapping for the synset.
 
 \begin{table}[h] %%%% Should I change the results so that the no results found are ignored?
 	\centering
@@ -147,16 +232,17 @@ The there
 		Mappings to "Thing"					& 449				& 334						\\
 		Mappings to "Intangible"			& 481				& 81						\\
 		\emph{For the 250 examined mappings}&					&							\\
-		Correct mappings					& 240				& 119						\\
-		Correct mapping	rate				& 96\%				& 47.6\%					\\
-		Unclear								& 8					& 18						\\
-		Unclear	rate						& 3.2\%				& 7.2\%						\\
-		Errors								& 2 				& 114 						\\
-		Error rate							& 0.8\%				& 45.6\%					\\
+		Correct mappings					& 235				& 67						\\
+		Correct mapping	rate				& 94\%			& 26.8\%					\\
+		Unclear								& 10				& 27						\\
+		Unclear	rate						& 4\%				& 20.8\%					\\
+		Errors								& 5 				& 156 						\\
+		Error rate							& 2\%				& 62.4\%					\\
 	\end{tabular}
 	\caption{Comparison of the mapping algorithms}
 	\label{table:AlgorithmComparison}
 \end{table}
+
 
 Noun list from http://www.desiquintans.com/articles.php?page=nounlist
 
@@ -165,4 +251,7 @@ https://github.com/EivindEE/Master-thesis/blob/master/AlgComparison/compare-diff
 %----------------------------------------------------------------------------------------
 %	Design Research
 %----------------------------------------------------------------------------------------
+
+\section{Testing against existing markup}
+
 \section{Suitability of WordNet for mapping natural language}
