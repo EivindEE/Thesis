@@ -233,7 +233,7 @@ an accurate mapping for the synset.
 		Mappings to "Intangible"			& 481				& 81						\\
 		\emph{For the 250 examined mappings}&					&							\\
 		Correct mappings					& 235				& 67						\\
-		Correct mapping	rate				& 94\%			& 26.8\%					\\
+		Correct mapping	rate				& 94\%				& 26.8\%					\\
 		Unclear								& 10				& 27						\\
 		Unclear	rate						& 4\%				& 20.8\%					\\
 		Errors								& 5 				& 156 						\\
@@ -244,14 +244,91 @@ an accurate mapping for the synset.
 \end{table}
 
 
-Noun list from http://www.desiquintans.com/articles.php?page=nounlist
+%Noun list from http://www.desiquintans.com/articles.php?page=nounlist
 
-https://github.com/EivindEE/Master-thesis/blob/master/AlgComparison/AlgComparisonResultsBig
-https://github.com/EivindEE/Master-thesis/blob/master/AlgComparison/compare-different
-%----------------------------------------------------------------------------------------
-%	Design Research
-%----------------------------------------------------------------------------------------
+%https://github.com/EivindEE/Master-thesis/blob/master/AlgComparison/AlgComparisonResultsBig
+%https://github.com/EivindEE/Master-thesis/blob/master/AlgComparison/compare-different
 
 \section{Testing against existing markup}
+One of our success criteria was that it should be posible to markup HTML as well or better than what is on the web now.
+To find webpages that uses schema.org as an ontology for adding metadata we used a list found on github of
+this type of sites\footnote{\url{https://github.com/LawrenceWoodman/mida/wiki/Sites-Using-Microdata}}.
+The process we used consisted of opening the sites and seeing what metadata the site we tested had,
+and then open the site using \theartefact and try to add the same metadata.
+We would then analyse the results by using Googles structured data testing tool
+\footnote{\url{http://www.google.com/webmasters/tools/richsnippets}},
+and W3s RDFa 1.1 distiller and parser\footnote{\url{http://www.w3.org/2012/pyRdfa/}}
+to confirm that the metadata was added and was correct.
+The webpages were also checked without being enhanced with the tool to see if they were structured correctly.
+
+The pages we marked up where:
+\begin{itemize}
+	\item A restaurant review from the Telegraph\footnote{\url{https://github.com/EivindEE/Master-thesis/blob/master/WildTesting/Bunga\%20Bunga\%2C\%20London\%2C\%20restaurant\%20review\%20-\%20Telegraph.html}}
+	\item A tour operators customer feedback page\footnote{\url{https://github.com/EivindEE/Master-thesis/blob/master/WildTesting/Customer\%20Feedback\%20\%7C\%20About\%20Us\%20\%7C\%20The\%20Holiday\%20Place.html}}
+	\item A tourist agency home page \footnote{\url{https://github.com/EivindEE/Master-thesis/blob/master/WildTesting/Luxury\%20Travel\%20Africa\%20\%7C\%20Best\%20South\%20Africa\%20Tour\%20Operator\%20\%7C\%20Luxury\%20Safari.html}}
+	\item The home page of a marketing company \footnote{\url{https://github.com/EivindEE/Master-thesis/blob/master/WildTesting/Internet\%20Marketing\%20Experts\%20helps\%20you\%20get\%20MORE\%20business\%20from\%20the\%20Internet\%20\%7C\%20Ebizindia.html}}
+	\item A movie review sites review of a film \footnote{\url{https://github.com/EivindEE/Master-thesis/blob/master/WildTesting/Punching\%20The\%20Clown\%20Movie\%20Review\%20-\%20Media\%20Decay.html}}
+\end{itemize}
+
+Most of the metadata on the webpages that were marked up were metadata about larger sections of the page.
+The most prevalent type used on the pages we marked up was schema:Review.
+The artefact we developed is targeted towards disambiguating single words as described in section \ref{Interaction}.
+This mismatch means that the preferred interaction of highlighting text and selecting one of the posible
+disambiguations of the selection is unavailable.
+Instead we had to rely on the fallback interaction which uses the original highlighting for finding the range of
+the selection to tag, and user input in the form of writing what the topic of the selection is.
+This process is functional, but is more cumbersome than the originally intended interaction.
+
+
+We found the results to be satisfactory, and were able to recreate all the metadata that was present on the webpages
+we decided to test against, with the exception of aggregate type mappings which we will discuss bellow.
+
+The originals of the webpages that were used to test the tool were considered the gold standard which we used to
+evaluate the result of the mapping.
+The exception we had to this was when the webpages used invalid types or properties in their metadata.
+In the pages we checked we found one instance of invalid metadata.
+On the page with the movie review we found that the author of the HTML had added an invalid property to a movie.
+The webpage used the property name "publishdate" while the correct name of the property is "datePublished".
+An advantage of using a tool like \theartefact is that one can be sure not to use incorrect properties such as this,
+since the tool provides a list which only contain valid properties for the type one has selected.
+
+
+We found that there are some schema.org types that we are not able to reach with the current systems.
+In particular we have found out the the system does not have a way to reach aggregated types.
+At the time of writing the aggregate types in schema.org are schema:AggregateRating and schema:AggregateOffer.
+The type schema:AggregateRating is meant to represent the average rating that a rated object has received
+while schema:AggregateOffer represents a collection of offers for a given product.
+The difficulty posed by both these types is that what separates them from their super types schema:Rating and schema:Offer
+is that they represent the plurality of the super type.
+The system uses WordNet to represent and disambiguate words, and as its basis for mapping natural language to ontologies.
+WordNet is a dictionary type system, which does not separate between the different grammatical numbers of a given word,
+as they all represent the same concept.
+For the system this is a problem, since it means that the language we use as an intermediary between natural language
+and the ontologies does not capture all of the complexity of the ontologies we wish to map to.
+
+
+Another issue we came across when analyzing the resulting markup with the the structured data tool was that we got
+error messages saying that some of the elements that had been marked up were missing required properties.
+This is problematic for two reasons.
+On is that it greatly increases the complexity of the system,
+as it increases the minimum amount of work a user has to do to get valid metadata,
+and requires the system to give the user additional cues regarding the validity of the metadata.
+Cues that the user needs to be taught to successfully use the system.
+The other problem is that the fact that these properties are required is undocumented.
+When analyzing a schema:Product without a name value the error message reads:
+\begin{verbatim}
+	Warning: Missing required field "name (fn)".
+	Warning: Incomplete rdfa with schema.org.
+\end{verbatim}
+The documentation on the schema.org homepage does not give any indication that schema types have required properties.
+When looking closer at the unmodified web pages it was revealed that when using the microdata format these types
+were ignored without warning.
+The fact that the validator requires the properties does not in it self mean that the markup is incorrect,
+or that the syntax is wrong.
+The validator seems geared towards the generation of rich snippets,
+and it might be that the warning is intended to warn that the amount of metadata is insufficient to generate rich snippets.
+%% Problem, missing required properties, not documented as required by schema.org
+
+%% Punching The Clown Movie Review - incorrect property
 
 \section{Suitability of WordNet for mapping natural language}
