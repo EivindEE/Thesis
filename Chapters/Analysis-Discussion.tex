@@ -243,7 +243,25 @@ an accurate mapping for the synset.
 	\label{table:AlgorithmComparison}
 \end{table}
 
+\subsection{Choosing an algorithm}
+From the previous discussion and from the results of the testing it seemed clear that the hypernyms first algorithm is
+the dominant strategy for mapping synsets to schema.org, and that there is no difference between the two when mapping to SUMO.
+The algorithms performed very differently when mapping to the different ontologies.
 
+It might be that an increase in the number of mappings would change the results.
+One could then try to refine the hypernym then siblings algorithm to analyse the mappings of its siblings,
+and try to find some more sophisticated way of choosing which mapping to select.
+
+It would also be interesting to try mapping to a more general ontology than schema.org.
+As mentioned in section \ref{schemadotorg} schema.org is a small ontology with only 577 types,
+and with a bias towards comercial interests.
+It might be that an ontology that was larger,
+and which had a more balanced approach to the world would result in better results for the algorithm.
+
+As it stands it is clear that the hypernyms first algorithm out performed the hypernym then siblings algorithm,
+and is the one that will be used in the artefact.
+The fact that its mappings were incorrect or questionable in 6\% of the instances analyzed is unfortunate.
+We have however analysed the reason for these errors and should have enough information to improve the results further.
 %Noun list from http://www.desiquintans.com/articles.php?page=nounlist
 
 %https://github.com/EivindEE/Master-thesis/blob/master/AlgComparison/AlgComparisonResultsBig
