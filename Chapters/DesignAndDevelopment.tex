@@ -536,6 +536,16 @@ super type of a sibling mapping.
 The algorithm diverges from the hypernyms first by looking at the siblings of the synset after looking at the hypernym.
 It will then follow the same procedure up the chain, first looking at each synsets hypernym,
 then looking at its siblings before moving up the chain and repeating the process.
+The maner in which the algorithm choses which sibling to map to is at the moment fairly naïve.
+The algorithm will use the first match it finds,
+meaning that if two or more siblings have mappings to an ontology the first one found by the algorithm will be used.
+As shown in listing \ref{HypernymChainCode} the order of the siblings in the JSON is the same as the order that they
+are given by querying the WordNet database.
+For our purposes this is equal to using an unordered list since we don't know and can't predict the order.
+The for the algorithm we developed for this too we assume  that we have no reason to prefere one mapping over another,
+since we at this point don't know the meaning of the synset.
+Further refinement is likely posible of this assumption does not hold.
+
 
 %%% Include in discusion section on other traversals that could give better
 \fig{HypernymChain}{{A hypernym chain with siblings}}
