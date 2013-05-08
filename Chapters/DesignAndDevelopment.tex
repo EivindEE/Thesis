@@ -98,7 +98,7 @@ The modules that were created were:
 \subsection{Designing the algorithms}
 We will now describe the two algorithms that were developed to find mappings between the WordNet synsets and the ontologies.
 We use two axes for navigating the WordNet graph, the hypernymes and the hyponymes.
-As described in \ref{TheoryWordNet}, a hypernyme can be described as category words into which more specialized words fall.
+As described in \ref{WordNet}, a hypernyme can be described as category words into which more specialized words fall.
 Hyponyme is the inverse relation, where a hyponyme is a word which can be generalized into some more general category.
 For simplicity we will also use one additional term.
 We will use \emph{sibling} to refere to words which are hyponymes of a words hypernyme.
@@ -324,7 +324,7 @@ The comment elements were removed to make sure that the page would display as it
 Since we use comments to remove iframes and scripts, and since these elements could them selves contain comments,
 the content of the comments would sometimes be displayed as text elements on the page.
 
-\Theartefact is only designed to add metadata to the body element of the document,
+\Theartefact\ is only designed to add metadata to the body element of the document,
 so the page is split into body and head parts before it is returned to the webapp.
 The document is returned as a JSON string with one property containing the processed body,
 and one containing the content of the head.
