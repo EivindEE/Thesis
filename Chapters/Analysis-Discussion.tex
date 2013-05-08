@@ -349,4 +349,46 @@ and it might be that the warning is intended to warn that the amount of metadata
 
 %% Punching The Clown Movie Review - incorrect property
 
+\section{Webpages display same}
+One of the criteria for the artefact was that it should leave the visual representation of the system unchanged.
+The system is meant to let users add metadata to existing webpages, and should not modify their appearance.
+We did a comparison of the webpages before and after adding metadata.
+You can see an example of the telegraph website before adding metadata in figure \ref{TelegraphOriginal},
+and after in \ref{TelegraphData}.
+We have cropped out the side margins and the header of the website in the images to make it easier to see the content of the sites.
+
+\fig{TelegraphOriginal}{The Telegraph webpage before the metadata was added}
+\fig{TelegraphData}{The Telegraph webpage with metadata added}
+
+Looking at the figures we can see that the overall layout of the images is unchanged.
+There are however some changes to the HTML.
+
+To make the webpage appear the same when viewed on the URL the user is given when the page is exported
+we replace relative URLs tied to images and \nom{CSS}{Cascading Style Sheets} with absolute URLs.
+For simplicity we only change the URLs that start at the root of the domain.
+So if there was an image on the page \texttt{http://example.org} which pointed to the source \texttt{/image.png}
+then the source would be changed to \texttt{http://example.org/image.png}.
+This change is not communicated to the user, which is unfortunate,
+but it is posible to change if it leads to issues.
+
+As one can see from the images there are some sections of the website which are not displayed, or more precisely they
+are displayed as loading.
+The switch from relative to absolute URLs have only been done for images and CSS,
+which means that some of the javascript modules that the website depends on will not be loaded into the webpage.
+We wanted to leave the HTML as much intact as possible,
+and since the scripts have yet seemed crucial to display the page properly it was decided to leave them as they were.
+It should be noted that this means that the page will sometimes miss some content, as visible in the figures.
+
+One issue that might arrise is if some of the content on the site, either CSS or javascript,
+depend on the order of the elements or their direct placement in the hierarchy.
+Since \theartefact is intended to add metadata to user selected sections of the page we need to create our own
+HTML elements to attach the metadata to, since that's the only reliable way to talk about just that section.
+There are CSS selectors that select either direct children or the n-th children of an element.
+Since we need to add elements it might be that the element we add cause another element to either not be the direct
+child of the former parent, or that it changes the the elements number amongst the children.
+In a similar way, DOM manipulation in javascript sometimes uses the children of an element or the index of an element
+in a list of children.
+We have not found any way to avoid this issue,
+and can only hope that most developers depend on id and class attributes instead of the specific location in the DOM.
+
 \section{Suitability of WordNet for mapping natural language}
