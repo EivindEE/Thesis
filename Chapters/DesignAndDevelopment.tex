@@ -29,72 +29,72 @@ The modules that were created were:
 	\item A module that puts the document back in its initial state and saves it to a persisten storage
 \end{itemize}
 
-\section{Run through of common use}
-Common use case:
-User comes to site -> Basic site generated from template on server
-
-The user enters URL of page to tag:
-\begin{itemize}
-	\item URL gets sent to proxy module on server
-	\item Proxy fetches the HTML of the target URL
-	\item Proxy comments out script and iframe tags
-	\item Proxy replaces relative image URIs with absolute image URIs.
-	\item Proxy sends back an object containing the sites head and body tag
-	\item The content of the body tag is used to populate the content container in the web app.
-\end{itemize}
-The user highlights a word on the page to add metadata to:
-\begin{itemize}
-	\item The text of the highlighted selection gets sent to the lexitags server for disambiguation
-	\item The results from lexitags are filtered
-	\begin{itemize}
-		\item If the results contain WordNet terms, then the DBPedia results are filtered away
-	\end{itemize}
-	\item The results are then sorted
-	\begin{itemize}
-		\item Primarily by source, WordNet terms first, then the first and second level schema.org terms
-		\item Secondarily they are sorted lexically
-	\end{itemize}
-	\item Then the results are displayed on the web page. If the user cannot find a match with the highlighted text,
-	it is posible to write your own word into a search box.
-	The semantics of this word will then be linked to the highlighted text.
-\end{itemize}
-The user click the sense of the word which match the intended semantics of the highlighted word
-\begin{itemize}
-	\item The term, either a WN synset or a DBP entity gets sent to the mapping module on the server
-	\item The mapping module find the mappings into other ontologies
-		that most closely matches the semantics of the term.
-	\item The server returns the entity types that best fit the term, and their namespaces
-		\item If no schema.org mapping is found, schema:Thing is returned as it is always correct.
-	\item The web app adds a tag which surrounds the selected text, and adds the entity value to it using RDFa
-		\item This new tag contains keywords which will highlight it on the page
-	\item The web app then asks the server for the schema.org properties of it's schema type(s).
-	\item The server returns all the applicable properties
-	\item The web app adds all the returned properties to the markup of the page with empty values
-\end{itemize}
-The user clicks a marked up section
-\begin{itemize}
-	\item The web app displays all the possible attributes the section can have
-	\begin{itemize}
-		\item If values have already been inserted, these are shown as the default values
-	\end{itemize}
-	\item The user inputs the values the attributes should have
-	\item When the submit button is click, the attributes get updated to the correct values
-\end{itemize}
-The user clicks the export button
-\begin{itemize}
-	\item The html on the page is cleaned
-	\begin{itemize}
-		\item Temporary markup(tooltips, popover) is removed
-		\item Attributes without values are removed
-	\end{itemize}
-	\item The html is sent to the server
-	\begin{itemize}
-		\item The exporter comments in the script and iframe tags
-		\item The html is put in the database
-	\end{itemize}
-	\item The server returns the id of the new web page
-	\item The web app displays the URL to the new marked up website.
-\end{itemize}
+%\section{Run through of common use}
+%Common use case:
+%User comes to site -> Basic site generated from template on server
+%
+%The user enters URL of page to tag:
+%\begin{itemize}
+%	\item URL gets sent to proxy module on server
+%	\item Proxy fetches the HTML of the target URL
+%	\item Proxy comments out script and iframe tags
+%	\item Proxy replaces relative image URIs with absolute image URIs.
+%	\item Proxy sends back an object containing the sites head and body tag
+%	\item The content of the body tag is used to populate the content container in the web app.
+%\end{itemize}
+%The user highlights a word on the page to add metadata to:
+%\begin{itemize}
+%	\item The text of the highlighted selection gets sent to the lexitags server for disambiguation
+%	\item The results from lexitags are filtered
+%	\begin{itemize}
+%		\item If the results contain WordNet terms, then the DBPedia results are filtered away
+%	\end{itemize}
+%	\item The results are then sorted
+%	\begin{itemize}
+%		\item Primarily by source, WordNet terms first, then the first and second level schema.org terms
+%		\item Secondarily they are sorted lexically
+%	\end{itemize}
+%	\item Then the results are displayed on the web page. If the user cannot find a match with the highlighted text,
+%	it is posible to write your own word into a search box.
+%	The semantics of this word will then be linked to the highlighted text.
+%\end{itemize}
+%The user click the sense of the word which match the intended semantics of the highlighted word
+%\begin{itemize}
+%	\item The term, either a WN synset or a DBP entity gets sent to the mapping module on the server
+%	\item The mapping module find the mappings into other ontologies
+%		that most closely matches the semantics of the term.
+%	\item The server returns the entity types that best fit the term, and their namespaces
+%		\item If no schema.org mapping is found, schema:Thing is returned as it is always correct.
+%	\item The web app adds a tag which surrounds the selected text, and adds the entity value to it using RDFa
+%		\item This new tag contains keywords which will highlight it on the page
+%	\item The web app then asks the server for the schema.org properties of it's schema type(s).
+%	\item The server returns all the applicable properties
+%	\item The web app adds all the returned properties to the markup of the page with empty values
+%\end{itemize}
+%The user clicks a marked up section
+%\begin{itemize}
+%	\item The web app displays all the possible attributes the section can have
+%	\begin{itemize}
+%		\item If values have already been inserted, these are shown as the default values
+%	\end{itemize}
+%	\item The user inputs the values the attributes should have
+%	\item When the submit button is click, the attributes get updated to the correct values
+%\end{itemize}
+%The user clicks the export button
+%\begin{itemize}
+%	\item The html on the page is cleaned
+%	\begin{itemize}
+%		\item Temporary markup(tooltips, popover) is removed
+%		\item Attributes without values are removed
+%	\end{itemize}
+%	\item The html is sent to the server
+%	\begin{itemize}
+%		\item The exporter comments in the script and iframe tags
+%		\item The html is put in the database
+%	\end{itemize}
+%	\item The server returns the id of the new web page
+%	\item The web app displays the URL to the new marked up website.
+%\end{itemize}
 \subsection{Designing the algorithms}
 We will now describe the two algorithms that were developed to find mappings between the WordNet synsets and the ontologies.
 We use two axes for navigating the WordNet graph, the hypernymes and the hyponymes.
