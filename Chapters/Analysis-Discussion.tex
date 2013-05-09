@@ -161,30 +161,30 @@ The distribution of incorrect mappings can be seen in figure \ref{fig:incorrect}
 
 \begin{figure}[ht]
 	\centering
-    \begin{tikzpicture}
-        \begin{axis}[
-	        title={Incorrect mappings},
-            xbar,
-            width=12cm, height=8cm,
-            symbolic y coords={Place,Landform,Enumeration,SportsActivityLocation,EntertainmentBusiness,CreativeWork,CivicStructure,MusicPlaylist,LodgingBusiness,Residence,FoodEstablishment},
-            ytick=data,
-            nodes near coords, nodes near coords align={horizontal},
-          ]
-            \addplot[fill=blue] coordinates {
-               (46,Place)
-               (36,Landform)
-               (34,Enumeration)
-               (17,SportsActivityLocation)
-               (8,EntertainmentBusiness)
-               (5,CreativeWork)
-               (4,CivicStructure)
-               (2,MusicPlaylist)
-               (2,LodgingBusiness)
-               (1,Residence)
-               (1,FoodEstablishment)
-            };
-        \end{axis}
-    \end{tikzpicture}
+	\begin{tikzpicture}
+		\begin{axis}[
+				title={Incorrect mappings},
+				xbar,
+				width=12cm, height=8cm,
+				symbolic y coords={Place,Landform,Enumeration,SportsActivityLocation,EntertainmentBusiness,CreativeWork,CivicStructure,MusicPlaylist,LodgingBusiness,Residence,FoodEstablishment},
+				ytick=data,
+				nodes near coords, nodes near coords align={horizontal},
+			]
+			\addplot[fill=blue] coordinates {
+				(46,Place)
+				(36,Landform)
+				(34,Enumeration)
+				(17,SportsActivityLocation)
+				(8,EntertainmentBusiness)
+				(5,CreativeWork)
+				(4,CivicStructure)
+				(2,MusicPlaylist)
+				(2,LodgingBusiness)
+				(1,Residence)
+				(1,FoodEstablishment)
+			};
+		\end{axis}
+	\end{tikzpicture}
 	\caption{Distribution of incorrect mappings in hypernym then siblings algorithm}
 	\label{fig:incorrect}
 \end{figure}
