@@ -10,13 +10,59 @@
 %	SECTION 1
 %----------------------------------------------------------------------------------------
 
+Describe the process of development,
+and which parts of \theartefact which were developed during the different stages of development.
+We are then going to give a high level overview of the system before we present each part,
+along with a
+
+\section{The different fases of development}
+We will now describe the different fases of development.
+This will outline the main sequence in which work on \theartefact was done.
+
+
+\subsection{Iteration 1}
+The first iteration started with a technical peak exploring different tools and frameworks for development with javascript.
+We wanted to find tools that could reduce development time by reducing the amount of repetitive work done in the project.
+
+It was decided that we were going to use bootstrap\footnote{\url{http://twitter.github.io/bootstrap/}} as a grid system
+for the webpage.
+Using a standard grid system makes it easier to create a webpage that looks OK,
+and reduces the amount of time needed to set up a scaffold.
+Since the visual aspect of the webpage was not an important aspect of the work a simple grid system like bootstrap
+eased the development burden.
+
+We also decided to use SASS\footnote{\url{http://sass-lang.com}} to write our stylesheets.
+
+We also decided to use grunt
+
+know the technologies, and setting up a framework
+Quite some time was spent getting comfortable working with the \nom{DOM}
+{The Document Object model, convention for interacting with HTML elements},
+and the peculiarities of the different mainstream browsers.
+At this point we also set up the server that the web app would run on.
+
+\section{Server setup}
+Setting up a basic server in node.js can be done in a single line of code,
+but requires a lot of low level handeling of requests and responses
+including parsing request url to find the correct handler.
+We decided to instead go for express\footnote{\url{http://expressjs.com}},
+a web app framework which simplifies routing requests to the correct handler and handeling static files.
+%Additional benefits of using the framework included simplified logging of requests, and
+It was also decided to use the jade\footnote{\url{http://jade-lang.com}}
+templating language to generate the HTML that was used on the website.
+Using a templating language made the distinction between structure and content clearer,
+and enabled reuse of structure and content between different versions of the website during development.
+
+
+
+
 \section{The design of \theartefact}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%						Intro to section							%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Design}
+\subsection{Overview of system}
 The artefact was divided into several modules which function independently of each other.
 The modules were loosely coupled so that each module could be changed or modified without affecting the other modules.
 The modules that were created were:
@@ -121,11 +167,11 @@ A search tree is generated using a perl script
 \footnote{Perl script found at \url{https://raw.github.com/EivindEE/SemTag/master/scripts/parents.pl}.}.
 
 \begin{figure}[h]
-    \begin{center}
-        \includegraphics[width=0.60\textwidth]{Hyponyme_own.png}
-        \caption{The hyponyme relation, modified from \protect \citet{Miller1990}}
-        \label{Hyponyme}
-    \end{center}
+	\begin{center}
+		\includegraphics[width=0.60\textwidth]{Hyponyme_own.png}
+		\caption{The hyponyme relation, modified from \protect \citet{Miller1990}}
+		\label{Hyponyme}
+	\end{center}
 \end{figure}
 
 
@@ -142,34 +188,6 @@ The ancestor first algorithm will follow the hypernym chain upwards looking for 
 The algorithm is written to follow the hypernym chain again, looking at the sibling senses, if no mapping is found.
 But since every WordNet noun is a hyponyme of {entity}, which should map to the most general object in an ontology,
 it will likely never be touched.
-
-
-%----------------------------------------------------------------------------------------
-%	SECTION 2
-%----------------------------------------------------------------------------------------
-
-\section{The development process}
-
-
-\section{Iteration 1}
-The first iteration started with getting to know the technologies, and setting up a framework
-Quite some time was spent getting comfortable working with the \nom{DOM}
-{The Document Object model, convention for interacting with HTML elements},
-and the peculiarities of the different mainstream browsers.
-At this point we also set up the server that the web app would run on.
-
-\section{Server setup}
-Setting up a basic server in node.js can be done in a single line of code,
-but requires a lot of low level handeling of requests and responses
-including parsing request url to find the correct handler.
-We decided to instead go for express\footnote{\url{http://expressjs.com}},
-a web app framework which simplifies routing requests to the correct handler and handeling static files.
-%Additional benefits of using the framework included simplified logging of requests, and
-It was also decided to use the jade\footnote{\url{http://jade-lang.com}}
-templating language to generate the \nom{HTML}{HyperText Markup Language} that was used on the website.
-Using a templating language made the distinction between structure and content clearer,
-and enabled reuse of structure and content between different versions of the website during development.
-
 
 \section{Representing other websites}
 One of the issues that come up early was how to display the websites that the user wanted to add metadata to.
@@ -240,6 +258,33 @@ One of the rules regarding the well-formednes of a HTML document says that two e
 	</a>
 		</b>
 \end{lstlisting}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%						More on wellformednes						%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Special care needs to be taken with the ranges of the selection.
+Since we need to insert the meta data into tags we can't just use the user range without some checks.
+Consider the case:
+
+`<p>`some text \hl{in a p`</p> <p>` pluss some} other text `</p>`
+
+If we simply inserted a tag we would get invalid HTML:
+
+`<p>`some text `<tag>` in a p`</p> <p>` pluss some `</tag>`  other text `</p>`
+
+To get a well formed HTML document we need to either close and open the HTML tags
+
+`<p>`some text `</p><tag><p>` in a p`</p> <p>` pluss some ``</p></tag><p>`  other text `</p>`
+
+which would change the meaning and probably the layout of the document or we could expand the range of the selection:
+
+`<tag><p>`some text in a p`</p>` `<p>` pluss some   other text `</p></tag>`
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%						End of wellformednes						%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 The interaction method consists of letting the user make arbitrary selections and then adding metadata to the selection.
 This could easily lead to overlapping elements in the HTML.
@@ -312,7 +357,7 @@ The parts of the page that we comment out are the script, iframe and comment ele
 The script elements could disrupt the way the web app works, either by overwriting the behavior of functions,
 or otherwise alter the behavior of the web app.
 In addition the script elements are not visible on the page so interacting with them would be hard.
-Removing them was also convenient durring developement.
+Removing them was also convenient durring development.
 The scripts in the tags would often rely on variables or functions that should have been loaded elsewhere,
 and they would cluttre the console making it more difficult to find the relevant information.
 Iframes were excluded since they could make the web app appear to be inconsistent.
@@ -355,11 +400,11 @@ Since we use javascript objects to represent the mappings,
 querying a mapping object to check if it contains a mapping for a certain synset would then just consist of checking if
 the object has a property with the given name as in listing \ref{LabelExists}.
 \begin{lstlisting}[label=LabelExists,caption=Testing if a mapping exists]
-    if (mapping['synset-to-check']) {
-        // it contains a mapping
-    } else {
-        // it does not contain a mapping
-    }
+	if (mapping['synset-to-check']) {
+		// it contains a mapping
+	} else {
+		// it does not contain a mapping
+	}
 \end{lstlisting}
 
 The mapping files were to large to translate to javascript objects by hand, with the SUMO mapping file alone
@@ -425,22 +470,22 @@ An example of the output of the script can be seen in listing \ref{PerlHypernymC
 
 \begin{lstlisting}[label=PerlHypernymChain, caption={Excerpt from the hypernym chain for student\#n\#1}]
 {
-   "chain" : [
-      {
-         "synset" : "enrollee#n#1",
-         "siblings" : [ { "synset" : "self#n#2", "offset" : "09604981" ...},
-         ],
-         "offset" : "10059162"
-      },
-      {
-         "synset" : "person#n#1",
-         "siblings" : [],
-         "offset" : "00007846"
-      }
-   ],
-   "synset" : "student#n#1",
-   "siblings" : [],
-   "offset" : "10665698"
+	"chain": [
+		{
+			"synset": "enrollee#n#1",
+			"siblings": [ { "synset" : "self#n#2", "offset" : "09604981" ...},
+			],
+			"offset": "10059162"
+		},
+		{
+			"synset": "person#n#1",
+			"siblings": [],
+			"offset": "00007846"
+		}
+	],
+	"synset": "student#n#1",
+	"siblings": [],
+	"offset": "10665698"
 }
 \end{lstlisting}
 
