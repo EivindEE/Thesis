@@ -11,14 +11,15 @@
 %----------------------------------------------------------------------------------------
 
 Describe the process of development,
-and which parts of \theartefact which were developed during the different stages of development.
+and which parts of \theartefact\ which were developed during the different stages of development.
 We are then going to give a high level overview of the system before we present each part,
 along with a
 
 \section{The different fases of development}
 We will now describe the different fases of development.
-This will outline the main sequence in which work on \theartefact was done.
-
+This will outline the main sequence in which work on \theartefact\ was done.
+This overview of the iterations will explain when the initial development of
+the different part were to give an short explanation of the development process.
 
 \subsection{Iteration 1}
 The first iteration started with a technical peak exploring different tools and frameworks for development with javascript.
@@ -32,37 +33,94 @@ Since the visual aspect of the webpage was not an important aspect of the work a
 eased the development burden.
 
 We also decided to use SASS\footnote{\url{http://sass-lang.com}} to write our stylesheets.
+The syntax is similar to that of CSS.
+We decided to use this instead of CSS since it contained variables,
+making it posible to make global changes while only modifying one line in the stylesheet.
+SASS compiles to standard CSS.
 
-We also decided to use grunt
+JavascriptSince javascript lacks a good IDE we wanted to have some tool that would check our code to make sure that the
+code was consistent and that the syntax was correct.
+We decided to use jslint\footnote{\url{http://www.jslint.com}} to validate our code.
+Using a linter eases development as it enforces a particular coding standard for the project.
+The way the project was set up, we couldn't build the project without it passing the linting test.
 
-know the technologies, and setting up a framework
-Quite some time was spent getting comfortable working with the \nom{DOM}
-{The Document Object model, convention for interacting with HTML elements},
-and the peculiarities of the different mainstream browsers.
-At this point we also set up the server that the web app would run on.
+Since the project depended on compiling the stylesheet and linting the code we decided to use grunt.js\footnote{\url{http://gruntjs.com}}
+to automate this process.
+Grunt.js is a task manager that can run certain tasks when specified events are triggered.
+We set the project up so that each time a javascript or SASS file was saved we compiled the SASS document,
+and concatenated the public javascript files.
+Concatenating the javascript files meant that we didn't have to update the HTML when we created or deleted a new
+javascript file, since we only needed to include that one file.
 
-\section{Server setup}
+We had decided to use Node.js as the development platform of the project.
 Setting up a basic server in node.js can be done in a single line of code,
 but requires a lot of low level handeling of requests and responses
 including parsing request url to find the correct handler.
 We decided to instead go for express\footnote{\url{http://expressjs.com}},
 a web app framework which simplifies routing requests to the correct handler and handeling static files.
-%Additional benefits of using the framework included simplified logging of requests, and
 It was also decided to use the jade\footnote{\url{http://jade-lang.com}}
 templating language to generate the HTML that was used on the website.
 Using a templating language made the distinction between structure and content clearer,
 and enabled reuse of structure and content between different versions of the website during development.
 
+Our technological peak also included geting to know the DOM, the API used for manipulating HTML documents.
+The problem we tried to solve during this technical peak was how to find minimal legal ranges.
+We knew we were going to have to add separate tags to add the metadata we create,
+and that we were going to let users select which portions of the text that carried the semantic content.
+Since the user selection might not be a legal HTML range we worked on an algorithm to find the smallest range that
+was both a legal range, and which contained the whole of the selected text.
 
 
+\subsection{Iteration 2}
+The next step consisted of actually generating metadata tags with the correct RDFa syntax which enclosed the user selection.
+One of the tasks was giving each selected section a unique id so that they could be referenced externaly,
+we also wanted this id to carry some information about the content of the tag.
+At this stage we had not yet started with development of the mapping so the tags contained mock data.
 
-\section{The design of \theartefact}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%						Intro to section							%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In this iteration we also started work with generating the hypernym chains we needed to find mappings.
+We initially tried to use an existing triple store and query the information with SPARQL.
+The triple store used an early version of SPARQL which did not allow recursive queries.
+Since we needed to find the transitive closure of the hypernym relation,
+using this source would require multiple sequencial queries and would take to long to be tenable.
+Javascript does not have a mature library for querying the WordNet database, so we did not have a native solution.
+Our solution was instead to use perl to write a script which could query a local WordNet instance.
+This again required a technical peak to learn the basics of the perl programming language but gave a satisfying solution.
 
-\subsection{Overview of system}
+We also used this iteration to find WordNet mapping files and convert them to a format more suitable for our system.
+We had a mapping file between WordNet and SUMO in the WordNet database format,
+and one between WordNet and schema.org in RDF.
+Both of these files were translated into javascript objects.
+
+\subsection{Iteration 3}
+In the third iteration we implemented the actual mapping algorithms that we wanted to try out.
+We implemented one that starts with looking at all the hypernyms of the synset,
+and one that looks alternately at hypernyms and siblings.
+
+This was also the iteration where we created a mechanism for fetching HTML from other websites so that they could be
+marked up using \theartefact.
+
+\subsection{Iteration 4}
+In the fourth iteration we made the export module.
+This module would take the webpage that the user had imported into the system and create a new HTML document.
+This document would be stored in our database, and would be accessible for the user through a URL which we provided when the page was exported.
+
+Adding properties to entities was also developed during this stage.
+This was only implemented for schema.org properties,
+both to keep the number of properties at a managable level,
+and because extracting all the allowed properties for all SUMO classes would be a difficult task.
+
+In this iteration we also added the ability to add author information.
+This is not closely tied to the problem of translating natural language to formal ontologies,
+but it is tied to allowing users to add metadata in a simple way without knowing about the formal underpinnings.
+
+\subsection{Iteration 5}
+The last iteration consisted of testing and refactoring the system.
+We wrote some test scripts that would run the best fit algorithms we had created over a set of synsets,
+and print out the resulting mappings along with information about whether the algorithms gave corresponding results,
+and the measure of quality of the mapping.
+The results of these tests will be discussed further in section \ref{ComparingAlgorithms}.
+
+\subsection{Overview completed system}
 The artefact was divided into several modules which function independently of each other.
 The modules were loosely coupled so that each module could be changed or modified without affecting the other modules.
 The modules that were created were:
@@ -266,19 +324,19 @@ Special care needs to be taken with the ranges of the selection.
 Since we need to insert the meta data into tags we can't just use the user range without some checks.
 Consider the case:
 
-`<p>`some text \hl{in a p`</p> <p>` pluss some} other text `</p>`
+\texttt{<p>some text \hl{in a p</p> <p>` pluss some} other text </p>}
 
 If we simply inserted a tag we would get invalid HTML:
 
-`<p>`some text `<tag>` in a p`</p> <p>` pluss some `</tag>`  other text `</p>`
+\texttt{<p>`some text <tag> in a p</p> <p> pluss some </tag>  other text </p>}
 
 To get a well formed HTML document we need to either close and open the HTML tags
 
-`<p>`some text `</p><tag><p>` in a p`</p> <p>` pluss some ``</p></tag><p>`  other text `</p>`
+\texttt{<p>some text </p><tag><p> in a p</p> <p> pluss some </p></tag><p>  other text </p>}
 
 which would change the meaning and probably the layout of the document or we could expand the range of the selection:
 
-`<tag><p>`some text in a p`</p>` `<p>` pluss some   other text `</p></tag>`
+\texttt{<tag><p>some text in a p</p> <p> pluss some   other text </p></tag>}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
