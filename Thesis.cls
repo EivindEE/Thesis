@@ -4,7 +4,7 @@
 % This template has been downloaded from:
 % http://www.latextemplates.com
 %
-% This class file defines the structure and design of the template. 
+% This class file defines the structure and design of the template.
 %
 % There is one part of this file that needs to be filled out - the variables
 % dictating the document particulars such as the author name, university
@@ -179,56 +179,56 @@
 %	defined as \examname above so you cite it as \examname
 %----------------------------------------------------------------------------------------
 
-\thesistitle{Meta data made easy} % Your thesis title - this is used in the title and abstract
-%-------------------------------------------------  
+\thesistitle{Metadata made easy - Adding metadata by means of natural language} % Your thesis title - this is used in the title and abstract
+%-------------------------------------------------
 \supervisor{ \textsc{Csaba Veres}} % You supervisor's name - this is used in the title page
-%-------------------------------------------------   
+%-------------------------------------------------
 \examiner{} % Your examiner's name - this is not currently used anywhere in the template, cite it with \examname if you want it
-%-------------------------------------------------   
+%-------------------------------------------------
 \degree{Masters degree} % Your degree name - this is currently used in the title page and abstract
-%-------------------------------------------------   
+%-------------------------------------------------
 \authors{ \textsc{Eivind Eidheim Elseth}} % Your name - this is used in the title page and abstract
-%-------------------------------------------------   
+%-------------------------------------------------
 \addresses{} % Your address - this is not currently used anywhere in the template, cite it with \addressnames if you want it
-%-------------------------------------------------   
+%-------------------------------------------------
 \subject{Semantic web technologies} % Your subject area - this is not currently used anywhere in the template, cite it with \subjectname if you want it
-%-------------------------------------------------   
-\keywords{} % Keywords for your thesis - this is not currently used anywhere in the template, cite it with \keywordnames if you want it
-%-------------------------------------------------   
+%-------------------------------------------------
+\keywords{natural language, WordNet, ontology} % Keywords for your thesis - this is not currently used anywhere in the template, cite it with \keywordnames if you want it
+%-------------------------------------------------
 \university{\texorpdfstring{\href{http://www.uib.no/} % Your university's URL
                 {University of Bergen}} % Your university's name - this is currently used in the title page
                 {}}
-%-------------------------------------------------   
+%-------------------------------------------------
 \UNIVERSITY{\texorpdfstring{\href{http://www.uib.no/} % Your university's URL
                 {UNIVERSITY OF BERGEN}} % Your university's name in capitals - this is currently used in the abstract page
                 {}}
-%-------------------------------------------------                
+%-------------------------------------------------
 \department{\texorpdfstring{\href{http://www.uib.no/infomedia/en} % Your department's URL
                 {Department of Information Science and Media Studies}} % Your department's name - used in the title page and abstract
                 {}}
-%-------------------------------------------------                
+%-------------------------------------------------
 \DEPARTMENT{\texorpdfstring{\href{http://www.uib.no/infomedia/en} % Your department's URL
                 {DEPARTMENT OF INFORMATION SCIENCE AND MEDIA STUDIES}} % Your department's name in capitals - this is not currently used anywhere in the template, cite it with \DEPTNAME if you want it
                 {}}
-%-------------------------------------------------                
+%-------------------------------------------------
 \group{\texorpdfstring{\href{http://www.uib.no/fg/ssis} % Your research group's URL
-                {Semantic and Social Information Systems}} % Your research group's name - this is currently used in the title page 
+                {Semantic and Social Information Systems}} % Your research group's name - this is currently used in the title page
                 {}}
-%-------------------------------------------------                
+%-------------------------------------------------
 \GROUP{\texorpdfstring{\href{http://www.uib.no/fg/ssis)} % Your research group's URL
                 {SEMANTIC AND SOCIAL INFORMATION SYSTEMS}} % Your research group's name in capitals - this is not currently used anywhere in the template, cite it with \GROUPNAME if you want it
                 {}}
-%-------------------------------------------------                
+%-------------------------------------------------
 \faculty{\texorpdfstring{\href{http://www.uib.no/svf/en} % Your faculty's URL
                 {Faculty of Social Sciences}} % Your faculty's name - this is currently used in the abstract page
                 {}}
-%-------------------------------------------------                
+%-------------------------------------------------
 \FACULTY{\texorpdfstring{\href{http://www.uib.no/svf/en} % Your faculty's URL
                 {FACULTY OF SOCIAL SCIENCES}} % Your faculty's name in capitals - this is not currently used anywhere in the template, cite it with \FACNAME if you want it
                 {}}
-%----------------------------------------------------------------------------------------    
+%----------------------------------------------------------------------------------------
 
-% The default title page, this is not used in this www.latextemplates.com version            
+% The default title page, this is not used in this www.latextemplates.com version
 \renewcommand\maketitle{
   \btypeout{Title Page}
   \hypersetup{pdftitle={\@title}}
@@ -259,7 +259,7 @@
       \bigskip
       {\large in the \par}
       {\large \facname \par}
-      {\large \deptname \par} 
+      {\large \deptname \par}
       \bigskip
       \bigskip
       \bigskip
