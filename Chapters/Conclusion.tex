@@ -21,3 +21,40 @@ enrich their content.
 
 We found that we could add metadata to the webpages without changing the way they were displayed in the browser.
 
+\section{Reflections}
+
+\section{Further work}
+The goal of this thesis has been to create a functioning prototype of an artefact that allows users to add metadata
+to webpages by using natural language.
+As argued we mean that we have managed to create a system that fullfils the goals we set at the outset.
+we now see several new interesting ways the tool could be developed further to increase its value to users.
+
+It would be interesting have mappings to more ontologies,
+and one could offer the user a chance to say what the topic of the page was.
+In this way one could offer mappings to the Friend Of A Friend ontology if it was a webpage dealing with
+social interaction, the Good Relations ontology if it was a commerce page and so on.
+To do this the mapping module should get further development to complete the process of uncoupling the ontologies
+from the code.
+
+We should develop a way to allow for multiples of a single property on the webpage.
+The idea of adding properties came quite late in the project,
+and is as a consequence not as feature rich as it should be.
+One should also research into finding some way of allowing for properties from other ontologies.
+One difficulty here would be finding a way of presenting these without overwhelming the user.
+
+Adding multiples might also mitigate the issue that synsets aren't regarded as distinct because of their gramatical number.
+For schema.org the issue of aggregated terms is limited as it only has two types which are the aggregation of multiples of a type.
+By allowing multiples of properties, we could handle adding the aggregation of these behind to the document automatically.
+This would be a good solution for the issue with schema.org, but it might not scale well if we include other ontologies
+that separate concepts by way of gramatical number.
+
+When the website has experienced more usage it would be exciting to examine the usage logs to see which types of text gets tagged.
+Actual usage data would be an interesting source to discover concepts that users frequently want to map.
+Examination of these logs could therefor be a useful starting point to find out which ontologies to create mappings for,
+and which parts of these ontologies which would create the most value for the users.
+The usage data we have allows us to extrapolate text which we did not find good disambiguations for
+by assuming that this is text that was selected but where the user didn't click any of the suggested senses.
+We can also count the frequencies at which different synsets or DBPedia terms were chosen as the concept the
+user wanted to describe, and use this to target the work of mapping.
+
+
