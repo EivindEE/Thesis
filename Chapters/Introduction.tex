@@ -21,9 +21,6 @@ This soon got clunky as the number of documents increased,
 and this way of organizing information fell out of favor to be replaced by searching for information using keywords.
 It is this phase of organizing information we are in now.
 
-According to \citet{Gantz2011} the amount of information in the world now doubles every two years.
-Should this trend continue we are going to need better ways of searching through all the information that is generated.
-
 \citet{Berners-Lee2001} suggested that we could do better than keyword matching.
 With searching as it works today users have to manually check the results from the search engine,
 and compare the results from several documents, following links as is necessary.
@@ -50,9 +47,14 @@ and how these things relate to each other.
 %----------------------------------------------------------------------------------------
 
 \section{Motivation}
+According to \citet{Gantz2011} the amount of information in the world now doubles every two years.
+Should this trend continue we are going to need better ways of searching through all the information that is generated.
+We are going to need to be able to search for content in a way that lets us search for concepts, not only keywords.
+What we want is to have linked semantic data which moved the burden of finding relevant content from us over to machines.
+
 At the moment, adding semantic markup to websites is unfeasible for most content creators on the web.
 Adding proper metadata does not only mean that you need to know HTML,
-but also that you need to understand the concept of ontologies and set theory.
+but also that you need to understand the concept of ontologies.
 In addition you need to know of the implementation of \nom{RDFa}{Resource Description Framework in attributes}, microdata or microformats,
 as well as the content of the specific ontologies you intent to use on your site.
 
@@ -97,22 +99,20 @@ and who do not have any knowledge about the ontologies we use.
 
 To answer this question we will develop a tool called \theartefact.
 The tool will consist of a logical backend tied to a web frontend,
-and the different modules will be created in an iterative way to get working proofs of concepts for testing early,
+and the different modules will be created in an iterative way to get working proofs of concepts for testing early.
 
 There are several sub questions that we will need to examine to answer this question.
+\begin{itemize}
+	\item How should we let users pick the parts of a webpage they want to add metadata to,
+and find the concepts it describes using natural language?
+	\item Is WordNet suitable for representing disambiguated concepts from natural language in a way that will allow us to map these concepts to formal ontologies?
+	\item Can we implement an algorithm that finds mappings from the natural language concept to types in
+			formal ontologies, which preserves the semantic content of the concept?
+	\item Is it posible to add metadata to webpages in such a way that it does not change the way the page is rendered by browsers?
+\end{itemize}
 
-We will test if we can use the synsets from the lexical database WordNet as a means to let users disambiguate natural language.
-
-We have to try to find an easy way to let users select the portions of the text they want to add metadata to.
-
-We must find a suitable way to let users import and export the webpages they are going to add metadata to.
-
-We need to create a suitable algorithm to find  finds which are both
-at a similar level of abstraction, and which have the correct semantic content.
-
-The process of adding metadata to the webpage should not disrupt the way the page is rendered by browsers.
-
-
+We will also need to solve the technical problems of how to import and export webpages from the artefact,
+and how to save the resulting documents on the server.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -145,6 +145,12 @@ The process of adding metadata to the webpage should not disrupt the way the pag
 %\subsection{Sub-questions}
 %Insert research sub-goals
 
-
 \section{Target audience}
-The main goal of the work with \theartefact is to lower the barrier of entry for enhancing websites with metadata.
+The main goal of the work with \theartefact\ is to lower the barrier of entry for enhancing websites with metadata.
+We want to make metadata accessible to content creators on the web which do not know enough about semantic web technologies
+to add this data them selves.
+
+Due to technical limitations we will limit the target group to users who write content in English.
+We will also assume that the users control the HTML of their webpages,
+and that being provided with a new HTML document will allow the user to update their documents.
+
