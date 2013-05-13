@@ -350,6 +350,7 @@ and it might be that the warning is intended to warn that the amount of metadata
 %% Punching The Clown Movie Review - incorrect property
 
 \section{Webpages display same}
+\label{Rendering}
 One of the criteria for the artefact was that it should leave the visual representation of the system unchanged.
 The system is meant to let users add metadata to existing webpages, and should not modify their appearance.
 We did a comparison of the webpages before and after adding metadata.
@@ -395,3 +396,18 @@ and can only hope that most developers depend on id and class attributes instead
 In addition to the testing described earlier in this chapter we have also released the webapp on the internet.
 This has allowed us to see how users who do not know the system would interact with it,
 and if they could use it to add metadata.
+
+The data we have at this point is inconclusive, but can hopefully give some indication of how the tool will be used.
+The usage data we have collected contains the IP of the user.
+We have used this information to exclude users from the UiB domain,
+as this data would mostly consist of usage tied to testing or debugging the system in the development phase.
+The usage data consists of the the data from the 8\textsuperscript{th}	 of April to the 12\textsuperscript{th} of May.
+
+As mentioned, the tool is mainly targeted towards adding metadata to single words, with adding data to sections being
+a secondary means of input.
+This is consistent with how the users have used \theartefact.
+From the usage data we have we can see that of the 298 of the text selections requests we have received,
+only 12, or about 4\%, have been for selections so big that they have been categorized as sections of text.
+The 96\% of the selections were of
+We have not found any cases of the users have used the resulting HTML on their webpages,
+so it is not possible to say anything about their satisfaction with the page at this point.
