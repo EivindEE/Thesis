@@ -1,27 +1,81 @@
 % Chapter Template
 
-\chapter{Conclusion} % Main chapter title
+\chapter{Summary and Conclusion} % Main chapter title
 \label{Conclusion} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 \lhead{Chapter \ref{Conclusion}. \emph{Conclusion}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
-We are now going to summarize our
+Before starting the work with this thesis we saw that there was a need for a system that would lower the barrier of
+entry to added semantic metadata to webpages.
+We believe that a web of linked semantic data will become increasing important to find relevant information as the amount
+of information on the internet continues to grow.
+The advent of schema.org has made it easier to embed metadata on webpages.
+The scope of the ontology however is largely limited to commercial and search engine specific concepts.
+In addition to this the microdata format pushed by the authors of schema.org does not allow for mixing vocabularies.
+We wanted to improve the situation by making it possible to add metadata about arbitrary content.
+Our goal when starting work with this thesis was to create a prototype of a system that would allow users to add metadata to webpages by using natural language,
+without requiring the to know the formal underpinnings of ontologies.
+
+We formalized a research question which stated:
+
+\emph{"Can we create a tool which allows naïve users to easily add metadata to their websites using natural language?"}
+
+To answer this question we had a number of goals that we needed to reach.
+We needed to find some unambiguous way to represent natural language.
+We needed to find some way of mapping this representation to formal ontologies.
+We had to find a way to add the metadata to webpages without changing the way they are displayed by browsers,
+and we needed a way to let users import and export the webpages they wanted to markup to the system.
+
+In our attempt to accomplish this we decided to use WordNet as a method of representing natural language.
+WordNet was developed to have word boundaries corresponding to how humans mentally represent concepts.
+We could also build on earlier work on creating mappings between WordNet and formal ontologies for the semantic web.
+WordNet also contains the concept of the hypernym, a relation we could use to find mappings to higher level concepts
+if the synset it self did not contain a direct mapping to an ontology.
+
+We examined two algorithms for finding the best mapping from a given synset into the ontologies we had found mappings to.
+These were later evaluated to find which of them gave the best mappings.
+
+We also created a webapp which lets users add metadata to webpages by selecting content on the page,
+and disambiguating the selection by clicking on suggested interpretations of the selection.
+The webapp also allows users to import and export webpages into the webapp for mark up.
 
 \section{Findings}
+We will now summarize the results of the analysis we did in chapter \ref{AnalysisAndDiscussion}.
 
-We have found that using siblings of synsets as a basis for mapping to ontologies is to naïve.
-Our study has found no reason to believe that siblings reliably tell us anything about the semantic properties of a synset.
-
-Using hypernyms as a basis for mapping gives correct mappings.
-The approach does however result inn high level mappings, and could benefit from further refinement.
-
+The results we got to a large degree supports the feasibility of using WordNet as a way to represent natural language
+when mapping to formal ontologies.
+We found some cases where the integrity of the hypernym relation was violated.
+These errors have been reported to the maintainers of WordNet, and they will be fixed in the next public  release (C. Fellbaum, personal communication, May 1, 2013 and May 13, 2013).
 We found that WordNet was unable to capture the gramatical number of natural language.
 This means that the tool won't have any way to distinguish between ontological types which differ in this respect.
+There were few instances in the ontologies we utilized in the thesis of this flaw hindering the completeness of the mapping.
 
-The metadata we created using \theartefact\ was comparable to that pressent at current websites which use schema.org to
+Our analysis as described in section \ref{ComparingAlgorithms} of the algorithm which relied on
+using siblings of synsets as a basis for mapping to ontologies showed us that this either this approach is unfruitful,
+or at least that the current method of using siblings as a grounds for mapping is to naïve.
+Our study has found no reason to believe that siblings reliably tell us anything about the semantic properties of a synset.
+
+We did on the other hand find that using hypernyms as a basis for mapping gives correct mappings.
+The approach does however result inn high level mappings, and could benefit from further refinement.
+
+The metadata we created using \theartefact\ was comparable to that present at current websites which use schema.org to
 enrich their content.
+The prototype does not posses the ability to capture aggregated schema.org types.
+\Theartefact also lacks the ability to add multiples of a single property.
+We did also find that the tool could help users avoid using incorrect types and properties,
+since it limits the properties allowed to add to those that are defined as belonging to the type.
 
+As described in section \ref{Rendering} our testing of how the webpages were rendered after metadata was added by the tool
+showed that the documents were displayed in the same maner before and after metadata was added.
 We found that we could add metadata to the webpages without changing the way they were displayed in the browser.
 
-\section{Reflections}
+\section{Conclusion}
+
+
+Having set out with an ambitious goal of letting users create metadata by using their knowledge of natural language,
+and their understanding of the concepts it describes
+
+When we compare the research question we had and the results we have accomplished we feel that we have answered the
+question to a satisfactory degree and that we can say positively that it is possible to create semantic metadata
+using natural language.
 
 \section{Further work}
 The goal of this thesis has been to create a functioning prototype of an artefact that allows users to add metadata
@@ -57,4 +111,4 @@ by assuming that this is text that was selected but where the user didn't click 
 We can also count the frequencies at which different synsets or DBPedia terms were chosen as the concept the
 user wanted to describe, and use this to target the work of mapping.
 
-
+\section{Reflections}
