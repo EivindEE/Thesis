@@ -6,9 +6,13 @@
 
 \lhead{Chapter \ref{AnalysisAndDiscussion}. \emph{Analysis and Discussion}}
 
-%----------------------------------------------------------------------------------------
-%	Design Research
-%----------------------------------------------------------------------------------------
+In this chapter we will analyse different parts of the system to see if we can judge their appropriateness in solving the
+problems tied to our research question.
+We will first compare the mapping algorithms to see if one of them performs better then the other.
+We will also look into the questions of wether we were able to generate metadata of equal or better quality than that
+which is already available, and if we can add this metadata without changing the way the webpage is displayed.
+We will also look at the usage data we have gotten at this point and see how it corresponds with the expected use of the system.
+
 \section{Comparing the algorithms}
 \label{ComparingAlgorithms}
 To compare the two algorithms we generated a list of english nouns
@@ -62,6 +66,7 @@ Intangible is described\footnote{\url{http://schema.org/Intangible}} as "a utili
 and does not have any special properties in the ontology.
 Even if these mappings are quite uninteresting it is not always obvious that there are types in schema.org which are better fits for the synsets.
 
+\subsection{Correctness of the algoritms}
 To judge the correctness of the algorithms,
 we went through the results from when the two algorithms gave different mappings and checked the mappings manually.
 The process consisted of looking up each synset that was mapped,
@@ -112,7 +117,7 @@ This high degree of incorrect mappings indicates that using sibling synsets as t
 We will however examine the incorrect mappings of both algorithms to try to uncover the causes,
 and if they are caused by weaknesses in the algorithms, or in WordNet or the mapping from WordNet to schema.org.
 
-
+\subsection{Analyzing the sources of error}
 The fact that the hypernyms first algorithm gave incorrect mappings at all are a bit alarming.
 As described in section \ref{Hypernymy} about hyper- and hyponymy, hypernymy should be a transitive "type of" relation.
 Each hypernym should then be a more general type of the synset provided and not break the semantics of the synset.
@@ -122,9 +127,6 @@ Since both hypernymy and mappings should preserve the semantics of the synsets, 
 The fact that the hypernyms first algorithm gives incorrect mappings indicate that either the integrity of the hypernym relation is broken,
 or that the mappings are incorrect.
 
-
-%%%%% There were six cases
-%% Rewrite and update
 All the cases where the hypernyms first approach was deemed to have incorrect mappings were instances where the synset
 mapped to schema:Quantity via their hypernym measure\#n\#2 \{measure, quantity, amount\}.
 
@@ -339,7 +341,7 @@ When analyzing a schema:Product without a name value the error message reads:
 	Warning: Incomplete rdfa with schema.org.
 \end{verbatim}
 The documentation on the schema.org homepage does not give any indication that schema types have required properties.
-When looking closer at the unmodified web pages it was revealed that when using the microdata format these types
+When looking closer at the unmodified webpages it was revealed that when using the microdata format these types
 were ignored without warning.
 The fact that the validator requires the properties does not in it self mean that the markup is incorrect,
 or that the syntax is wrong.
@@ -349,7 +351,7 @@ and it might be that the warning is intended to warn that the amount of metadata
 
 %% Punching The Clown Movie Review - incorrect property
 
-\section{Webpages display same}
+\section{Browser rendering}
 \label{Rendering}
 One of the criteria for the artefact was that it should leave the visual representation of the system unchanged.
 The system is meant to let users add metadata to existing webpages, and should not modify their appearance.
@@ -392,7 +394,7 @@ in a list of children.
 We have not found any way to avoid this issue,
 and can only hope that most developers depend on id and class attributes instead of the specific location in the DOM.
 
-\section{Releasing a live version of the webapp}
+\section{Analysis of usage data}
 In addition to the testing described earlier in this chapter we have also released the webapp on the internet.
 This has allowed us to see how users who do not know the system would interact with it,
 and if they could use it to add metadata.
