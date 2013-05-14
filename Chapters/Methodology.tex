@@ -20,40 +20,61 @@ The guidelines provided in this article are:
 \end{enumerate}
 
 We will now explain how we intend to follow these guidelines in our project.
-The first guideline says that a design research project should produce some artefact. For this project the artefact is \theartefact.
+The first guideline says that a design research project should produce some artefact.
+Designing an artefact is central to this thesis.
+We will use the system "\theartefact" to test our research question,
+and the success of the system will decide whether we can answer the research question positively.
 
 The second guideline is justified in section \ref{Introduction}, and has to do with the objective of a design research project.
-The goal as stated here should be to develop an artefact that is relevant for solving some business problem.
+We have described the issue of the need for computer readable metadata for information retrieval,
+and the difficultly inherent in the creation of this data for new users.
+The work performed in completing this thesis can help lower the barrier of entry for generating semantically enriched websites.
+If successful we can hope both to increase the value of computer search in general, and increase the visibility and
+discoverability of the webpages that use it.
 
 Design evaluation is also mentioned and this guideline stresses the need for rigorous evaluation of the artefact that has been developed.
-There are several metrics that are possible for \theartefact, but we will focus on ease of use, and quality of the data.
+To evaluate the success of the project will look at its ability to map natural language to ontologies.
+Our goal is to generate metadata which is of the level of quality as existing metadata of a comparable type.
+We will also examine if it can add the metadata to the webpage using RDFa without changing the way the webpage is rendered by browsers.
 
-The research contribution of this project will be \theartefact, which will contribute to solve the problem of how to get users to create semantic content, and how to create open user created knowledge bases for POI data.
+The main research contribution of this project will be \theartefact\,
+which will contribute to solve the problem of how to get users to create semantic content.
+This prototype system can serve, either as a starting point for development,
+or as an inspiration as to how one can create a system which makes it easier to create semantic content on the web.
 
 The need for research rigor, which is mentioned in guideline \ref{gl5} will be followed by following the multimethodological approach suggested in \citet{Chen1990} and \citet{NunamakerJr1990}.
-This will be the topic of the following section.
+\fig{MultiMethodological}{{A multimethodological approach to IS research, from \protect \citet{Chen1990}}}
+For the design process we look to \citet{Chen1990},
+who proposes four activities that interact in the development of information systems( See figure \ref{MultiMethodological} on page \pageref{MultiMethodological}).
+The paper suggests using a multimethodological approach where one moves between different research activities:
+Theory building, experimentation, observation and systems development.
+By using these different approaches we can hope that we will catch important facets that might otherwise have been missed or over looked.
 
 Guideline \ref{gl6} says that design research should be a search process.
-In this context that means that one should explore the possible implementations of the artefact by iterating through phases of generating prototypes and testing these prototypes against the requirements of the project( as seen in figure \ref{GenerateTestCycle}, page \pageref{GenerateTestCycle}).
+In this context that means that one should explore the possible implementations of the artefact by iterating through phases of
+generating prototypes and testing these prototypes against the requirements of the project( as seen in figure \ref{GenerateTestCycle},
+page \pageref{GenerateTestCycle}).
 To attain this type of cycle we will chose a system development methodology which utilizes multiple iterations of building and testing.
+Each iteration will not in it self be of the whole system,
+but might isolate one aspect of the system necessary for the whole to function.
+
 The last guideline proposed has to do with clear communication of the results of the research.
 It is further proposed that one should take care to have several channels of communication with different levels of technical detail.
 The reasoning is that we need to convince both the technical and the managerial communities.
 
 To conform to the seventh guideline one should communicate the results of ones research in such a way that it is accessible for the intended target audience.
-For this thesis, the written thesis itself will be the technical document, documenting the process of designing and implementing the artefact, focusing on an academic audience.
-The document talking to management will take the form of a presentation highlighting the benefits of a user generated knowledge base, and the potential business uses.
+The primary way of communicating the research will be this thesis.
+The thesis will target an academic audience and describe the process of development,
+and the evaluation of the artefact.
 
 In addition the work done on the project is made available to the developer community,
 with hopes that others can build on the work done in relation to this thesis.
 All the source code from the project is open source,
-developed and shared on github\footnote{The project can be found at: \url{https://github.com/EivindEE/SemTag}},
+developed and shared on github\footnote{The project can be found at: \url{https://github.com/EivindEE/Madame}},
 and released under the MIT license.
+Releasing the source code of the project means that others can learn from the system in another way than what they
+could just by reading this theses, as most of the details of implementation are outside the scope of an academic thesis.
 
 \fig{GenerateTestCycle}{{The generate/test cycle, from \protect \citet{Hevner2004}}}
 
-For the design process we look to \citet{Chen1990}, who proposes four activities that interact in the development of information systems( See figure \ref{MultiMethodological} on page \pageref{MultiMethodological}).
-The paper suggests using a multimethodological approach where one moves between different research activities: Theory building, experimentation, observation and systems development.
-By using these different approaches we can hope that we will catch important facets that might otherwise have been missed or over looked.
 
-\fig{MultiMethodological}{{A multimethodological approach to IS research, from \protect \citet{Chen1990}}}
