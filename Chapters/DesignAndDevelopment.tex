@@ -133,73 +133,7 @@ The modules that were created were:
 	\item A module that puts the document back in its initial state and saves it to a persisten storage
 \end{itemize}
 
-%\section{Run through of common use}
-%Common use case:
-%User comes to site -> Basic site generated from template on server
-%
-%The user enters URL of page to tag:
-%\begin{itemize}
-%	\item URL gets sent to proxy module on server
-%	\item Proxy fetches the HTML of the target URL
-%	\item Proxy comments out script and iframe tags
-%	\item Proxy replaces relative image URIs with absolute image URIs.
-%	\item Proxy sends back an object containing the sites head and body tag
-%	\item The content of the body tag is used to populate the content container in the web app.
-%\end{itemize}
-%The user highlights a word on the page to add metadata to:
-%\begin{itemize}
-%	\item The text of the highlighted selection gets sent to the lexitags server for disambiguation
-%	\item The results from lexitags are filtered
-%	\begin{itemize}
-%		\item If the results contain WordNet terms, then the DBPedia results are filtered away
-%	\end{itemize}
-%	\item The results are then sorted
-%	\begin{itemize}
-%		\item Primarily by source, WordNet terms first, then the first and second level schema.org terms
-%		\item Secondarily they are sorted lexically
-%	\end{itemize}
-%	\item Then the results are displayed on the web page. If the user cannot find a match with the highlighted text,
-%	it is posible to write your own word into a search box.
-%	The semantics of this word will then be linked to the highlighted text.
-%\end{itemize}
-%The user click the sense of the word which match the intended semantics of the highlighted word
-%\begin{itemize}
-%	\item The term, either a WN synset or a DBP entity gets sent to the mapping module on the server
-%	\item The mapping module find the mappings into other ontologies
-%		that most closely matches the semantics of the term.
-%	\item The server returns the entity types that best fit the term, and their namespaces
-%		\item If no schema.org mapping is found, schema:Thing is returned as it is always correct.
-%	\item The web app adds a tag which surrounds the selected text, and adds the entity value to it using RDFa
-%		\item This new tag contains keywords which will highlight it on the page
-%	\item The web app then asks the server for the schema.org properties of it's schema type(s).
-%	\item The server returns all the applicable properties
-%	\item The web app adds all the returned properties to the markup of the page with empty values
-%\end{itemize}
-%The user clicks a marked up section
-%\begin{itemize}
-%	\item The web app displays all the possible attributes the section can have
-%	\begin{itemize}
-%		\item If values have already been inserted, these are shown as the default values
-%	\end{itemize}
-%	\item The user inputs the values the attributes should have
-%	\item When the submit button is click, the attributes get updated to the correct values
-%\end{itemize}
-%The user clicks the export button
-%\begin{itemize}
-%	\item The html on the page is cleaned
-%	\begin{itemize}
-%		\item Temporary markup(tooltips, popover) is removed
-%		\item Attributes without values are removed
-%	\end{itemize}
-%	\item The html is sent to the server
-%	\begin{itemize}
-%		\item The exporter comments in the script and iframe tags
-%		\item The html is put in the database
-%	\end{itemize}
-%	\item The server returns the id of the new web page
-%	\item The web app displays the URL to the new marked up website.
-%\end{itemize}
-\subsection{Designing the algorithms}
+\section{Designing the algorithms}
 We will now describe the two algorithms that were developed to find mappings between the WordNet synsets and the ontologies.
 We use two axes for navigating the WordNet graph, the hypernymes and the hyponymes.
 As described in \ref{WordNet}, a hypernyme can be described as category words into which more specialized words fall.
@@ -219,7 +153,7 @@ Both these propositions will be tested as a part of the work with the thesis.
 
 The algorithms define different orders of looking at the synsets
 
-\subsubsection{Generating the search tree}
+\subsection{Generating the search tree}
 The first step of the algorithm is the same for both algorithms.
 A search tree is generated using a perl script
 \footnote{Perl script found at \url{https://raw.github.com/EivindEE/SemTag/master/scripts/parents.pl}.}.
@@ -234,33 +168,20 @@ A search tree is generated using a perl script
 
 
 
-\subsubsection{The sibling first algorithm}
+\subsection{The sibling first algorithm}
 The sibling first algorithm traverses the search tree by first looking if there is a direct mapping from the base synset to the ontologies.
 If a direct mapping is not found, it will look at the hypernyms and see if it has a mapping.
 After looking at the hypernyms it will look at the sibling senses.
 It will then go on to look at the hypernyms of the hypernyms, and then their sibling states.
 It will continue to follow the hypernym chain upwards until there are no more hypernyms, or a mappings has been found.
 
-\subsubsection{The ancestors first algorithm}
+\subsection{The ancestors first algorithm}
 The ancestor first algorithm will follow the hypernym chain upwards looking for mappings.
 The algorithm is written to follow the hypernym chain again, looking at the sibling senses, if no mapping is found.
 But since every WordNet noun is a hyponyme of {entity}, which should map to the most general object in an ontology,
 it will likely never be touched.
 
-\section{Representing other websites}
-One of the issues that come up early was how to display the websites that the user wanted to add metadata to.
-Early attempts tried using the iframe\footnote{http://www.w3.org/TR/html5/embedded-content-0.html\#the-iframe-element}
-element of \nom{HTML}{HyperText Markup Language}.
-Embedding the target website in an iframe was the first try as it would allow the page to display in the same maner
-as it does when accessed directly.
-Using the iframe element in this maner would however constitute cross-domain communication and is not allowed.
 
-This problem was not solved in the first iteration.
-After trying to find a workaround it was decided that displaying html from other websites was not essential to the work,
-and that the focus should be shifted to adding markup.
-The solution we landed on was to insert some placeholder text which was used for testing purposes.
-This placeholder text is still displayed on the website to give visitors something to try the tool on before using it
-to add markup to their own pages.
 
 \section{Interaction method}
 \label{Interaction}
@@ -299,34 +220,64 @@ Lexitags also returns the top level resources from schema.org as shown in figure
 These are sorted to the bottom of the list as these are fallbacks for when none of the of the terms suggested for
 the word turn out to be reasonable suggestions for the selected text.
 
-To select one of the terms from the list as the meaning of the selected text the user clicks the sense in the list.
+To select one of the terms from the list as the meaning of the selected text the user clicks the sense in the list see in
+figure \ref{SidebarMeanings}.
+\fig{SidebarMeanings}{The list of posible interpretations of "discoveries"} % IMAGE OF LIST OF INTERPRETATIONS
 When a sense is clicked it is sent to the server to be mapped.
 The servers uses the best fit algorithm described in \ref{BestFitMapping}(page \pageref{BestFitMapping}) to find the ontology references
 that fits the sens best and attaches these references to the selection using RDFa.
 The algorithm used to attach the metadata to the selection can handle an arbitrary amount of namespaces and references.
 If there is duplication of references these will be dropped.
 
+When the metadata element is created,
+the schema.org type is sent back to the server to get a list of the possible properties of that type.
+On the server we use a JSON representation of the schema.org ontology to find the properties that a type can have.
+The representation we use was retrieved from \url{http://schema.rdfs.org} which is a support site that tries to
+promote linked data.
+For each of the types in schema.org the JSON file provides the properties specific to that type,
+and all the properties it has inherited from its super types.
+We combine the information about which properties a type can have with a short description of what the property represents,
+and information about the range of the property, that is the range of values that are valid values of the property.
+The resulting JSON object is then returned to the website.
+These properties are then added to the metadata element as separate elements,
+with the description and range stored as data attributes of the element.
+
+Users can click text that has been tagged with metadata.
+This triggers a popover view which displays the properties that the element can have,
+and which types of values are allowed for each property as shown in figure \ref{PropertiesFull}.
+\fig{PropertiesFull}{{The properties popover for schema:Event}} % IMAGE OF PROPERTY SELECTION BOX
+If the property allows other schema.org types as their value we do a scan of the content of the website to check if
+there are elements of the correct type on the page.
+Elements of the correct type that are found are put in a combo box and can be selected as values for the property.
+In all cases the user is presented with the option of writing the value of the property in an input field.
+If the property already has a value it will be displayed in the input field when the popover is displayed.
+
+%\fig{Sidebar}{The information tab of the sidebar},
+To export a page after adding metadata the user clicks on the export tab in the sidebar and on the export button.
+This will provide the user with a link the the website with the metadata added as shown in figure \ref{SidebarExported}.
+\fig{SidebarExported}{The export tab after exporting the current page} % IMAGE OF EXPORT PANE
+The exported site is parsed to put the javascript and iframes back inn so that the website look the same as it did
+before it was imported into \theartefact.
+On the export pane we also give the user the option to add a google plus id to an authorship tag on the page.
+This is treated as a separate task as it pertains not to the content of the page, but to the page it self.
+It is also not a part of the schema.org ontology, but is included as it is a natural way to increase the visibility of
+the website in search results using metadata.
+
+
+
+
+
+\section{Maintaining the wellformedness of the document}
 One of the difficult aspects of adding the metadata to the selections was making sure that the HTML was well-formed
 after the metadata was inserted.
-One of the rules regarding the well-formednes of a HTML document says that two elements can't overlap as in listing \ref{OverlappingHTML}.
 
-\begin{lstlisting}[language=HTML, caption=Example of overlapping elements, label=OverlappingHTML]
-	<a>
-		<b>
-	</a>
-		</b>
-\end{lstlisting}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%						More on wellformednes						%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Special care needs to be taken with the ranges of the selection.
 Since we need to insert the metadata into tags we can't just use the user range without some checks.
-Consider the case:
+If we consider the simple case:
 
 \texttt{<p>some text \hl{in a p</p> <p>` pluss some} other text </p>}
 
-If we simply inserted a tag we would get invalid HTML:
+If we simply inserted a tag we would get invalid HTML since we would have overlapping elements.
 
 \texttt{<p>`some text <tag> in a p</p> <p> pluss some </tag>  other text </p>}
 
@@ -334,18 +285,17 @@ To get a well formed HTML document we need to either close and open the HTML tag
 
 \texttt{<p>some text </p><tag><p> in a p</p> <p> pluss some </p></tag><p>  other text </p>}
 
-which would change the meaning and probably the layout of the document or we could expand the range of the selection:
+Solving the problem in this manner would change the structure and rendering of the webpage,
+as we would create new block elements.
+This is not a tenable solution as we want to leave the page looking the same as we found it.
+Our solution would instead expand the range of the selection so that it covered a larger part of the document:
 
-\texttt{<tag><p>some text in a p</p> <p> pluss some   other text </p></tag>}
+\texttt{<tag><p>some text in a p</p> <p> pluss some other text </p></tag>}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%						End of wellformednes						%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 The interaction method consists of letting the user make arbitrary selections and then adding metadata to the selection.
-This could easily lead to overlapping elements in the HTML.
+This could easily lead to overlapping elements in the HTML as shown above.
 To avoid this malformed HTML we check the range of the selected text and see if surrounding it with a tag
 containing metadata would result in a well-formed document, and modify the range if needed.
 If the start and end of the selection are in the same element then adding metadata is safe.
@@ -367,44 +317,23 @@ closest common node.
 We then surround these elements with the metadata tag.
 This metadata element is styled with a distinct color to let the user know that the text is tagged.
 
-When the metadata element is created,
-the schema.org type is sent back to the server to get a list of the possible properties of that type.
-On the server we use a JSON representation of the schema.org ontology to find the properties that a type can have.
-The representation we use was retrieved from \url{http://schema.rdfs.org} which is a support site that tries to
-promote linked data.
-For each of the types in schema.org the JSON file provides the properties specific to that type,
-and all the properties it has inherited from its super types.
-We combine the information about which properties a type can have with a short description of what the property represents,
-and information about the range of the property, that is the range of values that are valid values of the property.
-The resulting JSON object is then returned to the website.
-These properties are then added to the metadata element as separate elements,
-with the description and range stored as data attributes of the element.
+\section{Importing webpages}
+One of the issues that came up early was how to import and display the websites that the user wanted to add metadata to.
+Early attempts tried using the iframe\footnote{http://www.w3.org/TR/html5/embedded-content-0.html\#the-iframe-element}
+element of \nom{HTML}{HyperText Markup Language}.
+Embedding the target website in an iframe was the first try as it would allow the page to display in the same maner
+as it does when accessed directly.
+Using the iframe element in this maner would however constitute cross-domain communication and is not allowed.
+The solution that is used in the system now uses a module on the server to fetch the HTML of the document the user wants to enrich.
+The HTML that is imported is now appended to a content element in the webapp.
+We attach the javascript events used in the webapp to this element,
+to keep the interaction confined to the content the user is meant to tag.
+We also use the id of this tag to tell if a certain element is a part of the user content section by checking if it is
+the child of the element.
 
-Users can click text that has been tagged with metadata.
-This triggers a popover view which displays the properties that the element can have,
-and which types of values are allowed for each property as shown in figure \ref{PropertiesFull}.
-If the property allows other schema.org types as their value we do a scan of the content of the website to check if
-there are elements of the correct type on the page.
-Elements of the correct type that are found are put in a combo box and can be selected as values for the property.
-In all cases the user is presented with the option of writing the value of the property in an input field.
-If the property already has a value it will be displayed in the input field when the popover is displayed.
-
-%\fig{Sidebar}{The information tab of the sidebar},
-To export a page after adding metadata the user clicks on the export tab in the sidebar and on the export button.
-This will provide the user with a link the the website with the metadata added as shown in figure \ref{SidebarExported}.
-The exported site is parsed to put the javascript and iframes back inn so that the website look the same as it did
-before it was imported into \theartefact.
-On the export pane we also give the user the option to add a google plus id to an authorship tag on the page.
-This is treated as a separate task as it pertains not to the content of the page, but to the page it self.
-It is also not a part of the schema.org ontology, but is included as it is a natural way to increase the visibility of
-the website in search results using metadata.
-
-
-
-\fig{SidebarExported}{The export tab after exporting the current page}
-\fig{PropertiesFull}{{The properties popover for schema:Event}}
-
-\section{Importing web pages}
+The user writes the URL of the webpage into an input field on the top of the webapp as shown in figure \ref{MadameHeader}.
+\fig{MadameHeader}{The header of the \theartefact\ webapp} % IMAGE OF THE HEADER OF MADAME
+The server will fetch the document stored at that location.
 We created a proxy to get the html from other websites.
 The proxy would take a URL and get the resource located there.
 If the resource is not of the right type i.e. not a HTML document with a body element,
@@ -433,7 +362,7 @@ The document is returned as a JSON string with one property containing the proce
 and one containing the content of the head.
 
 
-\section{Creating the mapping files}
+\section{Generating mapping files}
 An important part of the early work was to generate files that the tool could use to find mappings from WordNet synsets
 into the ontologies which were used.
 The ontologies that were chosen for the project, SUMO  and schema.org, already had these kinds of mapping files.
@@ -486,7 +415,7 @@ there was however one caveat in that the file used the offset to identify the sy
 instead of the normal word\#category\#number which we use.
 We put some work into finding a way of substituting the offset for the synset id,
 but found that it was simpler to find the offset for the synsets that were queried.
--- Unifying the way the properties are named is one of the things that can simplify the generalization of the process at a later stage.
+Unifying the way the mapping object properties are named is one of the things that can simplify the generalization of the process at a later stage.
 
 
 
@@ -591,18 +520,19 @@ described as "a short note recognizing a source of information or of a quoted pa
 which was mapped to the schema.org term MusicRecording.
 This error was caused by the fact that the hypernym chain of quotation\#noun\#2 contains
 section\#n\#1 which is a hyponym of both music\#n\#1 and writing\#n\#2.
-The fact that quotation\#noun\#2 is a hyponym of music\#n\#1 seems to violate rules for hyponymy discussed in \ref{Hypernymy},
-but it is difficult to say if this is an error in WordNet, or simply a more liberal use of the rule.
+The fact that quotation\#noun\#2 is a hyponym of music\#n\#1 violates the rules for hyponymy discussed in \ref{Hypernymy}.
+This error has been reported to the maintainers of WordNet and will be fixed in the next public release( C. Fellbaum, personal communication, May 1).
 
-Examples like this made us believe that we could not trust the hypernymy relation to preserve the semantics of a
-synset when there is more than one hypernym.
+We might have been able to solve this issue by writing a special case for section\#n\#1, but decided against this,
+as we wanted a simpler solution.
 For the algorithm this means that we will cut the search for hypernyms when we come across a synset with more than one hypernym.
+This cutoff can be seen in the hypernym subroutine in the perl script in listing \ref{HypernymChainCode}.
 This does mean that the hypernym chain will not always be complete which is unfortunate,
 especially since a lot of where there are multiple hypernyms does conserve the semantics of the synset.
 
+
 \section{Best fit mapping}
 \label{BestFitMapping}
-
 The first step in finding the best mappings for a given synset is finding which mappings exist.
 This is done by traversing the hypernym chain and checking for each synset in the chain if it has a mapping to
 one of the ontologies we are mapping to.
@@ -617,6 +547,10 @@ Given that there are ontologies that have not been mapped to we use the best fit
 \subsection{Hypernyms first}
 The hypernyms first algorithm traverses the hypernym chain by first looking at the direkt hypernym of the synset for mappings.
 It will then follow the hypernym chain upwards as long as no mappings has been found.
+%%% Include in discusion section on other traversals that could give better
+\fig{HypernymChain}{{A hypernym chain with siblings}}
+Looking at figure \ref{HypernymChain}, the hypernyms first algorith would follow the links upwards to the top before
+starting to look at the siblings, and them looking at them in the same order as the hypernyms.
 If there are ontologies that have not received a mapping it will start looking at the siblings of the synset and see
 if any of them have a mapping.
 As long as there are ontologies without mappings it will then follow the hypernym chain upwards again,
@@ -639,6 +573,8 @@ super type of a sibling mapping.
 The algorithm diverges from the hypernyms first by looking at the siblings of the synset after looking at the hypernym.
 It will then follow the same procedure up the chain, first looking at each synsets hypernym,
 then looking at its siblings before moving up the chain and repeating the process.
+Looking again at figure \ref{HypernymChain} we would at each node first look at the node above,
+and then at the nodes to the right, before moving one node up the tree.
 The maner in which the algorithm choses which sibling to map to is at the moment fairly naïve.
 The algorithm will use the first match it finds,
 meaning that if two or more siblings have mappings to an ontology the first one found by the algorithm will be used.
@@ -649,13 +585,8 @@ The for the algorithm we developed for this too we assume  that we have no reaso
 since we at this point don't know the meaning of the synset.
 Further refinement is likely posible of this assumption does not hold.
 
-
-%%% Include in discusion section on other traversals that could give better
-\fig{HypernymChain}{{A hypernym chain with siblings}}
-
-
 \section{Exporting the document}
-We use MongoDB\footnote{\url{http://www.mongodb.org}} as a database for storing the web pages after the user has added metadata.
+We use MongoDB\footnote{\url{http://www.mongodb.org}} as a database for storing the webpages after the user has added metadata.
 MongoDB is a NoSQL database which uses javascript as its database interaction language.
 MongoDB uses a dynamic schema for storing data,
 meaning that each document in a collection does not need to have the same structure.
@@ -666,6 +597,6 @@ Mongoose allows us to abstract a lot of the database logic away and simplifies c
 When receiving a document to store the module removes all the extra comments that were added when the document was
 imported, and puts the document back in its original state.
 We also store the namespaces used in the document and the date on which the document was created.
-When the document has been stored successfully the URL of the newly created webpage is returned to the user.
+When the document has been stored successfully the URL of the newly created webpage is returned to the user as shown in
+figure \ref{SidebarExported} on page \pageref{SidebarExported}.
 If there was an error during the process the user is alerted about what went wrong.
-
