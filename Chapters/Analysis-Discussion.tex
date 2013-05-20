@@ -38,7 +38,7 @@ This indicates that there must have beena mapping either directly from the synse
 or from the direct hypernym of the synset for each of the 4350 synsets in our test.
 This makes it hard to say anything relevant about the algoritms from these results.
 
-\begin{table}[h] %%%% Should I change the results so that the no results found are ignored?
+\begin{table}[ht] %%%% Should I change the results so that the no results found are ignored?
 	\centering
 	\begin{tabular}{lll}
 										& Schema.org	& SUMO			\\
@@ -66,7 +66,7 @@ For each mapping we registered the depth of the type in the schema.org hierarchy
 These depths were averaged over the total number of mappings made.
 
 As seen in table \ref{table:AlgorithmComparison} both algorithms map fairly high in the hierachy.
-\begin{table}[h]
+\begin{table}[ht]
 	\centering
 	\begin{tabular}{lll}
 											& Hypernyms First 	& Hypernym then siblings	\\
@@ -325,8 +325,8 @@ since the tool provides a list which only contain valid properties for the type 
 We found that there are some schema.org types that we are not able to reach with the current systems.
 In particular we have found out the the system does not have a way to reach aggregated types.
 At the time of writing the aggregate types in schema.org are schema:AggregateRating and schema:AggregateOffer.
-The type schema:AggregateRating is meant to represent the average rating that a rated object has received
-while schema:AggregateOffer represents a collection of offers for a given product.
+The type schema:AggregateRating is meant to represent the average rating that a rated object has received.
+The type schema:AggregateOffer on the other hand represents a collection of offers for a given product.
 The difficulty posed by both these types is that what separates them from their super types schema:Rating and schema:Offer
 is that they represent the plurality of the super type.
 The system uses WordNet to represent and disambiguate words, and as its basis for mapping natural language to ontologies.
