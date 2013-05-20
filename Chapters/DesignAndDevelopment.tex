@@ -184,7 +184,7 @@ it will likely never be touched.
 
 \section{Interaction method}
 \label{Interaction}
-When we first faced to problem of how to let users interact with the web app we felt that using the highlighting or
+When we first faced to problem of how to let users interact with the web app we thought that using the highlighting or
 selection of text to be the most intuitive approach.
 We also believed that this would be the simplest interaction method to implement.
 The simple case of taking selected text and displaying it in the console can be implemented as in listing \ref{DOMSelection}.
@@ -219,6 +219,8 @@ Lexitags also returns the top level resources from schema.org as shown in figure
 These are sorted to the bottom of the list as these are fallbacks for when none of the of the terms suggested for
 the word turn out to be reasonable suggestions for the selected text.
 
+\subsection{Adding types}
+
 To select one of the terms from the list as the meaning of the selected text the user clicks the sense in the list see in
 figure \ref{SidebarMeanings}.
 \fig{SidebarMeanings}{The list of posible interpretations of "discoveries"} % IMAGE OF LIST OF INTERPRETATIONS
@@ -241,6 +243,8 @@ The resulting JSON object is then returned to the website.
 These properties are then added to the metadata element as separate elements,
 with the description and range stored as data attributes of the element.
 
+\subsection{Adding properties}
+
 Users can click text that has been tagged with metadata.
 This triggers a popover view which displays the properties that the element can have,
 and which types of values are allowed for each property as shown in figure \ref{PropertiesFull}.
@@ -252,15 +256,7 @@ In all cases the user is presented with the option of writing the value of the p
 If the property already has a value it will be displayed in the input field when the popover is displayed.
 
 %\fig{Sidebar}{The information tab of the sidebar},
-To export a page after adding metadata the user clicks on the export tab in the sidebar and on the export button.
-This will provide the user with a link the the website with the metadata added as shown in figure \ref{SidebarExported}.
-\fig{SidebarExported}{The export tab after exporting the current page} % IMAGE OF EXPORT PANE
-The exported site is parsed to put the javascript and iframes back inn so that the website look the same as it did
-before it was imported into \theartefact.
-On the export pane we also give the user the option to add a google plus id to an authorship tag on the page.
-This is treated as a separate task as it pertains not to the content of the page, but to the page it self.
-It is also not a part of the schema.org ontology, but is included as it is a natural way to increase the visibility of
-the website in search results using metadata.
+
 
 
 
@@ -409,10 +405,11 @@ but the original format was different as it used the WordNet database format.
 We used the WordNetMappings30-noun file as our basis so for this mapping we did not have to remove non noun phrases.
 The fact that each line in the file corresponded to a line in the mapping file made the process of translation easier,
 there was however one caveat in that the file used the offset to identify the synset,
-instead of the normal word\#category\#number which we use.
+instead of the word\#category\#number format which we use for the other mapping file.
 We put some work into finding a way of substituting the offset for the synset id,
 but found that it was simpler to find the offset for the synsets that were queried.
-Unifying the way the mapping object properties are named is one of the things that can simplify the generalization of the process at a later stage.
+Unifying the way the mapping object properties are named is one of the things that can simplify
+the generalization of the process at a later stage.
 
 
 
@@ -583,6 +580,16 @@ since we at this point don't know the meaning of the synset.
 Further refinement is likely posible of this assumption does not hold.
 
 \section{Exporting the document}
+To export a page after adding metadata the user clicks on the export tab in the sidebar and on the export button.
+This will provide the user with a link the the website with the metadata added as shown in figure \ref{SidebarExported}.
+\fig{SidebarExported}{The export tab after exporting the current page} % IMAGE OF EXPORT PANE
+The exported site is parsed to put the javascript and iframes back inn so that the website look the same as it did
+before it was imported into \theartefact.
+On the export pane we also give the user the option to add a google plus id to an authorship tag on the page.
+This is treated as a separate task as it pertains not to the content of the page, but to the page it self.
+It is also not a part of the schema.org ontology, but is included as it is a natural way to increase the visibility of
+the website in search results using metadata.
+
 We use MongoDB\footnote{\url{http://www.mongodb.org}} as a database for storing the webpages after the user has added metadata.
 MongoDB is a NoSQL database which uses javascript as its database interaction language.
 MongoDB uses a dynamic schema for storing data,
