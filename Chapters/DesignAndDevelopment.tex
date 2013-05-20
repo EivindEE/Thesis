@@ -267,7 +267,7 @@ the website in search results using metadata.
 
 
 
-\section{Maintaining the wellformedness of the document}
+\section{Maintaining the well-formedness of the document}
 One of the difficult aspects of adding the metadata to the selections was making sure that the HTML was well-formed
 after the metadata was inserted.
 
@@ -291,8 +291,6 @@ This is not a tenable solution as we want to leave the page looking the same as 
 Our solution would instead expand the range of the selection so that it covered a larger part of the document:
 
 \texttt{<tag><p>some text in a p</p> <p> pluss some other text </p></tag>}
-
-
 
 The interaction method consists of letting the user make arbitrary selections and then adding metadata to the selection.
 This could easily lead to overlapping elements in the HTML as shown above.
@@ -423,7 +421,7 @@ Unifying the way the mapping object properties are named is one of the things th
 The first attempt at mapping used only direct mappings from synset into the ontologies,
 but this was obviously not good enough.
 There are at the time of writing 577 schema.org entities\footnote{\url{http://schema.org/docs/full.html}}
-and the mapping file used in \theartefact contains 155 mappings from WordNet.
+and the mapping file used in \theartefact\ contains 155 mappings from WordNet.
 For it to be feasible to map from natural language to smaller ontologies like schema.org we need to expand the search
 from just direct mapping to mappings from more general terms.
 

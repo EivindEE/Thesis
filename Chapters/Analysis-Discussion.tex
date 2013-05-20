@@ -274,7 +274,7 @@ One of our success criteria was that it should be posible to markup HTML as well
 To find webpages that uses schema.org as an ontology for adding metadata we used a list found on github of
 this type of sites\footnote{\url{https://github.com/LawrenceWoodman/mida/wiki/Sites-Using-Microdata}}.
 The process we used consisted of opening the sites and seeing what metadata the site we tested had,
-and then open the site using \theartefact and try to add the same metadata.
+and then open the site using \theartefact\ and try to add the same metadata.
 We would then analyse the results by using Googles structured data testing tool
 \footnote{\url{http://www.google.com/webmasters/tools/richsnippets}},
 and W3s RDFa 1.1 distiller and parser\footnote{\url{http://www.w3.org/2012/pyRdfa/}}
@@ -312,7 +312,7 @@ The exception we had to this was when the webpages used invalid types or propert
 In the pages we checked we found one instance of invalid metadata.
 On the page with the movie review we found that the author of the HTML had added an invalid property to a movie.
 The webpage used the property name "publishdate" while the correct name of the property is "datePublished".
-An advantage of using a tool like \theartefact is that one can be sure not to use incorrect properties such as this,
+An advantage of using a tool like \theartefact\ is that one can be sure not to use incorrect properties such as this,
 since the tool provides a list which only contain valid properties for the type one has selected.
 
 
@@ -387,7 +387,7 @@ It should be noted that this means that the page will sometimes miss some conten
 
 One issue that might arrise is if some of the content on the site, either CSS or javascript,
 depend on the order of the elements or their direct placement in the hierarchy.
-Since \theartefact is intended to add metadata to user selected sections of the page we need to create our own
+Since \theartefact\ is intended to add metadata to user selected sections of the page we need to create our own
 HTML elements to attach the metadata to, since that's the only reliable way to talk about just that section.
 There are CSS selectors that select either direct children or the n-th children of an element.
 Since we need to add elements it might be that the element we add cause another element to either not be the direct
