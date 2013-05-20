@@ -51,6 +51,21 @@ This makes it hard to say anything relevant about the algoritms from these resul
 	\label{table:AlgorithmResults}
 \end{table}
 
+The schema.org results are more interesting.
+The two algorithms still perform fairly equally.
+Reading from table \ref{table:AlgorithmResults} we can see that the algorithms are equal in 75\% of the cases,
+but we can examine the 25\% that are different and see which perform better in those cases.
+We can also see that the algorithms were unable to find a mapping in 13.7\% of the cases.
+These cases can't tell us much about which algorithm we should prefere,
+but could be a good starting point for finding parts of the WordNet to schema.org mapping which could be enhanced.
+
+Our predictions beforhand was that the hypernymes first approach would have fewer incorrect mappings,
+but would give results at a more shallow depth.
+The last prediction was the easiest to test, as we know the schema.org hierarchy and can calculate the depth of each type.
+For each mapping we registered the depth of the type in the schema.org hierarchy.
+These depths were averaged over the total number of mappings made.
+
+As seen in table \ref{table:AlgorithmComparison} both algorithms map fairly high in the hierachy.
 \begin{table}[h]
 	\centering
 	\begin{tabular}{lll}
@@ -72,22 +87,6 @@ This makes it hard to say anything relevant about the algoritms from these resul
 	\caption{Comparison of the mapping algorithms}
 	\label{table:AlgorithmComparison}
 \end{table}
-
-The schema.org results are more interesting.
-The two algorithms still perform fairly equally.
-Reading from table \ref{table:AlgorithmResults} we can see that the algorithms are equal in 75\% of the cases,
-but we can examine the 25\% that are different and see which perform better in those cases.
-We can also see that the algorithms were unable to find a mapping in 13.7\% of the cases.
-These cases can't tell us much about which algorithm we should prefere,
-but could be a good starting point for finding parts of the WordNet to schema.org mapping which could be enhanced.
-
-Our predictions beforhand was that the hypernymes first approach would have fewer incorrect mappings,
-but would give results at a more shallow depth.
-The last prediction was the easiest to test, as we know the schema.org hierarchy and can calculate the depth of each type.
-For each mapping we registered the depth of the type in the schema.org hierarchy.
-These depths were averaged over the total number of mappings made.
-
-As seen in table \ref{table:AlgorithmComparison} both algorithms map fairly high in the hierachy.
 The hypernymes first approach maps to a type at level 0.69 on average when considering all the synsets,
 or to a type at level 0.72 when ignoring the cases where the two algorithms gave the same result.
 As predicted the hypernym then siblings approach does a little better, though not much,
