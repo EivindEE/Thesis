@@ -38,6 +38,41 @@ This indicates that there must have beena mapping either directly from the synse
 or from the direct hypernym of the synset for each of the 4350 synsets in our test.
 This makes it hard to say anything relevant about the algoritms from these results.
 
+\begin{table}[h] %%%% Should I change the results so that the no results found are ignored?
+	\centering
+	\begin{tabular}{lll}
+										& Schema.org	& SUMO			\\
+		Total number of synsets tested 	& 4350			& 4350			\\
+		Number of identical mappings 	& 3262 (75\%)	& 4350 (100\%)	\\
+		Number  of different mappings	& 1088 (25\%)	& 0	(0\%)		\\
+		No result found					& 598  (13.7\%)	& 0	(0\%)
+	\end{tabular}
+	\caption{The testing results}
+	\label{table:AlgorithmResults}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{lll}
+											& Hypernyms First 	& Hypernym then siblings	\\
+		\emph{For all mappings}				&					&							\\
+		Avg. depth total					& 0.688506 			& 0.804138					\\
+		\emph{For different mappings}		&					&							\\
+		Avg. depth different				& 0.721507			& 1.183823					\\
+		Mappings to "Thing"					& 449				& 334						\\
+		Mappings to "Intangible"			& 481				& 81						\\
+		\emph{For the 250 examined mappings}&					&							\\
+		Correct mappings					& 235				& 67						\\
+		Correct mapping	rate				& 94\%				& 26.8\%					\\
+		Unclear								& 10				& 27						\\
+		Unclear	rate						& 4\%				& 20.8\%					\\
+		Errors								& 5 				& 156 						\\
+		Error rate							& 2\%				& 62.4\%					\\
+	\end{tabular}
+	\caption{Comparison of the mapping algorithms}
+	\label{table:AlgorithmComparison}
+\end{table}
+
 The schema.org results are more interesting.
 The two algorithms still perform fairly equally.
 Reading from table \ref{table:AlgorithmResults} we can see that the algorithms are equal in 75\% of the cases,
@@ -209,41 +244,6 @@ This means that the source of the change in semantics must be looking at the sib
 There were instances of siblings both of the original synset and of the hypernyms,
 so it does not appear that closeness to the synset needs to have any influence on whether or not the sibling gives
 an accurate mapping for the synset.
-
-\begin{table}[h] %%%% Should I change the results so that the no results found are ignored?
-	\centering
-	\begin{tabular}{lll}
-										& Schema.org	& SUMO			\\
-		Total number of synsets tested 	& 4350			& 4350			\\
-		Number of identical mappings 	& 3262 (75\%)	& 4350 (100\%)	\\
-		Number  of different mappings	& 1088 (25\%)	& 0	(0\%)		\\
-		No result found					& 598  (13.7\%)	& 0	(0\%)
-	\end{tabular}
-	\caption{The testing results}
-	\label{table:AlgorithmResults}
-\end{table}
-
-\begin{table}[h]
-	\centering
-	\begin{tabular}{lll}
-											& Hypernyms First 	& Hypernym then siblings	\\
-		\emph{For all mappings}				&					&							\\
-		Avg. depth total					& 0.688506 			& 0.804138					\\
-		\emph{For different mappings}		&					&							\\
-		Avg. depth different				& 0.721507			& 1.183823					\\
-		Mappings to "Thing"					& 449				& 334						\\
-		Mappings to "Intangible"			& 481				& 81						\\
-		\emph{For the 250 examined mappings}&					&							\\
-		Correct mappings					& 235				& 67						\\
-		Correct mapping	rate				& 94\%				& 26.8\%					\\
-		Unclear								& 10				& 27						\\
-		Unclear	rate						& 4\%				& 20.8\%					\\
-		Errors								& 5 				& 156 						\\
-		Error rate							& 2\%				& 62.4\%					\\
-	\end{tabular}
-	\caption{Comparison of the mapping algorithms}
-	\label{table:AlgorithmComparison}
-\end{table}
 
 \subsection{Choosing an algorithm}
 From the previous discussion and from the results of the testing it seemed clear that the hypernyms first algorithm is
