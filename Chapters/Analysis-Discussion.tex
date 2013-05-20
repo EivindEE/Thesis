@@ -276,7 +276,7 @@ when incorrect mappings or hypernym relations occur.
 %https://github.com/EivindEE/Master-thesis/blob/master/AlgComparison/compare-different
 
 \section{Testing against existing markup}
-One of our success criteria was that it should be posible to markup HTML as well or better than what is on the web now.
+One of our success criteria was that it should be posible to mark up HTML as well or better than what is on the web now.
 To find webpages that uses schema.org as an ontology for adding metadata we used a list found on github of
 this type of sites\footnote{\url{https://github.com/LawrenceWoodman/mida/wiki/Sites-Using-Microdata}}.
 The process we used consisted of opening the sites and seeing what metadata the site we tested had,
@@ -332,7 +332,7 @@ is that they represent the plurality of the super type.
 The system uses WordNet to represent and disambiguate words, and as its basis for mapping natural language to ontologies.
 WordNet is a dictionary type system, which does not separate between the different grammatical numbers of a given word,
 as they all represent the same concept.
-For the system this is a problem, since it means that the language we use as an intermediary between natural language
+This could be an issue for the system as a whole since it means that the language we use as an intermediary between natural language
 and the ontologies does not capture all of the complexity of the ontologies we wish to map to.
 
 
@@ -356,6 +356,8 @@ The fact that the validator requires the properties does not in it self mean tha
 or that the syntax is wrong.
 The validator seems geared towards the generation of rich snippets,
 and it might be that the warning is intended to warn that the amount of metadata is insufficient to generate rich snippets.
+The warning that required fields are missing might then refere to the fact that they are required to create a snippet,
+not required for the metadata to be valid.
 %% Problem, missing required properties, not documented as required by schema.org
 
 %% Punching The Clown Movie Review - incorrect property
@@ -419,6 +421,8 @@ a secondary means of input.
 This is consistent with how the users have used \theartefact.
 From the usage data we have we can see that of the 298 of the text selections requests we have received,
 only 12, or about 4\%, have been for selections so big that they have been categorized as sections of text.
-The 96\% of the selections were of
+The other 96\% of the selections were of single words or of single entities or concepts like "Alexander Graham Bell" or
+"semantically classified lexical databases".
+
 We have not found any cases of the users have used the resulting HTML on their webpages,
 so it is not possible to say anything about their satisfaction with the page at this point.
