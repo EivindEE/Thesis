@@ -95,10 +95,11 @@ Looking at the data it is obvious that the hyponymes first approach much more fr
 The hypernym first algorithm maps to schema:Thing 449, and schema:Intagible 481 times,
 while hypernymes then siblings maps to schema:Thing 334 and schema:Intangible 81 times.
 Neither schema:Thing nor schema:Intangible are very interesting mappings in the ontology.
-As described in \ref{schemadotorg}, Thing is the most general category, meaning that every concept belongs to this category.
+As described in section \ref{schemadotorg}, Thing is the most general category, meaning that every concept belongs to this category.
 Intangible is described\footnote{\url{http://schema.org/Intangible}} as "a utility class that serves as the umbrella for a number of 'intangible' things",
 and does not have any special properties in the ontology.
-Even if these mappings are quite uninteresting it is not always obvious that there are types in schema.org which are better fits for the synsets.
+Even if these mappings are quite uninteresting it is not always obvious that there are types in schema.org
+which are better fits for the synsets.
 
 \subsection{Correctness of the algoritms}
 To judge the correctness of the algorithms,
@@ -134,6 +135,7 @@ Another schema.org term that provided some difficulty was schema:Place,
 which has the description "[e]ntities that have a somewhat fixed, physical extension".
 Again the sub types seem to indicate that it should be used for geographical sections.
 From the description of the type it is unclear if it can be used to describe things like borders and edges of things.
+This would depend on what the thing should be fixed with regard to.
 
 Since the manual inspection of the mappings was a time consuming process we decided to only inspect 250 mappings,
 and see if the results of checking these would be sufficient to say anything about the algorithms.
@@ -190,7 +192,8 @@ A birth or death is just a single instance, not a quantity of things.
 The problem in both these chains seem to be that one goes from something that happened at a single instance in time,
 to a collection of things.
 The cause of the error then seems to be an inconsistency within the hypernym relation in WordNet.
-We will contact the maintainers and ask if they agree.
+We have reported this error to the maintainers of WordNet, and they will be fixed in a future public release of WordNet
+(C. Fellbaum, personal communication, May 13, 2013).
 
 We also analysed the results where the hypernym then siblings algorithm mapped incorrectly.
 The distribution of incorrect mappings can be seen in figure \ref{fig:incorrect}(page \pageref{fig:incorrect}).
@@ -262,7 +265,11 @@ and which had a more balanced approach to the world would result in better resul
 As it stands it is clear that the hypernyms first algorithm out performed the hypernym then siblings algorithm,
 and is the one that will be used in the artefact.
 The fact that its mappings were incorrect or questionable in 6\% of the instances analyzed is unfortunate.
-We have however analysed the reason for these errors and should have enough information to improve the results further.
+The cause of the errors were however found to be outside the system we have developed for this thesis,
+and they have been reported.
+This gives us reason to hope that the error rate of the system will go down as the tools it depends on are improved.
+It also suggests that we should create some error reporting mechanism which we can use to give feedback to the maintainers
+when incorrect mappings or hypernym relations occur.
 %Noun list from http://www.desiquintans.com/articles.php?page=nounlist
 
 %https://github.com/EivindEE/Master-thesis/blob/master/AlgComparison/AlgComparisonResultsBig
