@@ -74,17 +74,17 @@ While there are many difficulties attached to merging the social and semantic we
 and with lifting semantic data from tags, there are many researchers who stress the need for this \citep{Passant2007,Mika2005, Gruber2007}.
 
 \subsection{RDF}
-On the semantic web, ontologies are represented using collection of \nom{RDF}{Resource Description Framework} triplets.
-These triplets are in the form of <subject, predicate, object>, much like simple declarative sentences \citep{Berners-Lee2001}.
+On the semantic web, ontologies are represented using collection of \nom{RDF}{Resource Description Framework} triples.
+These triples are in the form of <subject, predicate, object>, much like simple declarative sentences \citep{Berners-Lee2001}.
 Let's suppose we wanted to say that I know my supervior Csaba.
-An informal triplet describing this could be:
+An informal triple describing this could be:
 \begin{verbatim}
      <Eivind, knows, Csaba>
 \end{verbatim}
 "Eivind" is here the thing one talks about, the thing one wants to describe in some way.
-The predicate "knows" is a relation the subject of the triplet has to some other thing.
+The predicate "knows" is a relation the subject of the triple has to some other thing.
 The object is the thing with which the subjects relates with respect to the predicate, in this case it is the thing that is known.
-When representing triplets using RDF one has to use a more stringent form.
+When representing triples using RDF one has to use a more stringent form.
 The reason one describes things in RDF form is to give computers some way of reasoning about them,
 so there must be some way to separate this "Eivind" from the other "Eivind"s out there,
 there are after all alot of people named Eivind.
@@ -107,8 +107,8 @@ Here the first IRI identifies who we mean by "Eivind", namely "http://eivind.els
 The second IRI identifies what we mean by knows, and the third who it is that Eivind knows.
 A machine parsing this can dereference the URLs to glean more information about the different resources.
 
-The subject and predicate of a triplet must always be resources represented by IRIs.
-The objects can be either resources or literals, depending on what the predicate of the triplet is.
+The subject and predicate of a triple must always be resources represented by IRIs.
+The objects can be either resources or literals, depending on what the predicate of the triple is.
 A predicate describing something like "has name" would likely point to a string literal containing the name of the subject\citep{Hebeler2009Chp3}.
 
 \section{WordNet}
