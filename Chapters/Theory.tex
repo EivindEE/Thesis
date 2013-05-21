@@ -46,8 +46,8 @@ Tags provide metadata about content in a way that makes sense to humans.
 From an information retrieval perspective this is interesting since it means that humans in some way add meaning to the content.
 There however are several problems with using tags as the basis of a semantic web.
 \citet{Tang2009} mention several.
-Tags are supposed to be written in natural language, and natural language has words that are synonymes(words that are written in different ways,
-but mean the same), homonymes(words with different meanings that are written in the same way), or polynyms( a word that can have several meanings)
+Tags are supposed to be written in natural language, and natural language has words that are synonyms(words that are written in different ways,
+but mean the same), homonyms( words with different meanings that are written in the same way), or polynyms( a word that can have several meanings)
 making it unsuitable for computer reasoning since they are ambiguous \citep{Passant2008}.
 As \citet{Golder2005} mentions, users also operate on different levels of abstraction, which can make it harder to find interesting resources.
 In addition to this comes the problem of non dictionary words, both new, or compound words, or simply words that have been misspelled\citep{Tonkin2006}.
@@ -65,7 +65,7 @@ Using the most common tags did give some results, but only broad categories. The
 
 \citep{Tang2009} tries to go further that clustering tags, and tries to build an hierarchical model from a folksonomy.
 They use a probabilistic model that takes into account the frequency and concurrence of tags and tries to generalize it to an ontology.
-The method does get good results in creating the hierarchy, but does also show som inappropriate sub/super category inferences.
+The method does get good results in creating the hierarchy, but does also show some inappropriate sub/super category inferences.
 
 \citet{Weinberger2008} suggests a method for removing ambiguity from tags,
  by suggesting additional tags to the user when the tag entered can belong to one of several distinct sets
@@ -144,16 +144,16 @@ and how a single meaning can be represented using several forms.
 Within the categories mentioned WordNet then tries to organize the words not by form,
 but by similarity of meaning.
 
-This organisation is done by grouping words which are synonymes into sets.
-We will describe these sets of synonymes( \nom{synset}{A set of words with similar meanings.}s), by enclosing one or more word forms in curly brackets.
+This organisation is done by grouping words which are synonyms into sets.
+We will describe these sets of synonyms( \nom{synset}{A set of words with similar meanings.}s), by enclosing one or more word forms in curly brackets.
 We could for example use the synset \{dog, domestic dog, Canis familiaris\} to describe the common dog.
 When precision is not the point we will use a short form like \{dog\} to describe the same meaning.
 To organize words into synsets in this way ont first needs to have a clear idea about what one means by synonymy.
 A strict definition of synonymy would claim that for form $F$ and $F'$ to be synonymous one must be able
 to replace one with the other in any sentence without changing the truth value of that sentence.
 This is similar to using Leibniz law of identity to qualify synonymy.
-WordNet uses a weaker definition where one says that whether two forms are synonymes is dependent on the
-semantic context that they are inn, and that two words can be synonymes with respect to this semantic context\citep{Miller1990}.
+WordNet uses a weaker definition where one says that whether two forms are synonyms is dependent on the
+semantic context that they are inn, and that two words can be synonyms with respect to this semantic context\citep{Miller1990}.
 This weaker definition still necessitates that words must be from the same syntactic category to be synonymous,
 and explains together with \citet{Fillenbaum1965} why it's useful to separate the syntactic categories.
 
@@ -204,7 +204,7 @@ Hyponymy is also transitive and asymmetric\citep{Miller1990}.
 Another aspect of this relation with respect to nouns is the fact that one asserts some type of inherence from the more
 general hypernyms to its more specialized hyponyms.
 This means that if one knows that a concept has some properties,
-then the hyponymes of that concept will have all the same properties,
+then the hyponyms of that concept will have all the same properties,
 in addition to the properties it has which distinguishes it from the concept\citep{Miller1990a}.
 This has some basis in psycholexicologic research.
 \citet{Collins1969} showed that subjects used less time to say that a concept inhabited some property when that property

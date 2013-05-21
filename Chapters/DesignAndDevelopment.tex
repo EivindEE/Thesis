@@ -134,7 +134,7 @@ The modules that were created were:
 
 \section{Designing the algorithms}
 We will now describe the two algorithms that were developed to find mappings between the WordNet synsets and the ontologies.
-We use two axes for navigating the WordNet graph, the hypernymes and the hyponymes.
+We use two axes for navigating the WordNet graph, the hypernyms and the hyponyms.
 As described in \ref{WordNet}, a hypernyme can be described as category words into which more specialized words fall.
 Hyponyme is the inverse relation, where a hyponyme is a word which can be generalized into some more general category.
 For simplicity we will also use one additional term.
@@ -423,7 +423,7 @@ from just direct mapping to mappings from more general terms.
 
 The idea we had for this project was to use the hypernyms and siblings of the synset to find other synsets
 which had overlapping semantic content.
-For the hypernymes this was assumed to be unproblematic, since a hyponym is in a is-a relationship to its hypernym.
+For the hypernyms this was assumed to be unproblematic, since a hyponym is in a is-a relationship to its hypernym.
 With regards to the sibling synsets we had a theory that we could find the mappings these sibling synsets
 and use the supertype of the mapped entity is the corresponding ontology.
 Our theory was that the super set of a the mapping of a sibling synset would match with the semantics of the synset.
@@ -437,7 +437,7 @@ child\_process.exec\footnote{\url{http://nodejs.org/api/child\_process.html\#chi
 function, which calls a command line utility and uses the output stream as the input to the callback function.
 We use the term "hypernym chain", or just "chain" for short to speak of the all the hypernyms of the synset at hand.
 With all the hypernyms meaning  the transitive closure of the hypernym relation with regards to the synset.
-These hypernymes are organized into a list, ordered by closeness to the synset for which we build the chain.
+These hypernyms are organized into a list, ordered by closeness to the synset for which we build the chain.
 The hypernym chain could also be described as a list of ancestors,
 which might seem more intuitive, but the term hypernym chain was used in \citet{Veres2011} and will be used here.
 
@@ -506,7 +506,7 @@ sub siblings {
 }
 \end{lstlisting}
 
-\subsection{Problems with multiple hypernymes}
+\subsection{Problems with multiple hypernyms}
 The initial version used a breadth first approach when listing the hypernyms.
 When starting work on the best fit algorithms we saw that this approach seemed to be inappropriate as it lead to incorrect mappings.
 The problem was discovered when mapping the synset quotation\#noun\#2,
