@@ -176,6 +176,12 @@ and explains together with \citet{Fillenbaum1965} why it's useful to separate th
 	\label{table:LexicalMatrix}
 \end{table}
 
+The structure of WordNet as a whole is similar to that of a tree,
+but because a synset can have multiple hypernyms it can be described as a directed acyclical graph.
+Each synset can be described as a node in this graph, with a directed edge connected to its direct hypernym.
+For each node in the graph it is also true that following one of the directed edges will lead to the synset entity,
+which is the most general concept in WordNet.
+
 \subsection{Hyponymy and hypernymy}
 \label{Hypernymy}
 Hyponymy and hypernymy is the main way that nouns are organized in WordNet.
