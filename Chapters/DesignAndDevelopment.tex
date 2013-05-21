@@ -414,6 +414,7 @@ the generalization of the process at a later stage.
 
 
 \section{Building the hypernym chain}
+\label{BuildingTheHypernymChain}
 The first attempt at mapping used only direct mappings from synset into the ontologies,
 but this was obviously not good enough.
 There are at the time of writing 577 schema.org entities\footnote{\url{http://schema.org/docs/full.html}}
@@ -524,7 +525,6 @@ This cutoff can be seen in the hypernym subroutine in the perl script in listing
 This does mean that the hypernym chain will not always be complete which is unfortunate,
 especially since a lot of where there are multiple hypernyms does conserve the semantics of the synset.
 
-
 \section{Best fit mapping}
 \label{BestFitMapping}
 The first step in finding the best mappings for a given synset is finding which mappings exist.
@@ -541,12 +541,15 @@ Given that there are ontologies that have not been mapped to we use the best fit
 \subsection{Hypernyms first}
 The hypernyms first algorithm traverses the hypernym chain by first looking at the direkt hypernym of the synset for mappings.
 It will then follow the hypernym chain upwards as long as no mappings has been found.
+This means that,
+except in cases where the generation of the hypernym chain is aborted because of multiple hypernyms such as mentioned in section \ref{BuildingTheHypernymChain},
+the algorithm will allways map to the most general type of the corresponding ontologies instead of looking at the siblings.
 %%% Include in discusion section on other traversals that could give better
 \fig{HypernymChain}{{A hypernym chain with siblings}}
-Looking at figure \ref{HypernymChain}, the hypernyms first algorith would follow the links upwards to the top before
-starting to look at the siblings, and them looking at them in the same order as the hypernyms.
-If there are ontologies that have not received a mapping it will start looking at the siblings of the synset and see
-if any of them have a mapping.
+Looking at figure \ref{HypernymChain}, the hypernyms first algorithm would follow the links upwards to the top.
+If there are no mappings in the hypernym chain the algorithm will start to look at the siblings,
+and them looking at them in the same order as the hypernyms.
+It will start looking at the siblings of the synset and see if any of them have a mapping.
 As long as there are ontologies without mappings it will then follow the hypernym chain upwards again,
 this time looking at the siblings of the hypernyms.
 If the mapping we find belongs to a sibling of the synset or one of its hypernyms we use the super type of the mapped
