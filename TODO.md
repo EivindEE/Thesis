@@ -19,8 +19,8 @@ Explain the shallowness of the results √
 5.2
 ===
 Add more sites
-Clarify methodology
-Elaborate that the markup is correct
+Clarify methodology √
+Elaborate that the markup is correct √
 
 
 Change to passive form 
