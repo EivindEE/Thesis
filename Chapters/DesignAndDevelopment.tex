@@ -132,56 +132,6 @@ The modules that were created were:
 	\item A module that puts the document back in its initial state and saves it to a persisten storage
 \end{itemize}
 
-\section{Designing the algorithms}
-We will now describe the two algorithms that were developed to find mappings between the WordNet synsets and the ontologies.
-We use two axes for navigating the WordNet graph, the hypernyms and the hyponyms.
-As described in \ref{WordNet}, a hypernyme can be described as category words into which more specialized words fall.
-Hyponyme is the inverse relation, where a hyponyme is a word which can be generalized into some more general category.
-For simplicity we will also use one additional term.
-We will use \emph{sibling} to refere to words which are hyponymes of a words hypernyme.
-An example( see figure \ref{Hyponyme}, page \pageref{Hyponyme})
-would be that \{dog\} has the hypernyme \{domestic\_animal\}, which again have the hyponyme \{cat\},
-\{cat\} would then be considered a sibling term of \{dog\}.
-
-
-Our hopes for this mapping tree is that in the cases where there is no direct mapping from the synset to a term in the
-ontologies we are mapping to, we can always preserve the semantics of the synset by using one of the synsets ancestors.
-For the siblings we hope that if we find a mapping,
-then the parent term of the term we have mapped to in the ontology will correspond to the meaning of the synset.
-Both these propositions will be tested as a part of the work with the thesis.
-
-The algorithms define different orders of looking at the synsets
-
-\subsection{Generating the search tree}
-The first step of the algorithm is the same for both algorithms.
-A search tree is generated using a perl script
-\footnote{Perl script found at \url{https://raw.github.com/EivindEE/SemTag/master/scripts/parents.pl}.}.
-
-\begin{figure}[ht]
-	\begin{center}
-		\includegraphics[width=0.60\textwidth]{Hyponyme_own.png}
-		\caption{The hyponyme relation, modified from \protect \citet{Miller1990}}
-		\label{Hyponyme}
-	\end{center}
-\end{figure}
-
-
-
-\subsection{The sibling first algorithm}
-The sibling first algorithm traverses the search tree by first looking if there is a direct mapping from the base synset to the ontologies.
-If a direct mapping is not found, it will look at the hypernyms and see if it has a mapping.
-After looking at the hypernyms it will look at the sibling senses.
-It will then go on to look at the hypernyms of the hypernyms, and then their sibling states.
-It will continue to follow the hypernym chain upwards until there are no more hypernyms, or a mappings has been found.
-
-\subsection{The ancestors first algorithm}
-The ancestor first algorithm will follow the hypernym chain upwards looking for mappings.
-The algorithm is written to follow the hypernym chain again, looking at the sibling senses, if no mapping is found.
-But since every WordNet noun is a hyponyme of {entity}, which should map to the most general object in an ontology,
-it will likely never be touched.
-
-
-
 \section{Interaction method}
 \label{Interaction}
 When we first faced the problem of how to let users interact with the web app we thought that using the highlighting or
@@ -553,12 +503,7 @@ and a more sophisticated solution to choosing hypernyms was decided to be outsid
 
 \section{Best fit mapping}
 \label{BestFitMapping}
-The first step in finding the best mappings for a given synset is finding which mappings exist.
-This is done by traversing the hypernym chain and checking for each synset in the chain if it has a mapping to
-one of the ontologies we are mapping to.
-When the hypernym chain has been modified to include mappings to the different ontologies we can use the different
-best fit algorithms and use their traversal of the chain to find which of these mappings that are the best according to
-the algorithms.
+We will now describe the two algorithms that were developed to find mappings between the WordNet synsets and the ontologies.
 Both algorithms will start by looking at the synset itself.
 We use the direct mappings of the synset should they exist as we have no reason to believe that we can do better than a
 direct mapping.
