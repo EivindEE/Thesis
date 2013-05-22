@@ -170,24 +170,11 @@ or that the mappings are incorrect.
 
 All the cases where the hypernyms first approach was deemed to have incorrect mappings were instances where the synset
 mapped to schema:Quantity via their hypernym measure\#n\#2 \{measure, quantity, amount\}.
+We can see in figure \ref{BirthdayChain} how the different synsets are related to measure\#n\#2.
 
-The hypernym chain linking birth\#n\#1, death\#n\#5, death\#n\#4 and end\#n\#2 to measure\#n\#2 ended with:
-\begin{verbatim}
-	beginning#n#2 / end#n#2
-	point#n#6
-	measure#n#2
-\end{verbatim}
+\fig{BirthdayChain}{How the synsets with incorrect mappings are related to measure\#n\#2}
 
-and birthday\#n\#2 had the chain:
-\begin{verbatim}
-	date#n#1
-	day#n#1
-	time_unit#n#1
-	measure#n#2
-\end{verbatim}
-
-
-In schema.org the type Quantity is described as "[q]uantities such as distance, time, mass, weight".
+In schema.org the type schema:Quantity is described as "[q]uantities such as distance, time, mass, weight".
 The synset measure\#n\#2 is described as "how much there is or how many there are of something that you can quantify".
 The mapping between these appear reasonable and do not seem to be the cause of error.
 
