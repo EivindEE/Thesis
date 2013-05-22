@@ -228,7 +228,7 @@ figure \ref{SidebarMeanings}.
 \fig{SidebarMeanings}{The list of posible interpretations of "discoveries"} % IMAGE OF LIST OF INTERPRETATIONS
 When a sense is clicked it is sent to the server to be mapped.
 The servers uses the best fit algorithm described in \ref{BestFitMapping}(page \pageref{BestFitMapping}) to find the ontology references
-that fits the sens best and attaches these references to the selection using RDFa.
+that fits the sense best and attaches these references to the selection using RDFa.
 The algorithm used to attach the metadata to the selection can handle an arbitrary amount of namespaces and references.
 If there is duplication of references these will be dropped.
 
@@ -356,9 +356,9 @@ and one containing the content of the head.
 An important part of the early work was to generate files that the tool could use to find mappings from WordNet synsets
 into the ontologies which were used.
 The ontologies that were chosen for the project, SUMO  and schema.org, already had these kinds of mapping files.
-The mapping files were however in different formats and inn formats that were unsuitable for use in a javascript based application.
+The mapping files were however in different formats and in formats that were unsuitable for use in a javascript based application.
 The format we wanted was one that gave up the option to ask if there was a mapping for a given WordNet synset,
-inn other words what we wanted was a dictionary.
+in other words what we wanted was a dictionary.
 Javascript objects are themselves dictionaries, making it natural to choose to them as the representation.
 The structure of the objects is very simple,
 the synsets are used as the keys to entities in the target ontologies as seen in listing \ref{wn2schemaMapping}.
@@ -387,7 +387,7 @@ the object has a property with the given name as in listing \ref{LabelExists}.
 The mapping files were to large to translate to javascript objects by hand, with the SUMO mapping file alone
 covering more than 82.000 mappings, so we used regular expressions to modify the files globaly.
 The schema.org mapping file\footnote{\url{https://github.com/mhausenblas/schema-org-rdf}}
-that was used as the basis for the wn2schema mapping file is written inn \nom{RDF/XML}{An XML representation of RDF}.
+that was used as the basis for the wn2schema mapping file is written in \nom{RDF/XML}{An XML representation of RDF}.
 The first step in creating the mapping file was to remove the parts of the file that were irrelevant to the problem at hand.
 The original file contains triples describing schema.org properties,
 the schema.org entities and the hierarchal ordering of entities.
@@ -612,7 +612,7 @@ Further refinement is likely posible of this assumption does not hold.
 To export a page after adding metadata the user clicks on the export tab in the sidebar and on the export button.
 This will provide the user with a link the the website with the metadata added as shown in figure \ref{SidebarExported}.
 \fig{SidebarExported}{The export tab after exporting the current page} % IMAGE OF EXPORT PANE
-The exported site is parsed to put the javascript and iframes back inn so that the website look the same as it did
+The exported site is parsed to put the javascript and iframes back in so that the website look the same as it did
 before it was imported into \theartefact.
 On the export pane we also give the user the option to add a google plus id to an authorship tag on the page.
 This is treated as a separate task as it pertains not to the content of the page, but to the page it self.
