@@ -25,6 +25,6 @@ Elaborate that the markup is correct √
 
 Change to passive form 
 
-Do we explain that building and traversing are two different steps?
+Do we explain that building and traversing are two different steps?√
 
-Should we add new mappings (artefact -> Product etc.)
+Should we add new mappings (artefact -> Product etc.) √
