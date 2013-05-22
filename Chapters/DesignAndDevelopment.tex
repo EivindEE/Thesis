@@ -520,9 +520,8 @@ and then find all the hyponyms of the hypernym.
 These sibling senses are then put in a list along with the synset.
 
 \subsection{Problems with multiple hypernyms}
-The initial version used a breadth first approach when listing the hypernyms.
-When starting work on the best fit algorithms it was discovered that this approach seemed to be inappropriate as it lead to incorrect mappings.
-The problem was discovered when mapping the synset quotation\#noun\#2,
+When starting work on the best fit algorithms it was discovered that some hypernyms lead to incorrect mappings.
+The problem was noticed when mapping the synset quotation\#noun\#2,
 described as "a short note recognizing a source of information or of a quoted passage",
 which was mapped to the schema.org term MusicRecording.
 This error was caused by the fact that the hypernym chain of quotation\#noun\#2 contains
@@ -537,13 +536,18 @@ and they should be in a "is a" relationship to each other.
 A native user of english would not say that a quotation is a type of music in the senses of the words are described above.
 This error has been reported to the maintainers of WordNet and will be fixed in the next public release( C. Fellbaum, personal communication, May 1).
 
-The system hand
-We might have been able to solve this issue by writing a special case for section\#n\#1, but decided against this,
-as we wanted a simpler solution.
-For the algorithm this means that we will cut the search for hypernyms when we come across a synset with more than one hypernym.
+The main problem this caused was that it made it unclear if both hypernyms would maintain the meaning of a synset,
+when the synset had more than one hypernym.
+It's not possible to choose a strategy where one only picks one of the hypernyms since the system has no way of
+knowing which of the hypernyms to choose.
+
+The system now handles cases where a synset has multiple hypernyms by aborting the generation of the hypernym chain,
+and only using the hypernyms found up to that point.
 This cutoff can be seen in the hypernym subroutine in the perl script in listing \ref{HypernymChainCode}.
-This does mean that the hypernym chain will not always be complete which is unfortunate,
-especially since a lot of where there are multiple hypernyms does conserve the semantics of the synset.
+This is not an optimal solution as it discards a lot of synsets which would give good mappings.
+It was however chosen to avoid getting extra incorrect mappings when testing the system.
+The solution chosen was also simpler to implement than check against hypernyms that were found to be wrong,
+and a more sophisticated solution to choosing hypernyms was decided to be outside of the scope of the research problem.
 
 \section{Best fit mapping}
 \label{BestFitMapping}
