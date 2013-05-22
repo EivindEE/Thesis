@@ -2,7 +2,7 @@
 
 4
 ====
-Rewrite intro
+Rewrite intro√
 
 4.1
 ====
@@ -10,7 +10,7 @@ Add how the different iterations were tested
 
 4.7.1
 =====
-Add diagram
+Add diagram√
 
 5.1
 ===
