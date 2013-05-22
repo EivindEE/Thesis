@@ -15,7 +15,7 @@ For artificial intelligence \citet{Gruber1993} explained it as "an explicit spec
 That is than one commits to a given conceptualization of the domain in question, and formalize how we describe and reason about these conceptualizations.
 A maybe somewhat simpler description was provided by \citet{Guarino1998} where ontology was described as a shared vocabulary
 concerning some specific domain where the assumptions regarding each term in the vocabulary was made explicit.
-\citet{Pretorius2004} talks about informastion sharing and reuse as one of the advantages of using ontologies to
+\citet{Pretorius2004} talks about information sharing and reuse as one of the advantages of using ontologies to
 capture conceptualizations.
 Two tools that are commited to the same ontology can easily share their knowledge stores,
 since they talk about the same things using the same explicit definitions of those things.
@@ -72,12 +72,15 @@ The method does get good results in creating the hierarchy, but does also show s
 
 While there are many difficulties attached to merging the social and semantic web,
 and with lifting semantic data from tags, there are many researchers who stress the need for this \citep{Passant2007,Mika2005, Gruber2007}.
+One suggestion on how one could merge these was suggested by \citet{Veres2011}.
+The idea presented involved disambiguating the tag at insertion time.
+This idea and the implementation of a system which disambiguates tags will be discussed later in the chapter.
 
 \subsection{RDF}
 On the semantic web, ontologies are represented using collection of \nom{RDF}{Resource Description Framework} triples.
 These triples are in the form of <subject, predicate, object>, much like simple declarative sentences \citep{Berners-Lee2001}.
 Let's suppose we wanted to say that I know my supervior Csaba.
-An informal triple describing this could be:
+An informal triple describing this could be
 \begin{verbatim}
      <Eivind, knows, Csaba>
 \end{verbatim}
@@ -206,12 +209,14 @@ general hypernyms to its more specialized hyponyms.
 This means that if one knows that a concept has some properties,
 then the hyponyms of that concept will have all the same properties,
 in addition to the properties it has which distinguishes it from the concept\citep{Miller1990a}.
+
 This has some basis in psycholexicologic research.
 \citet{Collins1969} showed that subjects used less time to say that a concept inhabited some property when that property
-was viewed as more typical for concept, than if it were a property of some more general concept
-( see Figure \ref{MemoryStructure}, page \pageref{MemoryStructure}).
+was viewed as more typical for concept, than if it were a property of some more general concept( see Figure \ref{MemoryStructure}, page \pageref{MemoryStructure}).
 A subject would for example use less time establishing that a shark is dangerous, a property associated with sharks;
 than they would establishing that it had fins, a property associated with fish; or that it breaths, associated with animals( see Figure \ref{MemoryStructure}, page \pageref{MemoryStructure}).
+
+\fig{MemoryStructure}{{A hypothetical memory structure, from \protect \citet{Collins1969}}}
 
 Nouns in WordNet is organized in a hierarchal fashion.
 One organizational issue then is if one should organize the nouns as one, or several hierarchies.
@@ -220,7 +225,41 @@ When these had been created one realized that these contained natural groupings.
 At this point one decided to add some top level synsets which tied these together,
 with the most general being \{entity\}\citep{Miller1990a}.
 
-\fig{MemoryStructure}{{A hypothetical memory structure, from \protect \citet{Collins1969}}}
+\section{DBPedia}
+DBPedia is an ontology based on data from Wikipedia.
+Wikipedia is a successful open collaborative information project,
+with about 4.2 million articles in english and 30 million all together
+\footnote{As of 2013-04-16: \url{http://en.wikipedia.org/wiki/Wikipedia:Size_of_Wikipedia}}.
+The justification for the ontology is similar to the criticism mentioned by \citet{Shirky2007}
+that it's difficult to know how a schema or ontology is going to be used before it's released on the web.
+Instead of starting with an ontology then the work with DBPedia examine how one can extract unstructured data
+from Wikipedia and transform it into a machine readable ontology.
+The main contributions of the project has been\citep{Auer2007}:
+
+\begin{itemize}
+	\item Developing a framework for extracting information from Wikipedia to RDF
+	\item Linking the items in the dataset to other ontologies
+	\item Exposing the RDF dataset to the public
+	\item Developing APIs for accessing the dataset
+\end{itemize}
+
+The extraction process is described in \citet{Auer2007a}.
+DBPedia extracts information from templates on the Wikipedia pages.
+The algorithm used looks through templates which have a high probability of containing structured information.
+These templates are parsed looking for pairs of attributes and values.
+The attributes correspond to predicates, and the values to objects of RDF statements.
+The subject of the statements would be the topic of the page it self,
+and it's given a unique URI in the DBPedia namespace by using it's Wikipedia URL.
+
+There is also some post processing of the results to enhance the data further.
+If the object of the statement is another Wikipedia resource,
+the same process that exists for the subject is used to find the targets URL and link it to that.
+In the cases where the object is a literal of a known type, then the data type information is added.
+
+DBPedia is not a static ontology and in continuously being updated with data from Wikipedia,
+making sure it's up to date with the newest terms and information.
+
+
 
 \section{Lexitags}
 \label{Lexitags}
@@ -235,8 +274,6 @@ since machines can reason about the content and be made responsible for finding 
 The goal then would be to create a system that feels like a social system at input time,
 but which creates structured markup which can be searched like a semantic system at retrieval time.
 
-The lexitags system is developed to work with tags,
-simple user provided strings containing one or a few words that are tied to the object of interest.
 Analysis of tags by \citet{Tonkin2006} from delicious\footnote{\url{https://delicious.com}} and Flickr\footnote{\url{http://www.flickr.com}},
 two websites that are focused on user generated content and tags,
 showed that a large amount of the tags were "sloppy".
@@ -244,13 +281,14 @@ Sloppy tags could mean that the tags were misspelled,
 that users had made compounded words my merging several words into one tag
 or that they added non-alphanumeric characters.
 
-One challenge tied to lexitags is mapping these types of tags,
-which might not correspond to a English word, into a known vocabulary.
+The lexitags system is developed to work with tags and provides a solution to the problem of sloppy tags.
+Lexitags solves the disambiguation problem by providing the user with a list of suggested senses for the tag provided.
+These senses can be in the form of a synset or the description of the sense.
+The user can then pick which sense which corresponds with the meaning the user wanted to convey\citep{Veres2011}.
+The sense the user chooses will then be stored as a reference to one of the vocabularies that lexitags uses.
 The vocabularies used by lexitags are WordNet and DBPedia.
 Since WordNet mainly contains dictionary words,
 DBPedia was chosen to complement it to cover things like names, places, or compound terms.
-Lexitags solves the disambiguation problem by providing the user with a list of suggested mappings for the tag provided.
-The user can then pick which sens which corresponds with the meaning the user wanted to convey\citep{Veres2011}.
 
 \section{Suggested upper merged ontology}
 The suggested upper merged ontology(\nom{SUMO}{Suggested upper merged ontology}) was created based on work from the Standard Upper Ontology(\nom{SUO}{Standard Upper Ontology}),
@@ -306,9 +344,14 @@ In these cases one either kept both the terms, or picked which one to use in the
 \label{schemadotorg}
 Schema.org\footnote{\url{http://schema.org}} is a joint venture by Google, Yahoo, and Bing,
 with the expressed goal of creating richer search results by getting content creators add metadata to their pages.
-The enrichment the metadata is supposed to provide is mainly by providing information for rich snippets\citep{Guha2011}.
+In addition to giving the search engines extra metadata about the content of the page,
+the search engines also use them to provide information for rich snippets\citep{Guha2011}.
 Rich snippets are small pieces of HTML which in some way can add information to a search result,
-showing the number of stars a product got in a review, a picture of the author, some multimedia content etc\citep{Mayer2009}.
+showing the number of stars a product got in a review, a picture of the author, part of the multimedia content
+or some other enriched content\citep{Mayer2009}.
+Figure \ref{RichSnippet} shows how the search result for the \theartefact\ homepage has been made more prominent by adding
+an image of the author of the page.
+\fig{RichSnippet}{The rich snippet displayed for the \theartefact\ homepage}
 Schema.org is tied closely to the microdata format\footnote{\url{http://dev.w3.org/html5/md-LC/}},
 but does at the moment still allow RDFa.
 
@@ -347,37 +390,3 @@ The mechanism also comes into difficulties when it comes to disambiguation.
 It is impossible to infere from the URI it self if Person/Minister referes to a clergyman, or to a minister of state.
 This problem would also persist when incorporating the term in the schema,
 and might make markup that used to be correct say something that was unintended.
-
-
-\section{DBPedia}
-DBPedia is an ontology project based on data from Wikipedia\footnote{\url{http://www.wikipedia.org}}.
-Wikipedia is a successful open collaborative information project,
-with about 4.2 million articles in english and 30 million all together
-\footnote{As of 2013-04-16: \url{http://en.wikipedia.org/wiki/Wikipedia:Size_of_Wikipedia}}.
-The justification for the ontology is similar to the criticism mentioned by \citet{Shirky2007}
-that it's difficult to know how a schema or ontology is going to be used before it's released on the web.
-Instead of starting with an ontology then the work with DBPedia examine how one can extract unstructured data
-from Wikipedia and transform it into a machine readable ontology.
-The main contributions of the project has been\citep{Auer2007}:
-
-\begin{itemize}
-	\item Developing a framework for extracting information from Wikipedia to RDF
-	\item Linking the items in the dataset to other ontologies
-	\item Exposing the RDF dataset to the public
-	\item Developing APIs for accessing the dataset
-\end{itemize}
-
-The extraction process is described in \citet{Auer2007a}.
-DBPedia extracts information from templates on the Wikipedia pages.
-The algorithm used looks through templates which have a high probability of containing structured information.
-These templates are parsed looking for pairs of attributes and values.
-The attributes correspond to predicates, and the values to objects of RDF statements.
-The subject of the statements would be the topic of the page it self,
-and it's given a unique URI in the DBPedia namespace by using it's Wikipedia URL.
-There is also some post processing of the results to enhance the data further.
-If the object of the statement is another Wikipedia resource,
-the same process that exists for the subject is used to find the targets URL and link it to that.
-In the cases where the object is a literal of a known type, then the data type information is added.
-
-DBPedia is not a static ontology and in continuously being updated with data from Wikipedia,
-making sure it's up to date with the newest terms and information.
