@@ -257,11 +257,6 @@ If the property already has a value it will be displayed in the input field when
 
 %\fig{Sidebar}{The information tab of the sidebar},
 
-
-
-
-
-
 \section{Maintaining the well-formedness of the document}
 One of the difficult aspects of adding the metadata to the selections was making sure that the HTML was well-formed
 after the metadata was inserted.
@@ -415,42 +410,42 @@ the generalization of the process at a later stage.
 
 \section{Building the hypernym chain}
 \label{BuildingTheHypernymChain}
-The first attempt at mapping used only direct mappings from synset into the ontologies,
-but this was obviously not good enough.
-There are at the time of writing 577 schema.org entities\footnote{\url{http://schema.org/docs/full.html}}
-and the mapping file used in \theartefact\ contains 155 mappings from WordNet.
-For it to be feasible to map from natural language to smaller ontologies like schema.org we need to expand the search
-from just direct mapping to mappings from more general terms.
-
-The idea we had for this project was to use the hypernyms and siblings of the synset to find other synsets
-which had overlapping semantic content.
-For the hypernyms this was assumed to be unproblematic, since a hyponym is in a is-a relationship to its hypernym.
-With regards to the sibling synsets we had a theory that we could find the mappings these sibling synsets
-and use the supertype of the mapped entity is the corresponding ontology.
-Our theory was that the super set of a the mapping of a sibling synset would match with the semantics of the synset.
+Many synsets that the users will select as representing the concepts in the web app will be more specific than
+the ones used in ontologies \theartefact\ maps to.
+This means that the tool needs some way of generalizing the synsets.
+This thesis examines two approaches to finding mappings from the synset to the ontologies.
+One approach is to use the hypernym chain,
+a term used in \citet{Veres2011} to describe the list of all the hypernyms of a synset.
+The other approach examined is to use the sibling senses of the synset and the synsets in the hypernym chain.
 
 Javascript does not have a library for 	querying the WordNet database,
 so this part of the project needed to be coded in another language.
+Had there been a javascript library for querying WordNet,
+it would be natural to generate the hypernym chain while searching for the mappings from the synset to the ontologies.
+Having to use a different programming language and calling it outside the program,
+it is easier and more efficient to split the process.
+The system will first generate the entire hypernym chain and add the siblings of all of the hypernyms,
+and then examine the hypernym chain to find the best mappings.
+This section will describe the first part of this process, generating the hypernym chain.
 
-We decided to write a perl script\footnote{\url{https://github.com/EivindEE/Madame/blob/master/scripts/parents.pl}} to generate a hypernym chain.
-The script was called by using the node
+The system uses a perl script\footnote{\url{https://github.com/EivindEE/Madame/blob/master/scripts/parents.pl}} to generate the hypernym chains.
+The script is called by using the node
 child\_process.exec\footnote{\url{http://nodejs.org/api/child\_process.html\#child\_process\_child\_process\_exec\_command\_options\_callback}}
 function, which calls a command line utility and uses the output stream as the input to the callback function.
-We use the term "hypernym chain", or just "chain" for short to speak of the all the hypernyms of the synset at hand.
-With all the hypernyms meaning  the transitive closure of the hypernym relation with regards to the synset.
-These hypernyms are organized into a list, ordered by closeness to the synset for which we build the chain.
-The hypernym chain could also be described as a list of ancestors,
-which might seem more intuitive, but the term hypernym chain was used in \citet{Veres2011} and will be used here.
 
-The first version of the script was structured to use a breadth first search to find all the hypernyms of the synset,
-looking first at the synset it self and putting the hypernyms into a queue and repeating the process for each item in the queue.
-The hypernyms found were put into the hypernym chain in the order they were discovered,
-meaning that the most direct ancestor would be at the start of the list.
-The hypernym chain would then be iterated over to find the sibling synsets of each of the hypernyms.
-The result of the algorithm would be returned as a JSON string.
-An example of the output of the script can be seen in listing \ref{PerlHypernymChain}(page \pageref{PerlHypernymChain}).
+The structure of WordNet as a whole can be described as a directed graph, as shown in figure \ref{WordNetGraph}.
+The graph must also be acyclical since the hypernym relation is asymmetric as mentioned in section \ref{Hypernymy}.
+\fig{WordNetGraph}{Part of the WordNet graph}
+Each synset can be described as a node in this graph, with a directed edge connected to its direct hypernym.
+For each node in the graph it is also true that following one of the directed edges will lead to the synset entity,
+which is the most general concept in WordNet.
 
-\begin{lstlisting}[label=PerlHypernymChain, caption={Excerpt from the hypernym chain for student\#n\#1}]
+The hypernym chain we generate is a list of objects.
+The objects contain the hypernym itself, its offset in WordNet, and a list of all its siblings.
+Each sibling is stored as an object containing the synset, and its offset.
+An example of how the hypernym chain is represented as JSON can be seen in listing \ref{PerlHypernymChain}.
+
+\begin{lstlisting}[float=t, label=PerlHypernymChain, caption={Excerpt from the hypernym chain for student\#n\#1}]
 {
 	"chain": [
 		{
@@ -471,7 +466,18 @@ An example of the output of the script can be seen in listing \ref{PerlHypernymC
 }
 \end{lstlisting}
 
-\begin{lstlisting}[language=perl, label=HypernymChainCode, caption={Excerpt from the hypernym chain perl script}]
+Generating the hypernym chain is done in two steps.
+The first step is to create a list of all the hypernyms,
+while the second is to add all the siblings.
+To generate the list of hypernyms, the script does a breadth first traversal of the graph as described in listing \ref{HypernymChainCode}.
+For the graph in figure \ref{WordNetGraph} the algorithm would add \{living thing\},
+and \{causal agent\} before adding \{physical entity\} and \{entity\} to the list.
+If a synset is encountered multiple times, it is ignored in subsequent encounters.
+The hypernyms are added to the end of the list when they are found.
+This means that the synsets that are at the start of the list,
+are the ones that are at the closest level of abstraction to the synset for which we build the chain.
+
+\begin{lstlisting}[float=t, language=perl, label=HypernymChainCode, caption={Excerpt from the hypernym chain perl script}]
 my @hypernym = hypernym($synset);
 my @hypernyms;
 while ( @hypernym){
@@ -507,17 +513,31 @@ sub siblings {
 }
 \end{lstlisting}
 
+
+After the list of hypernyms has been created it is iterated over to add the siblings of each of the hypernyms.
+For each synset in the hypernym chain the script will find the synsets hypernym,
+and then find all the hyponyms of the hypernym.
+These sibling senses are then put in a list along with the synset.
+
 \subsection{Problems with multiple hypernyms}
 The initial version used a breadth first approach when listing the hypernyms.
-When starting work on the best fit algorithms we saw that this approach seemed to be inappropriate as it lead to incorrect mappings.
+When starting work on the best fit algorithms it was discovered that this approach seemed to be inappropriate as it lead to incorrect mappings.
 The problem was discovered when mapping the synset quotation\#noun\#2,
 described as "a short note recognizing a source of information or of a quoted passage",
 which was mapped to the schema.org term MusicRecording.
 This error was caused by the fact that the hypernym chain of quotation\#noun\#2 contains
-section\#n\#1 which is a hyponym of both music\#n\#1 and writing\#n\#2.
-The fact that quotation\#noun\#2 is a hyponym of music\#n\#1 violates the rules for hyponymy discussed in \ref{Hypernymy}.
+section\#n\#1 which is a hyponym of both music\#n\#1 and writing\#n\#2, shown in figure \ref{IncorrectHypernyms}.
+
+\fig{IncorrectHypernyms}{The start of the hypernym chain of quotation\#noun\#2}
+
+The synset music\#n\#1 is described as "an artistic form of auditory communication incorporating instrumental or vocal tones in a structured and continuous manner".
+The fact that quotation\#noun\#2 is a hyponym of music\#n\#1 violates the rules for hypernymy discussed in \ref{Hypernymy}.
+Hypernyms are supposed to be generalizations of its hyponyms,
+and they should be in a "is a" relationship to each other.
+A native user of english would not say that a quotation is a type of music in the senses of the words are described above.
 This error has been reported to the maintainers of WordNet and will be fixed in the next public release( C. Fellbaum, personal communication, May 1).
 
+The system hand
 We might have been able to solve this issue by writing a special case for section\#n\#1, but decided against this,
 as we wanted a simpler solution.
 For the algorithm this means that we will cut the search for hypernyms when we come across a synset with more than one hypernym.
