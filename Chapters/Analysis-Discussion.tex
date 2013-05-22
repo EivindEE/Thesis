@@ -71,11 +71,11 @@ As seen in table \ref{table:AlgorithmComparison} both algorithms map fairly high
 	\begin{tabular}{lll}
 											& Hypernyms First 	& Hypernym then siblings	\\
 		\emph{For all mappings}				&					&							\\
-		Avg. depth total					& 0.688506 			& 0.804138					\\
+		Avg. depth total					& 0.688506 			& 0.804138					\\[0.15cm]
 		\emph{For different mappings}		&					&							\\
 		Avg. depth different				& 0.721507			& 1.183823					\\
-		Mappings to "Thing"					& 449				& 334						\\
-		Mappings to "Intangible"			& 481				& 81						\\
+		Mappings to schema:Thing			& 449				& 334						\\
+		Mappings to schema:Intangible		& 481				& 81						\\[0.15cm]
 		\emph{For the 250 examined mappings}&					&							\\
 		Correct mappings					& 235				& 67						\\
 		Correct mapping	rate				& 94\%				& 26.8\%					\\
@@ -91,13 +91,14 @@ The hypernyms first approach maps to a type at level 0.69 on average when consid
 or to a type at level 0.72 when ignoring the cases where the two algorithms gave the same result.
 As predicted the hypernym then siblings approach does a little better, though not much,
 mapping to types at level 0.8, or 1.2 when excluding identical mappings.
-Looking at the data it is obvious that the hyponyms first approach much more frequently leads to mappings to Thing and Intangible.
+Looking at the data it is obvious that the hyponyms first approach much more frequently leads to mappings to schema:Thing and schema:Intangible.
 The hypernym first algorithm maps to schema:Thing 449, and schema:Intagible 481 times,
 while hypernyms then siblings maps to schema:Thing 334 and schema:Intangible 81 times.
 Neither schema:Thing nor schema:Intangible are very interesting mappings in the ontology.
-As described in section \ref{schemadotorg}, Thing is the most general category, meaning that every concept belongs to this category.
-Intangible is described\footnote{\url{http://schema.org/Intangible}} as "a utility class that serves as the umbrella for a number of 'intangible' things",
+As described in section \ref{schemadotorg}, schema:Thing is the most general category, meaning that every concept belongs to this category.
+On the other hand, schema:Intangible is described\footnote{\url{http://schema.org/Intangible}} as "a utility class that serves as the umbrella for a number of 'intangible' things",
 and does not have any special properties in the ontology.
+
 These results were a bit disappointing.
 One should however keep in mind the fact that schema.org is not a general ontology.
 As mentioned in section \ref{schemadotorg} the schema.org ontology is geared towards things that are relevant to search engines.
