@@ -23,7 +23,7 @@ This overview of the iterations will explain when the initial development of
 the different part were to give an short explanation of the development process.
 
 \subsection{Iteration 1}
-The first iteration started with a technical peak exploring different tools and frameworks for development with javascript.
+The first iteration started with a technical peak exploring different tools and frameworks for development with JavaScript.
 We wanted to find tools that could reduce development time by reducing the amount of repetitive work done in the project.
 
 It was decided that we were going to use bootstrap\footnote{\url{http://twitter.github.io/bootstrap/}} as a grid system
@@ -33,13 +33,13 @@ and reduces the amount of time needed to set up a scaffold.
 Since the visual aspect of the webpage was not an important aspect of the work a simple grid system like bootstrap
 eased the development burden.
 
-We also decided to use SASS\footnote{\url{http://sass-lang.com}} to write our stylesheets.
-The syntax is similar to that of CSS.
-We decided to use this instead of CSS since it contained variables,
-making it posible to make global changes while only modifying one line in the stylesheet.
+It was decided to use SASS\footnote{\url{http://sass-lang.com}} to write the style sheets.
+It has a syntax that is similar to that of CSS.
+In addition to the regular syntax of CSS it also includes the possibility of using variables.
+making it possible to make global changes while only modifying one line in the stylesheet.
 SASS compiles to standard CSS.
 
-JavascriptSince javascript lacks a good IDE we wanted to have some tool that would check our code to make sure that the
+Since JavaScript lacks a good IDE we wanted to have some tool that would check our code to make sure that the
 code was consistent and that the syntax was correct.
 We decided to use jslint\footnote{\url{http://www.jslint.com}} to validate our code.
 Using a linter eases development as it enforces a particular coding standard for the project.
@@ -48,23 +48,23 @@ The way the project was set up, we couldn't build the project without it passing
 Since the project depended on compiling the stylesheet and linting the code we decided to use grunt.js\footnote{\url{http://gruntjs.com}}
 to automate this process.
 Grunt.js is a task manager that can run certain tasks when specified events are triggered.
-We set the project up so that each time a javascript or SASS file was saved we compiled the SASS document,
-and concatenated the public javascript files.
-Concatenating the javascript files meant that we didn't have to update the HTML when we created or deleted a new
-javascript file, since we only needed to include that one file.
+We set the project up so that each time a JavaScript or SASS file was saved we compiled the SASS document,
+and concatenated the public JavaScript files.
+Concatenating the JavaScript files meant that we didn't have to update the HTML when we created or deleted a new
+JavaScript file, since we only needed to include that one file.
 
 We had decided to use Node.js as the development platform of the project.
 Setting up a basic server in node.js can be done in a single line of code,
-but requires a lot of low level handeling of requests and responses
+but requires a lot of low level handling of requests and responses
 including parsing request url to find the correct handler.
 We decided to instead go for express\footnote{\url{http://expressjs.com}},
-a web app framework which simplifies routing requests to the correct handler and handeling static files.
+a web app framework which simplifies routing requests to the correct handler and handling static files.
 It was also decided to use the jade\footnote{\url{http://jade-lang.com}}
 templating language to generate the HTML that was used on the website.
 Using a templating language made the distinction between structure and content clearer,
 and enabled reuse of structure and content between different versions of the website during development.
 
-Our technological peak also included geting to know the DOM, the API used for manipulating HTML documents.
+The technological peak also included getting to know the DOM, the API used for manipulating HTML documents.
 The problem we tried to solve during this technical peak was how to find minimal legal ranges.
 We knew we were going to have to add separate tags to add the metadata we create,
 and that we were going to let users select which portions of the text that carried the semantic content.
@@ -73,24 +73,24 @@ was both a legal range, and which contained the whole of the selected text.
 
 
 \subsection{Iteration 2}
-The next step consisted of actually generating metadata tags with the correct RDFa syntax which enclosed the user selection.
-One of the tasks was giving each selected section a unique id so that they could be referenced externaly,
+The next step consisted of actually generating metadata tags with the correct RDFa syntax that also enclosed the user selection.
+One of the tasks was giving each selected section a unique id so that they could be referenced externally,
 we also wanted this id to carry some information about the content of the tag.
 At this stage we had not yet started with development of the mapping so the tags contained mock data.
 
 In this iteration we also started work with generating the hypernym chains we needed to find mappings.
 We initially tried to use an existing triple store and query the information with SPARQL.
-The triple store used an early version of SPARQL which did not allow recursive queries.
+The triple store used an early version of SPARQL that did not allow recursive queries.
 Since we needed to find the transitive closure of the hypernym relation,
-using this source would require multiple sequencial queries and would take to long to be tenable.
+using this source would require multiple sequential queries and would take to long to be tenable.
 Javascript does not have a mature library for querying the WordNet database, so we did not have a native solution.
-Our solution was instead to use perl to write a script which could query a local WordNet instance.
-This again required a technical peak to learn the basics of the perl programming language but gave a satisfying solution.
+The solution used was instead to use Perl to write a script that could query a local WordNet instance.
+This again required a technical peak to learn the basics of the Perl programming language but gave a satisfying solution.
 
 We also used this iteration to find WordNet mapping files and convert them to a format more suitable for our system.
 We had a mapping file between WordNet and SUMO in the WordNet database format,
 and one between WordNet and schema.org in RDF.
-Both of these files were translated into javascript objects.
+Both of these files were translated into JavaScript objects.
 
 \subsection{Iteration 3}
 In the third iteration we implemented the actual mapping algorithms that we wanted to try out.
@@ -107,7 +107,7 @@ This document would be stored in our database, and would be accessible for the u
 
 Adding properties to entities was also developed during this stage.
 This was only implemented for schema.org properties,
-both to keep the number of properties at a managable level,
+both to keep the number of properties at a manageable level,
 and because extracting all the allowed properties for all SUMO classes would be a difficult task.
 
 In this iteration we also added the ability to add author information.
@@ -131,7 +131,7 @@ The modules that were created were:
 	\item A module for fetching possible disambiguating terms from lexitags
 	\item A module for finding the best fit mappings for SUMO and schema.org
 	\item A module for finding the best fit mappings from DBPedia to schema.org
-	\item A module that puts the document back in its initial state and saves it to a persisten storage
+	\item A module that puts the document back in its initial state and saves it to a persistent storage
 \end{itemize}
 
 \section{Interaction method}
@@ -169,7 +169,7 @@ Both of these can be used to generate mappings,
 but the most interesting mapping for this thesis lies in generating mappings from WordNet so the synsets are given preference in the list.
 DBPedia does not have a standardized way of finding the super type of a resource,
 so if the resource does not have a schema.org mapping it is difficult to find generalizations that do.
-Lexitags also returns the top level resources from schema.org as shown in figure \ref{TopLevelSchemaOrg}(page \pageref{TopLevelSchemaOrg}).
+Lexitags also returns the top-level resources from schema.org as shown in figure \ref{TopLevelSchemaOrg}(page \pageref{TopLevelSchemaOrg}).
 These are sorted to the bottom of the list as these are fallbacks for when none of the of the terms suggested for
 the word turn out to be reasonable suggestions for the selected text.
 
@@ -177,7 +177,7 @@ the word turn out to be reasonable suggestions for the selected text.
 
 To select one of the terms from the list as the meaning of the selected text the user clicks the sense in the list see in
 figure \ref{SidebarMeanings}.
-\fig{SidebarMeanings}{The list of posible interpretations of "discoveries"} % IMAGE OF LIST OF INTERPRETATIONS
+\fig{SidebarMeanings}{The list of possible interpretations of "discoveries"} % IMAGE OF LIST OF INTERPRETATIONS
 When a sense is clicked it is sent to the server to be mapped.
 The servers uses the best fit algorithm described in \ref{BestFitMapping}(page \pageref{BestFitMapping}) to find the ontology references
 that fits the sense best and attaches these references to the selection using RDFa.
@@ -187,8 +187,8 @@ If there is duplication of references these will be dropped.
 When the metadata element is created,
 the schema.org type is sent back to the server to get a list of the possible properties of that type.
 On the server we use a JSON representation of the schema.org ontology to find the properties that a type can have.
-The representation we use was retrieved from \url{http://schema.rdfs.org} which is a support site that tries to
-promote linked data.
+The representation we use was retrieved from \url{http://schema.rdfs.org}, which is a support site that tries to
+promote the use of linked data.
 For each of the types in schema.org the JSON file provides the properties specific to that type,
 and all the properties it has inherited from its super types.
 We combine the information about which properties a type can have with a short description of what the property represents,
@@ -200,7 +200,7 @@ with the description and range stored as data attributes of the element.
 \subsection{Adding properties}
 
 Users can click text that has been tagged with metadata.
-This triggers a popover view which displays the properties that the element can have,
+This triggers a popover view that displays the properties that the element can have,
 and which types of values are allowed for each property as shown in figure \ref{PropertiesFull}.
 \fig{PropertiesFull}{{The properties popover for schema:Event}} % IMAGE OF PROPERTY SELECTION BOX
 If the property allows other schema.org types as their value we do a scan of the content of the website to check if
@@ -219,22 +219,22 @@ Special care needs to be taken with the ranges of the selection.
 Since we need to insert the metadata into tags we can't just use the user range without some checks.
 If we consider the simple case:
 
-\texttt{<p>some text \hl{in a p</p> <p>` pluss some} other text </p>}
+\texttt{<p>some text \hl{in a p</p> <p>` plus some} other text </p>}
 
 If we simply inserted a tag we would get invalid HTML since we would have overlapping elements.
 
-\texttt{<p>`some text <tag> in a p</p> <p> pluss some </tag>  other text </p>}
+\texttt{<p>`some text <tag> in a p</p> <p> plus some </tag>  other text </p>}
 
 To get a well formed HTML document we need to either close and open the HTML tags
 
-\texttt{<p>some text </p><tag><p> in a p</p> <p> pluss some </p></tag><p>  other text </p>}
+\texttt{<p>some text </p><tag><p> in a p</p> <p> plus some </p></tag><p>  other text </p>}
 
 Solving the problem in this manner would change the structure and rendering of the webpage,
 as we would create new block elements.
-This is not a tenable solution as we want to leave the page looking the same as we found it.
+This is not a tenable solution, as we want to leave the page looking the same as we found it.
 Our solution would instead expand the range of the selection so that it covered a larger part of the document:
 
-\texttt{<tag><p>some text in a p</p> <p> pluss some other text </p></tag>}
+\texttt{<tag><p>some text in a p</p> <p> plus some other text </p></tag>}
 
 The interaction method consists of letting the user make arbitrary selections and then adding metadata to the selection.
 This could easily lead to overlapping elements in the HTML as shown above.
@@ -263,12 +263,12 @@ This metadata element is styled with a distinct color to let the user know that 
 One of the issues that came up early was how to import and display the websites that the user wanted to add metadata to.
 Early attempts tried using the iframe\footnote{http://www.w3.org/TR/html5/embedded-content-0.html\#the-iframe-element}
 element of \nom{HTML}{HyperText Markup Language}.
-Embedding the target website in an iframe was the first try as it would allow the page to display in the same maner
+Embedding the target website in an iframe was the first try as it would allow the page to display in the same manner
 as it does when accessed directly.
-Using the iframe element in this maner would however constitute cross-domain communication and is not allowed.
+Using the iframe element in this manner would however constitute cross-domain communication and is not allowed.
 The solution that is used in the system now uses a module on the server to fetch the HTML of the document the user wants to enrich.
 The HTML that is imported is now appended to a content element in the webapp.
-We attach the javascript events used in the webapp to this element,
+We attach the JavaScript events used in the webapp to this element,
 to keep the interaction confined to the content the user is meant to tag.
 We also use the id of this tag to tell if a certain element is a part of the user content section by checking if it is
 the child of the element.
@@ -286,15 +286,15 @@ The parts of the page that we comment out are the script, iframe and comment ele
 The script elements could disrupt the way the web app works, either by overwriting the behavior of functions,
 or otherwise alter the behavior of the web app.
 In addition the script elements are not visible on the page so interacting with them would be hard.
-Removing them was also convenient durring development.
+Removing them was also convenient during development.
 The scripts in the tags would often rely on variables or functions that should have been loaded elsewhere,
-and they would cluttre the console making it more difficult to find the relevant information.
+and they would clutter the console making it more difficult to find the relevant information.
 Iframes were excluded since they could make the web app appear to be inconsistent.
 The iframes look like a part of the page,
 but it would not be possible to alter their content since the HTML belongs to a different document.
 The difference between the document and the iframe would be invisible to the user,
 so it was decided that it would be better to remove the element all together.
-The comment elements were removed to make sure that the page would display as it should.
+The comment elements were removed to make sure that the page would display the way it should.
 Since we use comments to remove iframes and scripts, and since these elements could them selves contain comments,
 the content of the comments would sometimes be displayed as text elements on the page.
 
@@ -308,7 +308,7 @@ and one containing the content of the head.
 An important part of the early work was to generate files that the tool could use to find mappings from WordNet synsets
 into the ontologies which were used.
 The ontologies that were chosen for the project, SUMO  and schema.org, already had these kinds of mapping files.
-The mapping files were however in different formats and in formats that were unsuitable for use in a javascript based application.
+The mapping files were however in different formats and in formats that were unsuitable for use in a JavaScript based application.
 The format we wanted was one that gave up the option to ask if there was a mapping for a given WordNet synset,
 in other words what we wanted was a dictionary.
 Javascript objects are themselves dictionaries, making it natural to choose to them as the representation.
@@ -325,7 +325,7 @@ exports.mapping = {
 };
 \end{lstlisting}
 
-Since we use javascript objects to represent the mappings,
+Since we use JavaScript objects to represent the mappings,
 querying a mapping object to check if it contains a mapping for a certain synset would then just consist of checking if
 the object has a property with the given name as in listing \ref{LabelExists}.
 \begin{lstlisting}[label=LabelExists,caption=Testing if a mapping exists]
@@ -336,8 +336,8 @@ the object has a property with the given name as in listing \ref{LabelExists}.
 	}
 \end{lstlisting}
 
-The mapping files were to large to translate to javascript objects by hand, with the SUMO mapping file alone
-covering more than 82.000 mappings, so we used regular expressions to modify the files globaly.
+The mapping files were to large to translate to JavaScript objects by hand, with the SUMO mapping file alone
+covering more than 82.000 mappings, so we used regular expressions to modify the files globally.
 The schema.org mapping file\footnote{\url{https://github.com/mhausenblas/schema-org-rdf}}
 that was used as the basis for the wn2schema mapping file is written in \nom{RDF/XML}{An XML representation of RDF}.
 The first step in creating the mapping file was to remove the parts of the file that were irrelevant to the problem at hand.
@@ -351,7 +351,7 @@ marks, separate them with a colon and add a comma at the end to separate it from
 
 The SUMO\footnote{\url{http://sigmakee.cvs.sourceforge.net/sigmakee/KBs/WordNetMappings/}} mapping followed a similar pattern,
 but the original format was different as it used the WordNet database format.
-We used the WordNetMappings30-noun file as our basis so for this mapping we did not have to remove non noun phrases.
+We used the WordNetMappings30-noun file as our basis so for this mapping we did not have to remove non-noun phrases.
 The fact that each line in the file corresponded to a line in the mapping file made the process of translation easier,
 there was however one caveat in that the file used the offset to identify the synset,
 instead of the word\#category\#number format which we use for the other mapping file.
@@ -374,7 +374,7 @@ The other approach examined is to use the sibling senses of the synset and the s
 
 Javascript does not have a library for 	querying the WordNet database,
 so this part of the project needed to be coded in another language.
-Had there been a javascript library for querying WordNet,
+Had there been a JavaScript library for querying WordNet,
 it would be natural to generate the hypernym chain while searching for the mappings from the synset to the ontologies.
 Having to use a different programming language and calling it outside the program,
 it is easier and more efficient to split the process.
@@ -382,7 +382,7 @@ The system will first generate the entire hypernym chain and add the siblings of
 and then examine the hypernym chain to find the best mappings.
 This section will describe the first part of this process, generating the hypernym chain.
 
-The system uses a perl script\footnote{\url{https://github.com/EivindEE/Madame/blob/master/scripts/parents.pl}} to generate the hypernym chains.
+The system uses a Perl script\footnote{\url{https://github.com/EivindEE/Madame/blob/master/scripts/parents.pl}} to generate the hypernym chains.
 The script is called by using the node
 child\_process.exec\footnote{\url{http://nodejs.org/api/child\_process.html\#child\_process\_child\_process\_exec\_command\_options\_callback}}
 function, which calls a command line utility and uses the output stream as the input to the callback function.
@@ -431,7 +431,7 @@ The hypernyms are added to the end of the list when they are found.
 This means that the synsets that are at the start of the list,
 are the ones that are at the closest level of abstraction to the synset for which we build the chain.
 
-\begin{lstlisting}[float=t, language=perl, label=HypernymChainCode, caption={Excerpt from the hypernym chain perl script}]
+\begin{lstlisting}[float=t, language=perl, label=HypernymChainCode, caption={Excerpt from the hypernym chain Perl script}]
 my @hypernym = hypernym($synset);
 my @hypernyms;
 while ( @hypernym){
@@ -487,7 +487,7 @@ The synset music\#n\#1 is described as "an artistic form of auditory communicati
 The fact that quotation\#noun\#2 is a hyponym of music\#n\#1 violates the rules for hypernymy discussed in \ref{Hypernymy}.
 Hypernyms are supposed to be generalizations of its hyponyms,
 and they should be in a "is a" relationship to each other.
-A native user of english would not say that a quotation is a type of music in the senses of the words are described above.
+A native user of English would not say that a quotation is a type of music in the senses of the words are described above.
 This error has been reported to the maintainers of WordNet and will be fixed in the next public release( C. Fellbaum, personal communication, May 1).
 
 The main problem this caused was that it made it unclear if both hypernyms would maintain the meaning of a synset,
@@ -497,8 +497,8 @@ knowing which of the hypernyms to choose.
 
 The system now handles cases where a synset has multiple hypernyms by aborting the generation of the hypernym chain,
 and only using the hypernyms found up to that point.
-This cutoff can be seen in the hypernym subroutine in the perl script in listing \ref{HypernymChainCode}.
-This is not an optimal solution as it discards a lot of synsets which would give good mappings.
+This cutoff can be seen in the hypernym subroutine in the Perl script in listing \ref{HypernymChainCode}.
+This is not an optimal solution as it discards a lot of synsets that would give good mappings.
 It was however chosen to avoid getting extra incorrect mappings when testing the system.
 The solution chosen was also simpler to implement than check against hypernyms that were found to be wrong,
 and a more sophisticated solution to choosing hypernyms was decided to be outside of the scope of the research problem.
@@ -512,18 +512,18 @@ direct mapping.
 Given that there are ontologies that have not been mapped to we use the best fit algorithms to find the missing mappings.
 
 \subsection{Hypernyms first}
-The hypernyms first algorithm traverses the hypernym chain by first looking at the direkt hypernym of the synset for mappings.
-It will then follow the hypernym chain upwards as long as no mappings has been found.
+The hypernyms first algorithm traverses the hypernym chain by first looking at the direct hypernym of the synset for mappings.
+It will then follow the hypernym chain upward as long as no mappings has been found.
 This means that,
 except in cases where the generation of the hypernym chain is aborted because of multiple hypernyms such as mentioned in section \ref{BuildingTheHypernymChain},
-the algorithm will allways map to the most general type of the corresponding ontologies instead of looking at the siblings.
+the algorithm will always map to the most general type of the corresponding ontologies instead of looking at the siblings.
 %%% Include in discusion section on other traversals that could give better
 \fig{HypernymChain}{{A hypernym chain with siblings}}
-Looking at figure \ref{HypernymChain}, the hypernyms first algorithm would follow the links upwards to the top.
+Looking at figure \ref{HypernymChain}, the hypernyms first algorithm would follow the links upward to the top.
 If there are no mappings in the hypernym chain the algorithm will start to look at the siblings,
 and them looking at them in the same order as the hypernyms.
 It will start looking at the siblings of the synset and see if any of them have a mapping.
-As long as there are ontologies without mappings it will then follow the hypernym chain upwards again,
+As long as there are ontologies without mappings it will then follow the hypernym chain upward again,
 this time looking at the siblings of the hypernyms.
 If the mapping we find belongs to a sibling of the synset or one of its hypernyms we use the super type of the mapped
 type as the type that is mapped to.
@@ -545,29 +545,29 @@ It will then follow the same procedure up the chain, first looking at each synse
 then looking at its siblings before moving up the chain and repeating the process.
 Looking again at figure \ref{HypernymChain} we would at each node first look at the node above,
 and then at the nodes to the right, before moving one node up the tree.
-The maner in which the algorithm choses which sibling to map to is at the moment fairly naïve.
+The manner in which the algorithm choses which sibling to map to is at the moment fairly naïve.
 The algorithm will use the first match it finds,
 meaning that if two or more siblings have mappings to an ontology the first one found by the algorithm will be used.
 As shown in listing \ref{HypernymChainCode} the order of the siblings in the JSON is the same as the order that they
 are given by querying the WordNet database.
 For our purposes this is equal to using an unordered list since we don't know and can't predict the order.
-The for the algorithm we developed for this too we assume  that we have no reason to prefere one mapping over another,
+The for the algorithm we developed for this too we assume  that we have no reason to prefer one mapping over another,
 since we at this point don't know the meaning of the synset.
-Further refinement is likely posible of this assumption does not hold.
+Further refinement is likely possible of this assumption does not hold.
 
 \section{Exporting the document}
 To export a page after adding metadata the user clicks on the export tab in the sidebar and on the export button.
-This will provide the user with a link the the website with the metadata added as shown in figure \ref{SidebarExported}.
+This will provide the user with a link the website with the metadata added as shown in figure \ref{SidebarExported}.
 \fig{SidebarExported}{The export tab after exporting the current page} % IMAGE OF EXPORT PANE
-The exported site is parsed to put the javascript and iframes back in so that the website look the same as it did
+The exported site is parsed to put the JavaScript and iframes back in so that the website look the same as it did
 before it was imported into \theartefact.
-On the export pane we also give the user the option to add a google plus id to an authorship tag on the page.
+On the export pane we also give the user the option to add a Google plus id to an authorship tag on the page.
 This is treated as a separate task as it pertains not to the content of the page, but to the page it self.
 It is also not a part of the schema.org ontology, but is included as it is a natural way to increase the visibility of
 the website in search results using metadata.
 
 We use MongoDB\footnote{\url{http://www.mongodb.org}} as a database for storing the webpages after the user has added metadata.
-MongoDB is a NoSQL database which uses javascript as its database interaction language.
+MongoDB is a NoSQL database which uses JavaScript as its database interaction language.
 MongoDB uses a dynamic schema for storing data,
 meaning that each document in a collection does not need to have the same structure.
 This makes it suitable for projects with a rapid development style since the schema does not have to be

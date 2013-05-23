@@ -6,25 +6,25 @@
 
 \lhead{Chapter \ref{AnalysisAndDiscussion}. \emph{Analysis and Discussion}}
 
-In this chapter we will analyse different parts of the system to see if we can judge their appropriateness in solving the
+In this chapter we will analyze different parts of the system to see if we can judge their appropriateness in solving the
 problems tied to our research question.
 We will first compare the mapping algorithms to see if one of them performs better then the other.
-We will also look into the questions of wether we were able to generate metadata of equal or better quality than that
+We will also look into the questions of whether we were able to generate metadata of equal or better quality than that
 which is already available, and if we can add this metadata without changing the way the webpage is displayed.
 We will also look at the usage data we have gotten at this point and see how it corresponds with the expected use of the system.
 
 \section{Comparing the algorithms}
 \label{ComparingAlgorithms}
-To compare the two algorithms we generated a list of english nouns
-which we sent through the lexitags server to get synsets that corresponded to the meanings of each word.
-Both these lists were preprocessed to remove duplicates and to format them as javascript objects
+To compare the two algorithms we generated a list of English nouns
+that we sent through the lexitags server to get synsets that corresponded to the meanings of each word.
+Both these lists were preprocessed to remove duplicates and to format them as JavaScript objects
 \footnote{\url{https://github.com/EivindEE/Madame/tree/master/testing}}.
 The final list of synsets contained 4350 unique synsets.
 We wrote a short script that we used to run the synsets through the best fit algorithms,
 and write a report of the results.
 For the schema.org version of the test we wrote the average depth of the mapped type,
 as well as the total number of times the two algorithms had the same and different mappings.
-The debth was calculated as the distance from the root node in the tree,
+The depth was calculated as the distance from the root node in the tree,
 i.e. schema:Thing it self had a depth of 0,
 schema:Person which inherits directly from schema:Thing has a depth of 1 and so on.
 For the SUMO version the depth of each type was unavailable,
@@ -34,9 +34,9 @@ The full results from the tests can be found at the URL \url{https://github.com/
 As one can read from the numbers it table \ref{table:AlgorithmResults} the results from the SUMO test
 display no difference between the two algorithms when mapping from WordNet to SUMO.
 The two algorithms return identical mappings in 100\% of the test cases.
-This indicates that there must have beena mapping either directly from the synset,
+This indicates that there must have been a mapping either directly from the synset,
 or from the direct hypernym of the synset for each of the 4350 synsets in our test.
-This makes it hard to say anything relevant about the algoritms from these results.
+This makes it hard to say anything relevant about the algorithms from these results.
 
 \begin{table}[ht] %%%% Should I change the results so that the no results found are ignored?
 	\centering
@@ -56,16 +56,16 @@ The two algorithms still perform fairly equally.
 Reading from table \ref{table:AlgorithmResults} we can see that the algorithms are equal in 75\% of the cases,
 but we can examine the 25\% that are different and see which perform better in those cases.
 We can also see that the algorithms were unable to find a mapping in 13.7\% of the cases.
-These cases can't tell us much about which algorithm we should prefere,
+These cases can't tell us much about which algorithm we should prefer,
 but could be a good starting point for finding parts of the WordNet to schema.org mapping which could be enhanced.
 
-Our predictions beforhand was that the hypernyms first approach would have fewer incorrect mappings,
+Our predictions beforehand was that the hypernyms first approach would have fewer incorrect mappings,
 but would give results at a more shallow depth.
 The last prediction was the easiest to test, as we know the schema.org hierarchy and can calculate the depth of each type.
 For each mapping we registered the depth of the type in the schema.org hierarchy.
 These depths were averaged over the total number of mappings made.
 
-As seen in table \ref{table:AlgorithmComparison} both algorithms map fairly high in the hierachy.
+As seen in table \ref{table:AlgorithmComparison} both algorithms map fairly high in the hierarchy.
 \begin{table}[ht]
 	\centering
 	\begin{tabular}{lll}
@@ -103,11 +103,11 @@ These results were a bit disappointing.
 One should however keep in mind the fact that schema.org is not a general ontology.
 As mentioned in section \ref{schemadotorg} the schema.org ontology is geared towards things that are relevant to search engines.
 The synsets that were used in this test covered a wide variety of topics.
-We saw the top level categories of schema.org in figure \ref {TopLevelSchemaOrg} on page \pageref{TopLevelSchemaOrg}
+We saw the top-level categories of schema.org in figure \ref {TopLevelSchemaOrg} on page \pageref{TopLevelSchemaOrg}
 When looking at the results it is the necessary to keep in mind that
 synsets which do not belong to any of those 10 categories can't have a better mapping than schema:Thing in the ontology.
 
-\subsection{Correctness of the algoritms}
+\subsection{Correctness of the algorithms}
 To judge the correctness of the algorithms,
 we went through the results from when the two algorithms gave different mappings and checked the mappings manually.
 The process consisted of looking up each synset that was mapped,
@@ -115,13 +115,13 @@ and the types it had been mapped to and check if the two corresponded.
 The results were divided into three categories.
 If it was clear that the synset and type corresponded, they were marked as correct.
 If it was clear that they didn't correspond they were marked as incorrect.
-There were also some cases where it was unclear whether or not a mapping were correct.
+There were also some cases where it was unclear whether or not a mapping was correct.
 
 We decided it was necessary to include a category for unclear mappings to highlight the fact that some of the categories
 are fuzzy and require some more documentation,
 or that they might entail things than seem unnatural.
 One of the instances were it was unclear if a mapping should be judged to be correct was for the mapping of dairy\#n\#1,
-"a farm where dairy products are produced", which mapps to schema:FoodEstablishment.
+"a farm where dairy products are produced", which maps to schema:FoodEstablishment.
 Schema:FoodEstablishment is described as "[a] food-related business", which a dairy most certainly is.
 The sub typing of schema:FoodEstablishment however seems to indicate otherwise.
 The sub types of schema:FoodEstablishment are:
@@ -160,7 +160,7 @@ We will however examine the incorrect mappings of both algorithms to try to unco
 and if they are caused by weaknesses in the algorithms, or in WordNet or the mapping from WordNet to schema.org.
 
 \subsection{Analyzing the sources of error}
-The fact that the hypernyms first algorithm gave incorrect mappings at all are a bit alarming.
+The fact that the hypernyms first algorithm gave incorrect mappings at all is a bit alarming.
 As described in section \ref{Hypernymy} about hyper- and hyponymy, hypernymy should be a transitive "type of" relation.
 Each hypernym should then be a more general type of the synset provided and not break the semantics of the synset.
 The mappings from WordNet to schema.org indicate that the semantic content of the synset are equal to the
@@ -177,7 +177,7 @@ We can see in figure \ref{BirthdayChain} how the different synsets are related t
 
 In schema.org the type schema:Quantity is described as "[q]uantities such as distance, time, mass, weight".
 The synset measure\#n\#2 is described as "how much there is or how many there are of something that you can quantify".
-The mapping between these appear reasonable and do not seem to be the cause of error.
+The mapping between these appears reasonable and do not seem to be the cause of error.
 
 What makes the mappings seem unreasonable is that the synset one starts with in some way or another points towards
 something that happens at a single instance in time.
@@ -230,8 +230,8 @@ The last instance is the mapping from attention\#n\#3 which has the sibling tour
 schema:TouristAttraction.
 
 For the mappings to schema:Landform all of the incorrect mappings came as a result of the synsets being hyponyms of part\#n\#3.
-That synset has the hypernym thing\#n\#12 which has the hyponym body\_of\_water\#n\#1 which maps
-to schema:BodyOfWater which again is a sub type of schema:Landscape.
+That synset has the hypernym thing\#n\#12, which has the hyponym body\_of\_water\#n\#1.
+Body\_of\_water\#n\#1 maps to schema:BodyOfWater, which again is a sub type of schema:Landscape.
 Common for all these mappings is that the hypernyms are reasonable.
 There is no reason to believe that these are cases where the hypernym chain breaks the semantics of the synset.
 The mappings from WordNet to schema.org also seem to be sound.
@@ -246,12 +246,12 @@ the dominant strategy for mapping synsets to schema.org, and that there is no di
 The algorithms performed very differently when mapping to the different ontologies.
 
 It might be that an increase in the number of mappings would change the results.
-One could then try to refine the hypernym then siblings algorithm to analyse the mappings of its siblings,
+One could then try to refine the hypernym then siblings algorithm to analyze the mappings of its siblings,
 and try to find some more sophisticated way of choosing which mapping to select.
 
 It would also be interesting to try mapping to a more general ontology than schema.org.
 As mentioned in section \ref{schemadotorg} schema.org is a small ontology with only 577 types,
-and with a bias towards comercial interests.
+and with a bias towards commercial interests.
 It might be that an ontology that was larger,
 and which had a more balanced approach to the world would result in better results for the algorithm.
 
@@ -261,7 +261,7 @@ The fact that its mappings were incorrect or questionable in 6\% of the instance
 The cause of the errors were however found to be outside the system we have developed for this thesis,
 and they have been reported.
 This gives us reason to hope that the error rate of the system will go down as the tools it depends on are improved.
-It also suggests that we should create some error reporting mechanism which we can use to give feedback to the maintainers
+It also suggests that we should create some error reporting mechanism that we can use to give feedback to the maintainers
 when incorrect mappings or hypernym relations occur.
 %Noun list from http://www.desiquintans.com/articles.php?page=nounlist
 
@@ -269,14 +269,14 @@ when incorrect mappings or hypernym relations occur.
 %https://github.com/EivindEE/Master-thesis/blob/master/AlgComparison/compare-different
 
 \section{Testing against existing markup}
-One of our success criteria was that it should be posible to mark up HTML as well or better than what is on the web now.
+One of our success criteria was that it should be possible to mark up HTML as well or better than what is on the web now.
 To test if we managed this we used pages that were allready marked up with schema.org markup,
 and tried to generate similar markup using \theartefact\ before comparing the results to see if the metadata created
 by the tool was of a similar quality.
 
 \subsection{Method}
 The method that we used to mark up and compare the sites followed a simple process.
-Webpages were picked from a list of sites using the schema.org ontology for metadata which can be found on github
+Webpages were picked from a list of sites using the schema.org ontology for metadata that is available on github
 \footnote{\url{https://github.com/LawrenceWoodman/mida/wiki/Sites-Using-Microdata}}.
 
 The markup of webpages that were picked were examined to find which things that were marked up,
@@ -324,7 +324,7 @@ Which of these strategies one chooses does not change the meaning of the metadat
 A combination of these two strategies were used when marking up the pages.
 
 \subsection{An issue with the testing tool}
-An issue that was discovered when analyzing the resulting markup with the the structured data tool was that
+An issue that was discovered when analyzing the resulting markup with the structured data tool was that
 it returned  error messages saying that some of the elements that had been marked up were missing required properties.
 When analyzing a schema:Product without a name value the error message reads:
 
@@ -343,14 +343,14 @@ The fact that the validator requires the properties does not in it self mean tha
 or that the syntax is wrong.
 The validator is targeted towards the generation of rich snippets,
 and it might be that the warning is intended to warn that the amount of metadata is insufficient to generate rich snippets.
-The warning that required fields are missing might then refere to the fact that they are required to create a snippet,
+The warning that required fields are missing might then refer to the fact that they are required to create a snippet,
 not required for the metadata to be valid.
 The metadata generated in these instances turned out to be of equal quality as that of the original documents,
 but also showed that the tool could do more to promote attributes that are required by search engines.
 
 \subsection{Comparison of the results}
 We found that there are some schema.org types that we are not able to reach with the current system.
-In particular we have found out the the system does not have a way to reach the aggregated schema.org types.
+In particular we have found out the system does not have a way to reach the aggregated schema.org types.
 At the time of writing the aggregate types in schema.org are schema:AggregateRating and schema:AggregateOffer.
 The type schema:AggregateRating is meant to represent the average rating that a rated object has received.
 The type schema:AggregateOffer on the other hand represents a collection of offers for a given product.
@@ -396,24 +396,24 @@ For simplicity we only change the URLs that start at the root of the domain.
 So if there was an image on the page \texttt{http://example.org} which pointed to the source \texttt{/image.png}
 then the source would be changed to \texttt{http://example.org/image.png}.
 This change is not communicated to the user, which is unfortunate,
-but it is posible to change if it leads to issues.
+but it is possible to change if it leads to issues.
 
 As one can see from the images there are some sections of the website which are not displayed, or more precisely they
 are displayed as loading.
 The switch from relative to absolute URLs have only been done for images and CSS,
-which means that some of the javascript modules that the website depends on will not be loaded into the webpage.
+which means that some of the JavaScript modules that the website depends on will not be loaded into the webpage.
 We wanted to leave the HTML as much intact as possible,
 and since the scripts have yet seemed crucial to display the page properly it was decided to leave them as they were.
 It should be noted that this means that the page will sometimes miss some content, as visible in the figures.
 
-One issue that might arrise is if some of the content on the site, either CSS or javascript,
+One issue that might arise is if some of the content on the site, either CSS or JavaScript,
 depend on the order of the elements or their direct placement in the hierarchy.
 Since \theartefact\ is intended to add metadata to user selected sections of the page we need to create our own
 HTML elements to attach the metadata to, since that's the only reliable way to talk about just that section.
 There are CSS selectors that select either direct children or the n-th children of an element.
 Since we need to add elements it might be that the element we add cause another element to either not be the direct
-child of the former parent, or that it changes the the elements number amongst the children.
-In a similar way, DOM manipulation in javascript sometimes uses the children of an element or the index of an element
+child of the former parent, or that it changes the elements number amongst the children.
+In a similar way, DOM manipulation in JavaScript sometimes uses the children of an element or the index of an element
 in a list of children.
 We have not found any way to avoid this issue,
 and can only hope that most developers depend on id and class attributes instead of the specific location in the DOM.
@@ -427,7 +427,7 @@ The data we have at this point is inconclusive, but can hopefully give some indi
 The usage data we have collected contains the IP of the user.
 We have used this information to exclude users from the UiB domain,
 as this data would mostly consist of usage tied to testing or debugging the system in the development phase.
-The usage data consists of the the data from the 8\textsuperscript{th}	 of April to the 12\textsuperscript{th} of May.
+The usage data consists of the data from the 8\textsuperscript{th}	 of April to the 12\textsuperscript{th} of May.
 
 As mentioned, the tool is mainly targeted towards adding metadata to single words, with adding data to sections being
 a secondary means of input.
