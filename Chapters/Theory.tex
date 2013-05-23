@@ -12,9 +12,9 @@ and describe their origins and the state of research tied to them at the present
 One of the central concepts in semantic web technology is that of the ontology.
 In philosophy Ontology is the branch dealing with the study of which things 'exists', and if it is possible to categorize these things.
 For artificial intelligence \citet{Gruber1993} explained it as "an explicit specification of a conceptualization".
-That is than one commits to a given conceptualization of the domain in question, and formalize how we describe and reason about these conceptualizations.
+That is, than one commits to a given conceptualization of the domain in question, and formalize how we describe and reason about these conceptualizations.
 
-\citet{Guarino1998} provided a description wich might be simpler in which an ontology was described as a shared vocabulary
+\citet{Guarino1998} provided a description, which might be simpler, in which an ontology was described as a shared vocabulary
 concerning some specific domain where the assumptions regarding each term in the vocabulary was made explicit.
 \citet{Pretorius2004} talks about information sharing and reuse as one of the advantages of using ontologies to
 capture conceptualizations.
@@ -47,8 +47,8 @@ Tags provide metadata about content in a way that makes sense to humans.
 From an information retrieval perspective this is interesting since it means that humans in some way add meaning to the content.
 There however are several problems with using tags as the basis of a semantic web.
 \citet{Tang2009} mention several.
-Tags are supposed to be written in natural language, and natural language has words that are synonyms(words that are written in different ways,
-but mean the same), homonyms( words with different meanings that are written in the same way), or polynyms( a word that can have several meanings)
+Tags are supposed to be written in natural language, and natural language has words that are synonyms (words that are written in different ways,
+but mean the same), homonyms (words with different meanings that are written in the same way), or polynyms (a word that can have several meanings)
 making it unsuitable for computer reasoning since they are ambiguous \citep{Passant2008}.
 As \citet{Golder2005} mentions, users also operate on different levels of abstraction, which can make it harder to find interesting resources.
 In addition to this comes the problem of non-dictionary words, both new, or compound words, or simply words that have been misspelled\citep{Tonkin2006}.
@@ -61,7 +61,7 @@ This might help diminish the effect of misspelled and nonsense words. Similar fi
 
 There has also been done research into automatic clustering.
 \citet{Mika2005} created clusters by creating weighted graphs, and compared using tag concurrence and actor interest as weights.
-\citet{Brooks2006} has done work on categorizing blogs entries by tags, to see if concurrence of tags indicated similar content.
+\citet{Brooks2006} has done work on categorizing blog entries by tags, to see if concurrence of tags indicated similar content.
 Using the most common tags did give some results, but only broad categories. The results were not better than extracting words that were given asserted to be relevant for the category.
 
 \citep{Tang2009} tries to go further that clustering tags, and tries to build an hierarchical model from a folksonomy.
@@ -75,12 +75,12 @@ While there are many difficulties attached to merging the social and semantic we
 and with lifting semantic data from tags, there are many researchers who stress the need for this \citep{Passant2007,Mika2005, Gruber2007}.
 \citet{Veres2011} suggested one method one could use to merge these two approaches.
 The idea presented involved disambiguating the tag at insertion time.
-This idea and the implementation of a system which disambiguates tags will be discussed later in the chapter.
+This idea and the implementation of a system that disambiguates tags will be discussed later in the chapter.
 
 \subsection{RDF}
 On the semantic web, ontologies are represented using collection of \nom{RDF}{Resource Description Framework} triples.
 These triples are in the form of <subject, predicate, object>, much like simple declarative sentences \citep{Berners-Lee2001}.
-Let's suppose we wanted to say that I know my supervior Csaba.
+Let's suppose we wanted to say that I know my supervisor Csaba.
 An informal triple describing this could be
 \begin{verbatim}
      <Eivind, knows, Csaba>
@@ -107,7 +107,7 @@ An example using IRIs to describe each resource could be as such:
        "http://csabaveres.net"
      >
 \end{verbatim}
-Here the first IRI identifies who we mean by "Eivind", namely "http://eivind.elseth.me".
+Here the first IRI identifies whom we mean by "Eivind", namely "http://eivind.elseth.me".
 The second IRI identifies what we mean by knows, and the third who it is that Eivind knows.
 A machine parsing this can dereference the URLs to glean more information about the different resources.
 
@@ -122,14 +122,14 @@ since the act of finding words is the most labor intensive part.
 As long as the dictionary is tied to an analog form it is hard to structure the content otherwise as it would make
 finding words to difficult.
 With the advent of computer dictionaries, the act of looking up words is no longer time consuming or difficult,
-and the posibility to experiment with new structures for the dictionary became possible.
+and the possibility to experiment with new structures for the dictionary became possible.
 
 There are several differences between ordinary dictionaries and WordNet.
 The motivation behind WordNet was to create a dictionary that categorized words by the concepts they represented.
 To accomplish this the structure was based on earlier psycholexicologic research\citep{Miller1990}.
 
 One of the ways this psycholexicological background comes to sight is in that WordNet separates words into four syntactical categories: nouns, verbs, adjectives and adverbs\citep{Miller1995}.
-This was based in part on work done by \citet{Fillenbaum1965} which showed that participants would most frequently
+This was based in part on work done by \citet{Fillenbaum1965}, which showed that participants would most frequently
 associate words with other words from the same syntactical category.
 
 This way of categorizing the words is able to take advantage of the fact that the different syntactical categories have different semantic structures.
@@ -137,24 +137,24 @@ In this thesis we will use the noun category of WordNet, and benefit from it's t
 For completeness we'll also mention that verbs are organized as entailment relations,
 while adjectives and adverbs are organized as N-dimentional hyperspaces\citep{Miller1990}.
 
-The word 'word' is ambigious as it can be used to describe the representation of a word, and its underlying semantics.
+The word 'word' is ambiguous as it can be used to describe the representation of a word, and its underlying semantics.
 Natural language is built on conventions that tie together utterances or symbols, with some thing or idea.
 A symbol or utterance is the form of a word, while the thing or idea it represents is the words meaning.
 We can represent this idea using Table \ref{table:LexicalMatrix}( see page \pageref{table:LexicalMatrix}).
 The table shows a lexical matrix, which means to make explicit the relation between form $F$ and meaning $M$.
-The forms and meanings are linked using entries $E_{(x,y)}$ which would state that meaning $M_x$ has the form $F_y$.
+The forms and meanings are linked using entries $E_{(x,y)}$ that would state that meaning $M_x$ has the form $F_y$.
 It also shows how both a single form can refer to several meanings,
 and how a single meaning can be represented using several forms.
 Within the categories mentioned WordNet then tries to organize the words not by form,
 but by similarity of meaning.
 
-This organization is done by grouping words which are synonyms into sets.
-We will describe these sets of synonyms( \nom{synset}{A set of words with similar meanings.}s), by enclosing one or more word forms in curly brackets.
+This organization is done by grouping words that are synonyms into sets.
+We will describe these sets of synonyms (\nom{synset}{A set of words with similar meanings.}s), by enclosing one or more word forms in curly brackets.
 We could for example use the synset \{dog, domestic dog, Canis familiaris\} to describe the common dog.
 When precision is not the point we will use a short form like \{dog\} to describe the same meaning.
 To organize words into synsets in this way one first needs to have a clear idea about what one means by synonymy.
 A strict definition of synonymy would claim that for form $F$ and $F'$ to be synonymous one must be able
-to replace one with the other in any sentence without changing the truth value of that sentence.
+to replace one with the other in any sentence without changing the truth-value of that sentence.
 This is similar to using Leibniz law of identity to qualify synonymy.
 WordNet uses a weaker definition where one says that whether two forms are synonyms is dependent on the
 semantic context that they are in, and that two words can be synonyms with respect to this semantic context\citep{Miller1990}.
@@ -193,16 +193,16 @@ As an example: \{animal\} would be a hypernym of \{dog\},
 since a native user of English would agree that "a dog is a type of animal".
 Hypernymy is transitive, meaning that if $M$ is a hypernym of $M'$, and $M'$ is a hypernym of $M''$,
 then $M$ is a hypernym of $M''$.
-So since we know that dog is a type of animal, and that labrador is a type of dog,
-we also know that \{animal\} is a hypernym of \{labrador\}.
+So since we know that dog is a type of animal, and that Labrador is a type of dog,
+we also know that \{animal\} is a hypernym of \{Labrador\}.
 In addition to being transitive, hypernymy is also asymmetric.
 This means that the fact that $M$ is a hypernym of $M'$ entails that $M'$ cannot be a hypernym of $M$.
-When we know that \{animal\} is the hypernym of \{labrador\},
-we also know that \{labrador\} is not a hypernym of \{animal\}\citep{Miller1990}.
+When we know that \{animal\} is the hypernym of \{Labrador\},
+we also know that \{Labrador\} is not a hypernym of \{animal\}\citep{Miller1990}.
 
 Hyponymy is the inverse relation of hypernymy.
 This means that if $M$ is a hypernym of $M'$, then $M'$ is a hyponym of $M$.
-The fact that \{animal\} is a hypernym of \{labrador\} means that \{labrador\} is a hyponym of \{animal\}.
+The fact that \{animal\} is a hypernym of \{Labrador\} means that \{Labrador\} is a hyponym of \{animal\}.
 Hyponymy is also transitive and asymmetric\citep{Miller1990}.
 
 Another aspect of this relation with respect to nouns is the fact that one asserts some type of inherence from the more
@@ -213,9 +213,9 @@ in addition to the properties it has which distinguishes it from the concept\cit
 
 This has some basis in psycholexicologic research.
 \citet{Collins1969} showed that subjects used less time to say that a concept had some property when that property
-was viewed as more prototypical for concept, than if it was seen a property of some more general concept( see figure \ref{MemoryStructure}, page \pageref{MemoryStructure}).
+was viewed as more prototypical for concept, than if it was seen a property of some more general concept (see figure \ref{MemoryStructure}, page \pageref{MemoryStructure}).
 A subject would for example use less time establishing that a shark is dangerous, a property associated with sharks;
-than they would establishing that it had fins, a property associated with fish; or that it breaths, which is associated with all animals( see figure \ref{MemoryStructure}, page \pageref{MemoryStructure}).
+than they would establishing that it had fins, a property associated with fish; or that it breaths, which is associated with all animals (see figure \ref{MemoryStructure}, page \pageref{MemoryStructure}).
 
 \fig{MemoryStructure}{{A hypothetical memory structure, from \protect \citet{Collins1969}}}
 
@@ -249,7 +249,7 @@ DBPedia extracts information from templates on the Wikipedia pages.
 The algorithm used looks through templates which have a high probability of containing structured information.
 These templates are parsed looking for pairs of attributes and values.
 The attributes correspond to predicates, and the values to objects of RDF statements.
-The subject of the statements would be the topic of the page it self,
+The subject of the statements would be the topic of the page itself,
 and it's given a unique URI in the DBPedia namespace by using it's Wikipedia URL.
 
 There is also some post processing of the results to enhance the data further.
@@ -273,7 +273,7 @@ The semantic web on the other hand has a higher threshold,
 but the structure makes retrieving the correct content easier,
 since machines can reason about the content and be made responsible for finding the correct content.
 The goal then would be to create a system that feels like a social system at input time,
-but which creates structured markup which can be searched like a semantic system at retrieval time.
+but which creates structured markup that can be searched like a semantic system at retrieval time.
 
 Analysis of tags by \citet{Tonkin2006} from delicious\footnote{\url{https://delicious.com}} and Flickr\footnote{\url{http://www.flickr.com}},
 two websites that are focused on user generated content and tags,
@@ -285,7 +285,7 @@ or that they added non-alphanumeric characters.
 The lexitags system is developed to work with tags and provides a solution to the problem of sloppy tags.
 Lexitags solves the disambiguation problem by providing the user with a list of suggested senses for the tag provided.
 These senses can be in the form of a synset or the description of the sense.
-The user can then pick which sense which corresponds with the meaning the user wanted to convey\citep{Veres2011}.
+The user can then pick which sense that corresponds with the meaning the user wanted to convey\citep{Veres2011}.
 The sense the user chooses will then be stored as a reference to one of the vocabularies that lexitags uses.
 The vocabularies used by lexitags are WordNet and DBPedia.
 Since WordNet mainly contains dictionary words,
@@ -297,7 +297,7 @@ and is one of the proposed candidates for SUO.
 The work with SUO was started to fulfill the need for a large, free, public standard ontology
 created by cross discipline consortium of contributors.
 
-The idea behind a standard upper ontology is to simplify generating new knowledge and data bases
+The idea behind a standard upper ontology is to simplify generating new knowledge and databases
 by providing high level concepts that one can use to build upon,
 and which can help with interoperability with other systems.
 It could also ease the burden of working with legacy databases and knowledge stores,
@@ -320,7 +320,7 @@ Before the merge could start, the different ontologies were translated into the 
 to make sure they conformed to the same syntax\citep{Niles2001}.
 SUMO is written in the SUO knowledge interchange format,
 but is also translated to the web ontology language(\nom{OWL}{Web Ontology Language})\citep{Benzmuller2012}.
-Then the ontologies which contained the highest-level concepts were merged by unifying those concepts that were equal,
+Then the ontologies that contained the highest-level concepts were merged by unifying those concepts that were equal,
 and positioning the other concepts in relation to them.
 This upmost level was then used as a basis for aligning the other lower level ontologies\citep{Niles2001}.
 
@@ -384,10 +384,10 @@ even when they come across unknown terms.
 It is also intended as a way to let the ontology grow organically,
 as terms which become common can be included in the schema.
 
-This extension mechanism does however not conform with the microdata specification as \citet{Tennison2011} explains.
+This extension mechanism does however not conform to the microdata specification as \citet{Tennison2011} explains.
 The specification says that URIs should be opaque identifiers,
 and that one should not infer meaning through string parsing.
 The mechanism also comes into difficulties when it comes to disambiguation.
-It is impossible to infer from the URI it self if Person/Minister referes to a clergyman, or to a minister of state.
+It is impossible to infer from the URI itself if Person/Minister refers to a clergyman, or to a minister of state.
 This problem would also persist when incorporating the term in the schema,
 and might make markup that used to be correct say something that was unintended.

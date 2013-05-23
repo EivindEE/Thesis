@@ -35,17 +35,17 @@ eased the development burden.
 
 It was decided to use SASS\footnote{\url{http://sass-lang.com}} to write the style sheets.
 It has a syntax that is similar to that of CSS.
-In addition to the regular syntax of CSS it also includes the possibility of using variables.
-making it possible to make global changes while only modifying one line in the stylesheet.
+In addition to the regular syntax of CSS it also includes the possibility of using variable.
+This makes it possible to make global changes while only modifying one line in the style sheet.
 SASS compiles to standard CSS.
 
 Since JavaScript lacks a good IDE we wanted to have some tool that would check our code to make sure that the
 code was consistent and that the syntax was correct.
-We decided to use jslint\footnote{\url{http://www.jslint.com}} to validate our code.
+We decided to use JSLint\footnote{\url{http://www.JSLint.com}} to validate our code.
 Using a linter eases development as it enforces a particular coding standard for the project.
 The way the project was set up, we couldn't build the project without it passing the linting test.
 
-Since the project depended on compiling the stylesheet and linting the code we decided to use grunt.js\footnote{\url{http://gruntjs.com}}
+Since the project depended on compiling the style sheet and linting the code we decided to use grunt.js\footnote{\url{http://gruntjs.com}}
 to automate this process.
 Grunt.js is a task manager that can run certain tasks when specified events are triggered.
 We set the project up so that each time a JavaScript or SASS file was saved we compiled the SASS document,
@@ -56,7 +56,7 @@ JavaScript file, since we only needed to include that one file.
 We had decided to use Node.js as the development platform of the project.
 Setting up a basic server in node.js can be done in a single line of code,
 but requires a lot of low level handling of requests and responses
-including parsing request url to find the correct handler.
+including parsing request URL to find the correct handler.
 We decided to instead go for express\footnote{\url{http://expressjs.com}},
 a web app framework which simplifies routing requests to the correct handler and handling static files.
 It was also decided to use the jade\footnote{\url{http://jade-lang.com}}
@@ -83,7 +83,7 @@ We initially tried to use an existing triple store and query the information wit
 The triple store used an early version of SPARQL that did not allow recursive queries.
 Since we needed to find the transitive closure of the hypernym relation,
 using this source would require multiple sequential queries and would take to long to be tenable.
-Javascript does not have a mature library for querying the WordNet database, so we did not have a native solution.
+JavaScript does not have a mature library for querying the WordNet database, so we did not have a native solution.
 The solution used was instead to use Perl to write a script that could query a local WordNet instance.
 This again required a technical peak to learn the basics of the Perl programming language but gave a satisfying solution.
 
@@ -116,7 +116,7 @@ but it is tied to allowing users to add metadata in a simple way without knowing
 
 \subsection{Iteration 5}
 The last iteration consisted of testing and refactoring the system.
-We wrote some test scripts that would run the best fit algorithms we had created over a set of synsets,
+We wrote some test scripts that would run the best-fit algorithms we had created over a set of synsets,
 and print out the resulting mappings along with information about whether the algorithms gave corresponding results,
 and the measure of quality of the mapping.
 The results of these tests will be discussed further in section \ref{ComparingAlgorithms}.
@@ -129,8 +129,8 @@ The modules that were created were:
 	\item The web front end
 	\item A module that fetched and processed the HTML from the sites that the user wanted to mark up
 	\item A module for fetching possible disambiguating terms from lexitags
-	\item A module for finding the best fit mappings for SUMO and schema.org
-	\item A module for finding the best fit mappings from DBPedia to schema.org
+	\item A module for finding the best-fit mappings for SUMO and schema.org
+	\item A module for finding the best-fit mappings from DBPedia to schema.org
 	\item A module that puts the document back in its initial state and saves it to a persistent storage
 \end{itemize}
 
@@ -179,7 +179,7 @@ To select one of the terms from the list as the meaning of the selected text the
 figure \ref{SidebarMeanings}.
 \fig{SidebarMeanings}{The list of possible interpretations of "discoveries"} % IMAGE OF LIST OF INTERPRETATIONS
 When a sense is clicked it is sent to the server to be mapped.
-The servers uses the best fit algorithm described in \ref{BestFitMapping}(page \pageref{BestFitMapping}) to find the ontology references
+The servers uses the best-fit algorithm described in \ref{BestFitMapping}(page \pageref{BestFitMapping}) to find the ontology references
 that fits the sense best and attaches these references to the selection using RDFa.
 The algorithm used to attach the metadata to the selection can handle an arbitrary amount of namespaces and references.
 If there is duplication of references these will be dropped.
@@ -225,7 +225,7 @@ If we simply inserted a tag we would get invalid HTML since we would have overla
 
 \texttt{<p>`some text <tag> in a p</p> <p> plus some </tag>  other text </p>}
 
-To get a well formed HTML document we need to either close and open the HTML tags
+To get a well-formed HTML document we need to either close and open the HTML tags
 
 \texttt{<p>some text </p><tag><p> in a p</p> <p> plus some </p></tag><p>  other text </p>}
 
@@ -311,7 +311,7 @@ The ontologies that were chosen for the project, SUMO  and schema.org, already h
 The mapping files were however in different formats and in formats that were unsuitable for use in a JavaScript based application.
 The format we wanted was one that gave up the option to ask if there was a mapping for a given WordNet synset,
 in other words what we wanted was a dictionary.
-Javascript objects are themselves dictionaries, making it natural to choose to them as the representation.
+JavaScript objects are themselves dictionaries, making it natural to choose to them as the representation.
 The structure of the objects is very simple,
 the synsets are used as the keys to entities in the target ontologies as seen in listing \ref{wn2schemaMapping}.
 
@@ -372,7 +372,7 @@ One approach is to use the hypernym chain,
 a term used in \citet{Veres2011} to describe the list of all the hypernyms of a synset.
 The other approach examined is to use the sibling senses of the synset and the synsets in the hypernym chain.
 
-Javascript does not have a library for 	querying the WordNet database,
+JavaScript does not have a library for 	querying the WordNet database,
 so this part of the project needed to be coded in another language.
 Had there been a JavaScript library for querying WordNet,
 it would be natural to generate the hypernym chain while searching for the mappings from the synset to the ontologies.
@@ -474,7 +474,7 @@ and then find all the hyponyms of the hypernym.
 These sibling senses are then put in a list along with the synset.
 
 \subsection{Problems with multiple hypernyms}
-When starting work on the best fit algorithms it was discovered that some hypernyms lead to incorrect mappings.
+When starting work on the best-fit algorithms it was discovered that some hypernyms lead to incorrect mappings.
 The problem was noticed when mapping the synset quotation\#noun\#2,
 described as "a short note recognizing a source of information or of a quoted passage",
 which was mapped to the schema.org term MusicRecording.
@@ -488,7 +488,7 @@ The fact that quotation\#noun\#2 is a hyponym of music\#n\#1 violates the rules 
 Hypernyms are supposed to be generalizations of its hyponyms,
 and they should be in a "is a" relationship to each other.
 A native user of English would not say that a quotation is a type of music in the senses of the words are described above.
-This error has been reported to the maintainers of WordNet and will be fixed in the next public release( C. Fellbaum, personal communication, May 1).
+This error has been reported to the maintainers of WordNet and will be fixed in the next public release (C. Fellbaum, personal communication, May 1).
 
 The main problem this caused was that it made it unclear if both hypernyms would maintain the meaning of a synset,
 when the synset had more than one hypernym.
@@ -503,17 +503,17 @@ It was however chosen to avoid getting extra incorrect mappings when testing the
 The solution chosen was also simpler to implement than check against hypernyms that were found to be wrong,
 and a more sophisticated solution to choosing hypernyms was decided to be outside of the scope of the research problem.
 
-\section{Best fit mapping}
+\section{Best-fit mapping}
 \label{BestFitMapping}
 We will now describe the two algorithms that were developed to find mappings between the WordNet synsets and the ontologies.
 Both algorithms will start by looking at the synset itself.
 We use the direct mappings of the synset should they exist as we have no reason to believe that we can do better than a
 direct mapping.
-Given that there are ontologies that have not been mapped to we use the best fit algorithms to find the missing mappings.
+Given that there are ontologies that have not been mapped to we use the best-fit algorithms to find the missing mappings.
 
 \subsection{Hypernyms first}
 The hypernyms first algorithm traverses the hypernym chain by first looking at the direct hypernym of the synset for mappings.
-It will then follow the hypernym chain upward as long as no mappings has been found.
+It will then follow the hypernym chain upward as long as no mapping has been found.
 This means that,
 except in cases where the generation of the hypernym chain is aborted because of multiple hypernyms such as mentioned in section \ref{BuildingTheHypernymChain},
 the algorithm will always map to the most general type of the corresponding ontologies instead of looking at the siblings.
@@ -545,7 +545,7 @@ It will then follow the same procedure up the chain, first looking at each synse
 then looking at its siblings before moving up the chain and repeating the process.
 Looking again at figure \ref{HypernymChain} we would at each node first look at the node above,
 and then at the nodes to the right, before moving one node up the tree.
-The manner in which the algorithm choses which sibling to map to is at the moment fairly naïve.
+The manner in which the algorithm chooses which sibling to map to is at the moment fairly naïve.
 The algorithm will use the first match it finds,
 meaning that if two or more siblings have mappings to an ontology the first one found by the algorithm will be used.
 As shown in listing \ref{HypernymChainCode} the order of the siblings in the JSON is the same as the order that they
@@ -562,12 +562,12 @@ This will provide the user with a link the website with the metadata added as sh
 The exported site is parsed to put the JavaScript and iframes back in so that the website look the same as it did
 before it was imported into \theartefact.
 On the export pane we also give the user the option to add a Google plus id to an authorship tag on the page.
-This is treated as a separate task as it pertains not to the content of the page, but to the page it self.
+This is treated as a separate task as it pertains not to the content of the page, but to the page itself.
 It is also not a part of the schema.org ontology, but is included as it is a natural way to increase the visibility of
 the website in search results using metadata.
 
 We use MongoDB\footnote{\url{http://www.mongodb.org}} as a database for storing the webpages after the user has added metadata.
-MongoDB is a NoSQL database which uses JavaScript as its database interaction language.
+MongoDB is a NoSQL database that uses JavaScript as its database interaction language.
 MongoDB uses a dynamic schema for storing data,
 meaning that each document in a collection does not need to have the same structure.
 This makes it suitable for projects with a rapid development style since the schema does not have to be

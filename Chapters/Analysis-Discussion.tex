@@ -20,12 +20,12 @@ that we sent through the lexitags server to get synsets that corresponded to the
 Both these lists were preprocessed to remove duplicates and to format them as JavaScript objects
 \footnote{\url{https://github.com/EivindEE/Madame/tree/master/testing}}.
 The final list of synsets contained 4350 unique synsets.
-We wrote a short script that we used to run the synsets through the best fit algorithms,
+We wrote a short script that we used to run the synsets through the best-fit algorithms,
 and write a report of the results.
 For the schema.org version of the test we wrote the average depth of the mapped type,
 as well as the total number of times the two algorithms had the same and different mappings.
 The depth was calculated as the distance from the root node in the tree,
-i.e. schema:Thing it self had a depth of 0,
+i.e. schema:Thing itself had a depth of 0,
 schema:Person which inherits directly from schema:Thing has a depth of 1 and so on.
 For the SUMO version the depth of each type was unavailable,
 so we only have numbers showing the agreement between the algorithms.
@@ -105,7 +105,7 @@ As mentioned in section \ref{schemadotorg} the schema.org ontology is geared tow
 The synsets that were used in this test covered a wide variety of topics.
 We saw the top-level categories of schema.org in figure \ref {TopLevelSchemaOrg} on page \pageref{TopLevelSchemaOrg}
 When looking at the results it is the necessary to keep in mind that
-synsets which do not belong to any of those 10 categories can't have a better mapping than schema:Thing in the ontology.
+synsets that do not belong to any of those 10 categories can't have a better mapping than schema:Thing in the ontology.
 
 \subsection{Correctness of the algorithms}
 To judge the correctness of the algorithms,
@@ -188,7 +188,7 @@ The cause of the error then is an inconsistency within the hypernym relation in 
 We have reported this error to the maintainers of WordNet, and they will be fixed in a future public release of WordNet
 (C. Fellbaum, personal communication, May 13, 2013).
 
-We also analysed the results where the hypernym then siblings algorithm mapped incorrectly.
+We also analyzed the results where the hypernym then siblings algorithm mapped incorrectly.
 The distribution of incorrect mappings can be seen in figure \ref{fig:incorrect}(page \pageref{fig:incorrect}).
 
 \begin{figure}[ht]
@@ -270,13 +270,13 @@ when incorrect mappings or hypernym relations occur.
 
 \section{Testing against existing markup}
 One of our success criteria was that it should be possible to mark up HTML as well or better than what is on the web now.
-To test if we managed this we used pages that were allready marked up with schema.org markup,
+To test if we managed this we used pages that were already marked up with schema.org markup,
 and tried to generate similar markup using \theartefact\ before comparing the results to see if the metadata created
 by the tool was of a similar quality.
 
 \subsection{Method}
 The method that we used to mark up and compare the sites followed a simple process.
-Webpages were picked from a list of sites using the schema.org ontology for metadata that is available on github
+Webpages were picked from a list of sites using the schema.org ontology for metadata that is available on GitHub
 \footnote{\url{https://github.com/LawrenceWoodman/mida/wiki/Sites-Using-Microdata}}.
 
 The markup of webpages that were picked were examined to find which things that were marked up,
@@ -286,10 +286,10 @@ This process was selected to make sure we would be able to compare the results.
 The pages were imported into the artefact, and the markup would be recreated by selecting text,
 and if necessary supply keywords to disambiguate the content.
 It was attempted to add the metadata as faithfully as possible to make comparison simpler
-When the markup process was complete, the webpages would be exported and the resulting webpage would be analysed.
+When the markup process was complete, the webpages would be exported and the resulting webpage would be analyzed.
 The original was used as a gold standard which the marked up pages could be compared to.
 
-The analysis of the metadata would be performed by using Googles structured data testing tool
+The analysis of the metadata would be performed by using Google's structured data testing tool
 \footnote{\url{http://www.google.com/webmasters/tools/richsnippets}},
 and W3s RDFa 1.1 distiller and parser\footnote{\url{http://www.w3.org/2012/pyRdfa/}}.
 The structured data testing tool shows the metadata that is read and extracted by Google.
@@ -317,11 +317,11 @@ The most prevalent type used on the pages we marked up was schema:Review.
 The artefact we developed is targeted towards disambiguating single words as described in section \ref{Interaction}.
 When marking up the text this meant one had to decide whether to markup the same section of the text as used in the original page,
 or if one should select a single word in the section describing its content.
-Should one for example select the header review, or the entire review itself.
+Should one for example select the header review, or the entire review itself?
 Choosing the first option would give the metadata a different structure,
 while selecting the second option would require the user to provide a keyword describing the topic of the section.
 Which of these strategies one chooses does not change the meaning of the metadata which is created by the tool.
-A combination of these two strategies were used when marking up the pages.
+A combination of these two strategies was used when marking up the pages.
 
 \subsection{An issue with the testing tool}
 An issue that was discovered when analyzing the resulting markup with the structured data tool was that
@@ -339,7 +339,7 @@ Closer inspection of the unmodified webpages however revealed that when using th
 were ignored without warning.
 It is positive that the RDFa created by the artefact gives an error message instead of failing silently,
 but it is not good that the testing tool describes a field as required when this is not mentioned in the documentation.
-The fact that the validator requires the properties does not in it self mean that the markup is incorrect,
+The fact that the validator requires the properties does not in itself mean that the markup is incorrect,
 or that the syntax is wrong.
 The validator is targeted towards the generation of rich snippets,
 and it might be that the warning is intended to warn that the amount of metadata is insufficient to generate rich snippets.
