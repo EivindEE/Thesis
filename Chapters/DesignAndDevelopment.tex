@@ -573,7 +573,7 @@ meaning that each document in a collection does not need to have the same struct
 This makes it suitable for projects with a rapid development style since the schema does not have to be
 finalized at early stages of development.
 The artefact uses mongoose\footnote{\url{https://github.com/learnboost/mongoose}} as a tool for modeling the objects.
-Mongoose allows us to abstract a lot of the database logic away and simplifies connecting with the database.
+Mongoose allows one to abstract a lot of the database logic away and simplifies connecting with the database.
 When receiving a document to store the module removes all the extra comments that were added when the document was
 imported, and puts the document back in its original state.
 The database also stores the namespaces used in the document and the date on which the document was created.
