@@ -62,13 +62,13 @@ Adding metadata shouldn't really be that hard.
 Humans are good at knowing what things are.
 We know what the things on websites mean, and which concepts they are meant to convey.
 Natural language is mainly ambiguous to computers, not human beings.
-We want to see if we can create a tool that lets users use their knowledge of natural language and the concepts it conveys
+I want to see if I can create a tool that lets users use their knowledge of natural language and the concepts it conveys
 to create metadata by disambiguating the language for the computer, and letting it create the mappings and the elements on the webpage.
 
 The aim of this thesis will be to develop a prototype artefact that will let users add metadata to webpages using natural language.
-We want the prototype to map to the schema.org ontology,
-as we know that this ontology can increase the visibility of the webpage in search results in the most popular search engines.
-We also want the tool to be able to express meaning in other ontologies, so that it can help create a rich web of interconnected data.
+I want the prototype to map to the schema.org ontology,
+as using this ontology can increase the visibility of the webpage in search results in the most popular search engines.
+I also want the tool to be able to express meaning in other ontologies, so that it can help create a rich web of interconnected data.
 
 The prototype tool will be created using Node.js\footnote{\url{http://nodejs.org}},
 a JavaScript platform based on Google Chromes JavaScript runtime,
@@ -80,7 +80,7 @@ server side, client side and in database communication, inspired me to try using
 %
 %is smaller that the amount of information created after 2005.
 
-We chose to develop using node.js because it's a new and exciting technology that would make it possible to write
+I choose to develop using node.js because it's a new and exciting technology that would make it possible to write
 the entire app using one programming language for front-end, server side and as the database query language.
 
 Creating a web app allows the work to consist both of back end server side components, and front-end work.
@@ -92,26 +92,25 @@ Creating a web app allows the work to consist both of back end server side compo
 \section{Research Question}
 The main research question in this thesis is:
 
-\emph{"Can we create a tool which allows naïve users to easily add metadata to their websites using natural language?"}
+\emph{"Is it possible to create a tool which allows naïve users to easily add metadata to their websites using natural language?"}
 
 In this context we will understand "naïve users" to indicate users who do not have any training in the use of semantic technologies,
-and who do not have any knowledge about the ontologies we use.
+and who do not have any knowledge about the ontologies used for testing in this thesis.
 
-To answer this question we will develop a tool called \theartefact, a play on the goal "MetADAta MAde Easy".
+To answer this question I will develop a tool called \theartefact, a play on the goal "MetADAta MAde Easy".
 The tool will consist of a logical backend tied to a web front-end,
 and the different modules will be created in an iterative way to get working proofs of concepts for testing early.
 
-There are several sub questions that we will need to examine to answer this question.
+There are several sub questions that will need to examined to answer this question.
 \begin{itemize}
-	\item How should we let users pick the parts of a webpage they want to add metadata to,
-and find the concepts it describes using natural language?
+	\item How should users pick the parts of a webpage they want to add metadata to, and find the concepts it describes using natural language?
 	\item Is WordNet suitable for representing disambiguated concepts from natural language in a way that will allow us to map these concepts to formal ontologies?
-	\item Can we implement an algorithm that finds mappings from the natural language concept to types in
-			formal ontologies, which preserves the semantic content of the concept?
+	\item How should an algorithm be implement to finds mappings from the natural language concept to types in
+			formal ontologies in a way that preserves the semantic content of the concept?
 	\item Is it possible to add metadata to webpages in such a way that it does not change the way the page is rendered by browsers?
 \end{itemize}
 
-We will also need to solve the technical problems of how to import and export webpages from the artefact,
+In addition I will also need to solve the technical problems of how to import and export webpages from the artefact,
 and how to save the resulting documents on the server.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -147,11 +146,11 @@ and how to save the resulting documents on the server.
 
 \section{Target audience}
 The main goal of the work with \theartefact\ is to lower the barrier of entry for enhancing websites with metadata.
-We want to make metadata accessible to content creators on the web that do not know enough about semantic web technologies
+I want to make metadata accessible to content creators on the web that do not know enough about semantic web technologies
 to add this data them selves.
 
-Due to availability of English natural language resources we will focus development on mapping English text,
-and  limit the target group to users who write content in English.
-We will also assume that the users control the HTML of their webpages,
+Due to availability of English natural language resources I will for this thesis focus development on mapping English text,
+and limit the target group to users who write content in English.
+I will also assume that the users control the HTML of their webpages,
 and that being provided with a new HTML document will allow the user to update their documents.
 

@@ -12,22 +12,21 @@
 
 Describe the process of development,
 and which parts of \theartefact\ which were developed during the different stages of development.
-We are then going to give a high level overview of the system.
+I am then going to give a high level overview of the system.
 After giving an outline of the development process and the system,
 the main parts of the system will be described in greater detail.
 
 \section{The different phases of development}
-We will now describe the different phases of development.
+I will now describe the different phases of development.
 This will outline the main sequence in which work on \theartefact\ was done.
 This overview of the iterations will explain when the initial development of
 the different part were to give an short explanation of the development process.
 
 \subsection{Iteration 1}
 The first iteration started with a technical peak exploring different tools and frameworks for development with JavaScript.
-We wanted to find tools that could reduce development time by reducing the amount of repetitive work done in the project.
+I wanted to find tools that could reduce development time by reducing the amount of repetitive work done in the project.
 
-It was decided that we were going to use bootstrap\footnote{\url{http://twitter.github.io/bootstrap/}} as a grid system
-for the webpage.
+It was decided that the webpage should use Twitter bootstrap\footnote{\url{http://twitter.github.io/bootstrap/}} as a grid system.
 Using a standard grid system makes it easier to create a webpage that looks OK,
 and reduces the amount of time needed to set up a scaffold.
 Since the visual aspect of the webpage was not an important aspect of the work a simple grid system like bootstrap
@@ -39,25 +38,25 @@ In addition to the regular syntax of CSS it also includes the possibility of usi
 This makes it possible to make global changes while only modifying one line in the style sheet.
 SASS compiles to standard CSS.
 
-Since JavaScript lacks a good IDE we wanted to have some tool that would check our code to make sure that the
+Since JavaScript lacks a good IDE I wanted to have some tool that would check the code to make sure that the
 code was consistent and that the syntax was correct.
-We decided to use JSLint\footnote{\url{http://www.JSLint.com}} to validate our code.
+I decided to use JSLint\footnote{\url{http://www.JSLint.com}} to validate the code.
 Using a linter eases development as it enforces a particular coding standard for the project.
-The way the project was set up, we couldn't build the project without it passing the linting test.
+The way the project was set up, the project wouldn't build without it passing the linting test.
 
-Since the project depended on compiling the style sheet and linting the code we decided to use grunt.js\footnote{\url{http://gruntjs.com}}
+Since the project depended on compiling the style sheets and linting the code I decided to use grunt.js\footnote{\url{http://gruntjs.com}}
 to automate this process.
 Grunt.js is a task manager that can run certain tasks when specified events are triggered.
-We set the project up so that each time a JavaScript or SASS file was saved we compiled the SASS document,
+The project was set up so that each time a JavaScript or SASS file was saved the task manager compiled the SASS document,
 and concatenated the public JavaScript files.
-Concatenating the JavaScript files meant that we didn't have to update the HTML when we created or deleted a new
-JavaScript file, since we only needed to include that one file.
+Concatenating the JavaScript files meant that it was unnecessary to update the HTML when a new JavaScript file was created or deleted,
+since the webpage only needed to include that one file.
 
-We had decided to use Node.js as the development platform of the project.
-Setting up a basic server in node.js can be done in a single line of code,
-but requires a lot of low level handling of requests and responses
+I had decided to use Node.js as the development platform of the project.
+Setting up a basic server in node.js can be done in a single line of code.
+Using this basic server requires a lot of low level handling of requests and responses,
 including parsing request URL to find the correct handler.
-We decided to instead go for express\footnote{\url{http://expressjs.com}},
+I decided to instead go for express\footnote{\url{http://expressjs.com}},
 a web app framework which simplifies routing requests to the correct handler and handling static files.
 It was also decided to use the jade\footnote{\url{http://jade-lang.com}}
 templating language to generate the HTML that was used on the website.
@@ -65,58 +64,59 @@ Using a templating language made the distinction between structure and content c
 and enabled reuse of structure and content between different versions of the website during development.
 
 The technological peak also included getting to know the DOM, the API used for manipulating HTML documents.
-The problem we tried to solve during this technical peak was how to find minimal legal ranges.
-We knew we were going to have to add separate tags to add the metadata we create,
-and that we were going to let users select which portions of the text that carried the semantic content.
-Since the user selection might not be a legal HTML range we worked on an algorithm to find the smallest range that
+The problem that was tried to solve during this technical peak was how to find minimal legal ranges.
+I knew \theartefact\ was going to have to add separate tags to add the metadata it created,
+and that the system was going to let users select which portions of the text that carried the semantic content.
+Since the user selection might not be a legal HTML range I worked on an algorithm to find the smallest range that
 was both a legal range, and which contained the whole of the selected text.
 
 
 \subsection{Iteration 2}
 The next step consisted of actually generating metadata tags with the correct RDFa syntax that also enclosed the user selection.
 One of the tasks was giving each selected section a unique id so that they could be referenced externally,
-we also wanted this id to carry some information about the content of the tag.
-At this stage we had not yet started with development of the mapping so the tags contained mock data.
+I also wanted this id to carry some information about the content of the tag.
+At this stage I had not yet started with development of the mapping so the tags contained mock data.
 
-In this iteration we also started work with generating the hypernym chains we needed to find mappings.
-We initially tried to use an existing triple store and query the information with SPARQL.
+In this iteration I also started work with generating the hypernym chains that were needed to find mappings.
+I initially tried to use an existing triple store and query the information with SPARQL.
 The triple store used an early version of SPARQL that did not allow recursive queries.
-Since we needed to find the transitive closure of the hypernym relation,
-using this source would require multiple sequential queries and would take to long to be tenable.
-JavaScript does not have a mature library for querying the WordNet database, so we did not have a native solution.
+Since the system needed to find the transitive closure of the hypernym relation,
+using this source would require multiple and sequential queries and would take to long to be tenable.
+JavaScript does not have a mature library for querying the WordNet database,
+so it was not possible to not create JavaScript module to perform the task.
 The solution used was instead to use Perl to write a script that could query a local WordNet instance.
 This again required a technical peak to learn the basics of the Perl programming language but gave a satisfying solution.
 
-We also used this iteration to find WordNet mapping files and convert them to a format more suitable for our system.
-We had a mapping file between WordNet and SUMO in the WordNet database format,
+I also used this iteration to find WordNet mapping files and convert them to a format more suitable for our system.
+I had a mapping file between WordNet and SUMO in the WordNet database format,
 and one between WordNet and schema.org in RDF.
 Both of these files were translated into JavaScript objects.
 
 \subsection{Iteration 3}
-In the third iteration we implemented the actual mapping algorithms that we wanted to try out.
-We implemented one that starts with looking at all the hypernyms of the synset,
+In the third iteration I implemented the actual mapping algorithms that my supervisor and I had proposed.
+I implemented one that starts with looking at all the hypernyms of the synset,
 and one that looks alternately at hypernyms and siblings.
 
-This was also the iteration where we created a mechanism for fetching HTML from other websites so that they could be
+This was also the iteration where I created a mechanism for fetching HTML from other websites so that they could be
 marked up using \theartefact.
 
 \subsection{Iteration 4}
-In the fourth iteration we made the export module.
+In the fourth iteration I made the export module.
 This module would take the webpage that the user had imported into the system and create a new HTML document.
-This document would be stored in our database, and would be accessible for the user through a URL which we provided when the page was exported.
+This document would be stored in our database, and would be accessible for the user through a URL which was provided when the page was exported.
 
 Adding properties to entities was also developed during this stage.
 This was only implemented for schema.org properties,
 both to keep the number of properties at a manageable level,
 and because extracting all the allowed properties for all SUMO classes would be a difficult task.
 
-In this iteration we also added the ability to add author information.
+In this iteration the ability to add author information was also added.
 This is not closely tied to the problem of translating natural language to formal ontologies,
 but it is tied to allowing users to add metadata in a simple way without knowing about the formal underpinnings.
 
 \subsection{Iteration 5}
 The last iteration consisted of testing and refactoring the system.
-We wrote some test scripts that would run the best-fit algorithms we had created over a set of synsets,
+I wrote some test scripts that would run the best-fit algorithms that had beed created over a set of synsets,
 and print out the resulting mappings along with information about whether the algorithms gave corresponding results,
 and the measure of quality of the mapping.
 The results of these tests will be discussed further in section \ref{ComparingAlgorithms}.
@@ -136,9 +136,9 @@ The modules that were created were:
 
 \section{Interaction method}
 \label{Interaction}
-When we first faced the problem of how to let users interact with the web app we thought that using the highlighting or
+When first faced with the problem of how to let users interact with the web app I thought that using the highlighting or
 selection of text to be the most intuitive approach.
-We also believed that this would be the simplest interaction method to implement.
+I also believed that this would be the simplest interaction method to implement.
 The simple case of taking selected text and displaying it in the console can be implemented as in listing \ref{DOMSelection}.
 
 \begin{lstlisting}[caption={Logging selected text}, label=DOMSelection]
@@ -150,13 +150,13 @@ The simple case of taking selected text and displaying it in the console can be 
 
 The "mouseup" event is triggered every time the user has pressed and then released the mouse pointer on the website.
 This event is not available on mobile and tablet type browsers,
-but adding listeners for corresponding events should not be difficult if we later see the need for this.
+but adding listeners for corresponding events should not be difficult if there should be a need for this at a later stage.
 
 In the web app the selected text is sent to the web server to find possible disambiguations for the text.
-The lexitags service that we use for disambiguation now is targeted towards disambiguating single words.
+The lexitags service that the system uses for disambiguation now is targeted towards disambiguating single words.
 It does handle some composite terms and some proper nouns, but this is outside the normal use case.
 The lexitags service is designed to disambiguate single tags, not large paragraphs of text.
-To accommodate this we do a simple check for the length of the text string.
+To accommodate this \theartefact\ does a simple check for the length of the text string.
 If the length of the string is more than the longest allowed length,
 the query is instead replaced with a shorter query indicating that the selection is of a larger section of text.
 
@@ -186,12 +186,12 @@ If there is duplication of references these will be dropped.
 
 When the metadata element is created,
 the schema.org type is sent back to the server to get a list of the possible properties of that type.
-On the server we use a JSON representation of the schema.org ontology to find the properties that a type can have.
-The representation we use was retrieved from \url{http://schema.rdfs.org}, which is a support site that tries to
-promote the use of linked data.
+The server uses a JSON representation of the schema.org ontology to find the properties that a type can have.
+The representation that is used on the server was retrieved from \url{http://schema.rdfs.org},
+which is a support site that tries to promote the use of linked data.
 For each of the types in schema.org the JSON file provides the properties specific to that type,
 and all the properties it has inherited from its super types.
-We combine the information about which properties a type can have with a short description of what the property represents,
+The information about which properties a type can have is combined with a short description of what the property represents,
 and information about the range of the property, that is the range of values that are valid values of the property.
 The resulting JSON object is then returned to the website.
 These properties are then added to the metadata element as separate elements,
@@ -203,7 +203,7 @@ Users can click text that has been tagged with metadata.
 This triggers a popover view that displays the properties that the element can have,
 and which types of values are allowed for each property as shown in figure \ref{PropertiesFull}.
 \fig{PropertiesFull}{{The properties popover for schema:Event}} % IMAGE OF PROPERTY SELECTION BOX
-If the property allows other schema.org types as their value we do a scan of the content of the website to check if
+If the property allows other schema.org types as their value the webapp does a scan of the content of the website to check if
 there are elements of the correct type on the page.
 Elements of the correct type that are found are put in a combo box and can be selected as values for the property.
 In all cases the user is presented with the option of writing the value of the property in an input field.
@@ -216,47 +216,47 @@ One of the difficult aspects of adding the metadata to the selections was making
 after the metadata was inserted.
 
 Special care needs to be taken with the ranges of the selection.
-Since we need to insert the metadata into tags we can't just use the user range without some checks.
+Since the system need to insert the metadata into tags it can't just use the user range without some checks.
 If we consider the simple case:
 
 \texttt{<p>some text \hl{in a p</p> <p>` plus some} other text </p>}
 
-If we simply inserted a tag we would get invalid HTML since we would have overlapping elements.
+If the webapp simply inserted a tag it would produce invalid HTML since it would create overlapping elements.
 
 \texttt{<p>`some text <tag> in a p</p> <p> plus some </tag>  other text </p>}
 
-To get a well-formed HTML document we need to either close and open the HTML tags
+One way to get a well-formed HTML document would be to close and open the HTML tags.
 
 \texttt{<p>some text </p><tag><p> in a p</p> <p> plus some </p></tag><p>  other text </p>}
 
 Solving the problem in this manner would change the structure and rendering of the webpage,
-as we would create new block elements.
-This is not a tenable solution, as we want to leave the page looking the same as we found it.
-Our solution would instead expand the range of the selection so that it covered a larger part of the document:
+as it would create new block elements.
+This is not a tenable solution, as one of the goals of of this thesis is to not change the way the document is displayed.
+The solution that was found was to instead expand the range of the selection so that it covered a larger part of the document:
 
 \texttt{<tag><p>some text in a p</p> <p> plus some other text </p></tag>}
 
 The interaction method consists of letting the user make arbitrary selections and then adding metadata to the selection.
 This could easily lead to overlapping elements in the HTML as shown above.
-To avoid this malformed HTML we check the range of the selected text and see if surrounding it with a tag
+To avoid this malformed HTML the system checks the range of the selected text and see if surrounding it with a tag
 containing metadata would result in a well-formed document, and modify the range if needed.
 If the start and end of the selection are in the same element then adding metadata is safe.
-If that is not the case we find the smallest change we need to make to the scope of the range to make it safe.
+If that is not the case then the webapp will find the smallest change that can be made to the scope of the range to make it safe.
 There are two general cases her, when either the start or the end of the range is in a descendant element of the other,
 and when both start and end are descendants of a common element but not of each other.
 
-In the first case we need to find out which element is the descendant of which.
-We do that by following the ancestor links of each element.
-When we find that either the start or end element has the other as an ancestor we use the ancestor which is the direct
+In the first case the system needs to find out which element is the descendant of which.
+This is done by following the ancestor links of each element.
+When the artefact finds that either the start or end element has the other as an ancestor it uses the ancestor which is the direct
 child of the other element and place the start or end tag right before or after that tag, depending on which element
 descended from which.
 
-When the elements are not descendants of each other we know that they must be descendants of some other element.
+When the elements are not descendants of each other then the only option is that they must be descendants of some other element.
 If nothing else they must both be descendants of the root element.
-We use a similar approach for this case as we do for the fist,
-but instead of finding the ancestor which is the direct child of the other node we find the one which is a child of the
+The approach for this is similar to what is done for elements that are descendants of each other,
+but instead of finding the ancestor which is the direct child of the other node the webapp finds the one which is a child of the
 closest common node.
-We then surround these elements with the metadata tag.
+These elements are then surround with the metadata tag.
 This metadata element is styled with a distinct color to let the user know that the text is tagged.
 
 \section{Importing webpages}
@@ -268,21 +268,21 @@ as it does when accessed directly.
 Using the iframe element in this manner would however constitute cross-domain communication and is not allowed.
 The solution that is used in the system now uses a module on the server to fetch the HTML of the document the user wants to enrich.
 The HTML that is imported is now appended to a content element in the webapp.
-We attach the JavaScript events used in the webapp to this element,
+The JavaScript events used in the webapp are attached to this element,
 to keep the interaction confined to the content the user is meant to tag.
-We also use the id of this tag to tell if a certain element is a part of the user content section by checking if it is
+The id of this tag is also used to tell if a certain element is a part of the user content section by checking if it is
 the child of the element.
 
 The user writes the URL of the webpage into an input field on the top of the webapp as shown in figure \ref{MadameHeader}.
 \fig{MadameHeader}{The header of the \theartefact\ webapp} % IMAGE OF THE HEADER OF MADAME
 The server will fetch the document stored at that location.
-We created a proxy to get the html from other websites.
+I created a proxy to get the html from other websites.
 The proxy would take a URL and get the resource located there.
 If the resource is not of the right type i.e. not a HTML document with a body element,
 the proxy would return an error.
 When the resource has been downloaded the content of the body element of the document is parsed to comment out code that
 could be harmful, that could make the page display incorrectly, or that could disrupt the way the webapp functions.
-The parts of the page that we comment out are the script, iframe and comment elements.
+The parts of the page that are comment out are the script, iframe and comment elements.
 The script elements could disrupt the way the web app works, either by overwriting the behavior of functions,
 or otherwise alter the behavior of the web app.
 In addition the script elements are not visible on the page so interacting with them would be hard.
@@ -295,7 +295,7 @@ but it would not be possible to alter their content since the HTML belongs to a 
 The difference between the document and the iframe would be invisible to the user,
 so it was decided that it would be better to remove the element all together.
 The comment elements were removed to make sure that the page would display the way it should.
-Since we use comments to remove iframes and scripts, and since these elements could them selves contain comments,
+Since the system uses comments to remove iframes and scripts, and since these elements could them selves contain comments,
 the content of the comments would sometimes be displayed as text elements on the page.
 
 \Theartefact\ is only designed to add metadata to the body element of the document,
@@ -309,8 +309,8 @@ An important part of the early work was to generate files that the tool could us
 into the ontologies which were used.
 The ontologies that were chosen for the project, SUMO  and schema.org, already had these kinds of mapping files.
 The mapping files were however in different formats and in formats that were unsuitable for use in a JavaScript based application.
-The format we wanted was one that gave up the option to ask if there was a mapping for a given WordNet synset,
-in other words what we wanted was a dictionary.
+The format that was chosen was one that provided the option to ask if there was a mapping for a given WordNet synset,
+in other words what was chosen was a dictionary.
 JavaScript objects are themselves dictionaries, making it natural to choose to them as the representation.
 The structure of the objects is very simple,
 the synsets are used as the keys to entities in the target ontologies as seen in listing \ref{wn2schemaMapping}.
@@ -325,7 +325,7 @@ exports.mapping = {
 };
 \end{lstlisting}
 
-Since we use JavaScript objects to represent the mappings,
+Since \theartefact uses JavaScript objects to represent the mappings,
 querying a mapping object to check if it contains a mapping for a certain synset would then just consist of checking if
 the object has a property with the given name as in listing \ref{LabelExists}.
 \begin{lstlisting}[label=LabelExists,caption=Testing if a mapping exists]
@@ -337,25 +337,25 @@ the object has a property with the given name as in listing \ref{LabelExists}.
 \end{lstlisting}
 
 The mapping files were to large to translate to JavaScript objects by hand, with the SUMO mapping file alone
-covering more than 82.000 mappings, so we used regular expressions to modify the files globally.
+covering more than 82.000 mappings, so I used regular expressions to modify the files globally.
 The schema.org mapping file\footnote{\url{https://github.com/mhausenblas/schema-org-rdf}}
 that was used as the basis for the wn2schema mapping file is written in \nom{RDF/XML}{An XML representation of RDF}.
 The first step in creating the mapping file was to remove the parts of the file that were irrelevant to the problem at hand.
 The original file contains triples describing schema.org properties,
 the schema.org entities and the hierarchal ordering of entities.
-This information is handled at other places in the tool we are creating and could be safely removed.
+This information is handled at other places in \theartefact\ and could be safely removed.
 Only the elements mapping synsets to schema.org terms were kept, and all other information except the names were removed.
 At this point the XML tags were stripped so only the synset reference and the schema type remained.
-Since we now had the correct elements in the correct place we needed only to surround them with the correct quotation
+Since I now had the correct elements in the correct place I needed only to surround them with the correct quotation
 marks, separate them with a colon and add a comma at the end to separate it from the next property.
 
 The SUMO\footnote{\url{http://sigmakee.cvs.sourceforge.net/sigmakee/KBs/WordNetMappings/}} mapping followed a similar pattern,
 but the original format was different as it used the WordNet database format.
-We used the WordNetMappings30-noun file as our basis so for this mapping we did not have to remove non-noun phrases.
+I used the WordNetMappings30-noun file as the basis so for this mapping so removing non-noun phrases was unnecessary.
 The fact that each line in the file corresponded to a line in the mapping file made the process of translation easier,
 there was however one caveat in that the file used the offset to identify the synset,
-instead of the word\#category\#number format which we use for the other mapping file.
-We put some work into finding a way of substituting the offset for the synset id,
+instead of the word\#category\#number format which is used for the other mapping file.
+I put some work into finding a way of substituting the offset for the synset id,
 but found that it was simpler to find the offset for the synsets that were queried.
 Unifying the way the mapping object properties are named is one of the things that can simplify
 the generalization of the process at a later stage.
@@ -394,7 +394,7 @@ Each synset can be described as a node in this graph, with a directed edge conne
 For each node in the graph it is also true that following one of the directed edges will lead to the synset entity,
 which is the most general concept in WordNet.
 
-The hypernym chain we generate is a list of objects.
+The hypernym chain the script generates is a list of objects.
 The objects contain the hypernym itself, its offset in WordNet, and a list of all its siblings.
 Each sibling is stored as an object containing the synset, and its offset.
 An example of how the hypernym chain is represented as JSON can be seen in listing \ref{PerlHypernymChain}.
@@ -429,7 +429,7 @@ and \{causal agent\} before adding \{physical entity\} and \{entity\} to the lis
 If a synset is encountered multiple times, it is ignored in subsequent encounters.
 The hypernyms are added to the end of the list when they are found.
 This means that the synsets that are at the start of the list,
-are the ones that are at the closest level of abstraction to the synset for which we build the chain.
+are the ones that are at the closest level of abstraction to the synset for which the chain is built.
 
 \begin{lstlisting}[float=t, language=perl, label=HypernymChainCode, caption={Excerpt from the hypernym chain Perl script}]
 my @hypernym = hypernym($synset);
@@ -505,11 +505,11 @@ and a more sophisticated solution to choosing hypernyms was decided to be outsid
 
 \section{Best-fit mapping}
 \label{BestFitMapping}
-We will now describe the two algorithms that were developed to find mappings between the WordNet synsets and the ontologies.
+I will now describe the two algorithms that were developed to find mappings between the WordNet synsets and the ontologies.
 Both algorithms will start by looking at the synset itself.
-We use the direct mappings of the synset should they exist as we have no reason to believe that we can do better than a
+The system uses the direct mappings of the synset should they exist as there is no reason to believe that one can do better than a
 direct mapping.
-Given that there are ontologies that have not been mapped to we use the best-fit algorithms to find the missing mappings.
+Given that there are ontologies that have not been mapped to the system uses the best-fit algorithms to find the missing mappings.
 
 \subsection{Hypernyms first}
 The hypernyms first algorithm traverses the hypernym chain by first looking at the direct hypernym of the synset for mappings.
@@ -525,7 +525,7 @@ and them looking at them in the same order as the hypernyms.
 It will start looking at the siblings of the synset and see if any of them have a mapping.
 As long as there are ontologies without mappings it will then follow the hypernym chain upward again,
 this time looking at the siblings of the hypernyms.
-If the mapping we find belongs to a sibling of the synset or one of its hypernyms we use the super type of the mapped
+If the mapping that are found belongs to a sibling of the synset or one of its hypernyms the algorithm will use the super type of the mapped
 type as the type that is mapped to.
 
 \subsection{Hypernym then siblings}
@@ -537,22 +537,22 @@ Our other try at creating an algorithm tries to stay at a closer level of abstra
 in the traversal.
 
 The algorithm still starts by looking at the hypernym.
-Since we use the super type of the mapped type when looking at sibling synsets,
-it is reasonable to assume that a mapping from the hypernym would we at an equal level of abstraction as the
+Since the algorithm use the super type of the mapped type when looking at sibling synsets,
+it is reasonable to assume that a mapping from the hypernym would be at an equal level of abstraction as the
 super type of a sibling mapping.
 The algorithm diverges from the hypernyms first by looking at the siblings of the synset after looking at the hypernym.
 It will then follow the same procedure up the chain, first looking at each synsets hypernym,
 then looking at its siblings before moving up the chain and repeating the process.
-Looking again at figure \ref{HypernymChain} we would at each node first look at the node above,
+Looking again at figure \ref{HypernymChain} the algorithm will at each node first look at the node above,
 and then at the nodes to the right, before moving one node up the tree.
 The manner in which the algorithm chooses which sibling to map to is at the moment fairly naïve.
 The algorithm will use the first match it finds,
 meaning that if two or more siblings have mappings to an ontology the first one found by the algorithm will be used.
 As shown in listing \ref{HypernymChainCode} the order of the siblings in the JSON is the same as the order that they
 are given by querying the WordNet database.
-For our purposes this is equal to using an unordered list since we don't know and can't predict the order.
-The for the algorithm we developed for this too we assume  that we have no reason to prefer one mapping over another,
-since we at this point don't know the meaning of the synset.
+For the system this is equal to using an unordered list since the order is unknown.
+The for the algorithm I developed for this too it was assumed that there was no reason to prefer one mapping over another,
+since there was not at this point any way for the artefact to know the meaning of the synset.
 Further refinement is likely possible of this assumption does not hold.
 
 \section{Exporting the document}
@@ -561,12 +561,12 @@ This will provide the user with a link the website with the metadata added as sh
 \fig{SidebarExported}{The export tab after exporting the current page} % IMAGE OF EXPORT PANE
 The exported site is parsed to put the JavaScript and iframes back in so that the website look the same as it did
 before it was imported into \theartefact.
-On the export pane we also give the user the option to add a Google plus id to an authorship tag on the page.
+On the export pane the user is given the option to add a Google plus id to an authorship tag on the page.
 This is treated as a separate task as it pertains not to the content of the page, but to the page itself.
 It is also not a part of the schema.org ontology, but is included as it is a natural way to increase the visibility of
 the website in search results using metadata.
 
-We use MongoDB\footnote{\url{http://www.mongodb.org}} as a database for storing the webpages after the user has added metadata.
+\theartefact uses MongoDB\footnote{\url{http://www.mongodb.org}} as a database for storing the webpages after the user has added metadata.
 MongoDB is a NoSQL database that uses JavaScript as its database interaction language.
 MongoDB uses a dynamic schema for storing data,
 meaning that each document in a collection does not need to have the same structure.
@@ -576,7 +576,7 @@ The artefact uses mongoose\footnote{\url{https://github.com/learnboost/mongoose}
 Mongoose allows us to abstract a lot of the database logic away and simplifies connecting with the database.
 When receiving a document to store the module removes all the extra comments that were added when the document was
 imported, and puts the document back in its original state.
-We also store the namespaces used in the document and the date on which the document was created.
+The database also stores the namespaces used in the document and the date on which the document was created.
 When the document has been stored successfully the URL of the newly created webpage is returned to the user as shown in
 figure \ref{SidebarExported} on page \pageref{SidebarExported}.
 If there was an error during the process the user is alerted about what went wrong.

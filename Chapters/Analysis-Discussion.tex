@@ -6,29 +6,29 @@
 
 \lhead{Chapter \ref{AnalysisAndDiscussion}. \emph{Analysis and Discussion}}
 
-In this chapter we will analyze different parts of the system to see if we can judge their appropriateness in solving the
+In this chapter I will analyze different parts of the system and discuss their appropriateness in solving the
 problems tied to our research question.
-We will first compare the mapping algorithms to see if one of them performs better then the other.
-We will also look into the questions of whether we were able to generate metadata of equal or better quality than that
-which is already available, and if we can add this metadata without changing the way the webpage is displayed.
-We will also look at the usage data we have gotten at this point and see how it corresponds with the expected use of the system.
+I will start with comparing the mapping algorithms to see if one of them performs better then the other.
+Then I will look into the questions of whether I was able to generate metadata of equal or better quality than that
+which is already available, and if the system is capable of adding the metadata without changing the way the webpage is displayed.
+I will also look at the usage data the system has received at this point and see how it corresponds with the expected use of the system.
 
 \section{Comparing the algorithms}
 \label{ComparingAlgorithms}
-To compare the two algorithms we generated a list of English nouns
-that we sent through the lexitags server to get synsets that corresponded to the meanings of each word.
+To compare the two algorithms I generated a list of English nouns.
+This list was sent through the lexitags server to get synsets that corresponded to the meanings of each word.
 Both these lists were preprocessed to remove duplicates and to format them as JavaScript objects
 \footnote{\url{https://github.com/EivindEE/Madame/tree/master/testing}}.
 The final list of synsets contained 4350 unique synsets.
-We wrote a short script that we used to run the synsets through the best-fit algorithms,
-and write a report of the results.
-For the schema.org version of the test we wrote the average depth of the mapped type,
+I wrote a short script that was used to run the synsets through the best-fit algorithms,
+and to write a report of the results.
+For the schema.org version of the test I wrote the average depth of the mapped type,
 as well as the total number of times the two algorithms had the same and different mappings.
 The depth was calculated as the distance from the root node in the tree,
 i.e. schema:Thing itself had a depth of 0,
 schema:Person which inherits directly from schema:Thing has a depth of 1 and so on.
 For the SUMO version the depth of each type was unavailable,
-so we only have numbers showing the agreement between the algorithms.
+so the test results from this test only show the agreement between the algorithms.
 The full results from the tests can be found at the URL \url{https://github.com/EivindEE/Master-thesis/tree/master/AlgComparison}.
 
 As one can read from the numbers it table \ref{table:AlgorithmResults} the results from the SUMO test
@@ -56,13 +56,13 @@ The two algorithms still perform fairly equally.
 Reading from table \ref{table:AlgorithmResults} we can see that the algorithms are equal in 75\% of the cases,
 but we can examine the 25\% that are different and see which perform better in those cases.
 We can also see that the algorithms were unable to find a mapping in 13.7\% of the cases.
-These cases can't tell us much about which algorithm we should prefer,
+These cases can't tell us much about which algorithm should be preferred,
 but could be a good starting point for finding parts of the WordNet to schema.org mapping which could be enhanced.
 
-Our predictions beforehand was that the hypernyms first approach would have fewer incorrect mappings,
+The prediction made beforehand was that the hypernyms first approach would have fewer incorrect mappings,
 but would give results at a more shallow depth.
 The last prediction was the easiest to test, as we know the schema.org hierarchy and can calculate the depth of each type.
-For each mapping we registered the depth of the type in the schema.org hierarchy.
+For each mapping the script running the test registered the depth of the type in the schema.org hierarchy.
 These depths were averaged over the total number of mappings made.
 
 As seen in table \ref{table:AlgorithmComparison} both algorithms map fairly high in the hierarchy.
@@ -103,13 +103,15 @@ These results were a bit disappointing.
 One should however keep in mind the fact that schema.org is not a general ontology.
 As mentioned in section \ref{schemadotorg} the schema.org ontology is geared towards things that are relevant to search engines.
 The synsets that were used in this test covered a wide variety of topics.
-We saw the top-level categories of schema.org in figure \ref {TopLevelSchemaOrg} on page \pageref{TopLevelSchemaOrg}
+The top-level categories of schema.org were shown in figure \ref {TopLevelSchemaOrg} on page \pageref{TopLevelSchemaOrg}
 When looking at the results it is the necessary to keep in mind that
 synsets that do not belong to any of those 10 categories can't have a better mapping than schema:Thing in the ontology.
 
 \subsection{Correctness of the algorithms}
-To judge the correctness of the algorithms,
-we went through the results from when the two algorithms gave different mappings and checked the mappings manually.
+To find which algorithm performed best it was decided to check the results where the algorithms gave different mappings.
+In the cases where the mappings were the same, the two algorithms obviously performed equally well since they mapped to
+the same concept.
+The results from when the two algorithms gave different mappings they were checked manually to judge their correctness.
 The process consisted of looking up each synset that was mapped,
 and the types it had been mapped to and check if the two corresponded.
 The results were divided into three categories.
@@ -117,9 +119,8 @@ If it was clear that the synset and type corresponded, they were marked as corre
 If it was clear that they didn't correspond they were marked as incorrect.
 There were also some cases where it was unclear whether or not a mapping was correct.
 
-We decided it was necessary to include a category for unclear mappings to highlight the fact that some of the categories
-are fuzzy and require some more documentation,
-or that they might entail things than seem unnatural.
+It was decided that it was necessary to include a category for unclear mappings to highlight the fact that some of the categories
+are fuzzy and require some more documentation, or that they might entail things than seem unnatural.
 One of the instances were it was unclear if a mapping should be judged to be correct was for the mapping of dairy\#n\#1,
 "a farm where dairy products are produced", which maps to schema:FoodEstablishment.
 Schema:FoodEstablishment is described as "[a] food-related business", which a dairy most certainly is.
@@ -143,12 +144,12 @@ Again the sub types seem to indicate that it should be used for geographical sec
 From the description of the type it is unclear if it can be used to describe things like borders and edges of things.
 This would depend on what the thing should be fixed with regard to.
 
-Since the manual inspection of the mappings was a time consuming process we decided to only inspect 250 mappings,
+Since the manual inspection of the mappings was a time consuming process I decided to only inspect 250 mappings,
 and see if the results of checking these would be sufficient to say anything about the algorithms.
-We excluded mappings the schema:Thing and schema:Intangible, as one could normally argue reasonably for these.
+Mappings to schema:Thing and schema:Intangible were excluded as one could normally argue reasonably for these.
 
-We had predicted a higher error rate in the hypernym then sibling algorithm,
-but the difference in the error rate between the algorithms was much larger than we had anticipated.
+A higher error rate in the hypernym then sibling algorithm had been predicted,
+but the difference in the error rate between the algorithms was much larger than anticipated.
 Again pointing to table \ref{table:AlgorithmComparison} we can see that the hypernyms first algorithm
 made correct mappings in 94\% of the test cases,
 while giving incorrect mappings in 2.0\% test cases and questionable mappings in 4\% of the cases.
@@ -156,8 +157,8 @@ The hypernym then sibling algorithm on the other hand gave a correct mapping in 
 It gave incorrect mappings in 62.4\% and unclear mappings in 20.8\% of the cases.
 The fact that it gave correct mappings at a rate of close to 25\% of the instances where the results were different was very surprising.
 This high degree of incorrect mappings indicates that using sibling synsets as the basis for mapping in unfruitful.
-We will however examine the incorrect mappings of both algorithms to try to uncover the causes,
-and if they are caused by weaknesses in the algorithms, or in WordNet or the mapping from WordNet to schema.org.
+The causes of the incorrect mappings will be examined in the next section,
+to see if they are caused by weaknesses in the algorithms, or in WordNet or the mapping from WordNet to schema.org.
 
 \subsection{Analyzing the sources of error}
 The fact that the hypernyms first algorithm gave incorrect mappings at all is a bit alarming.
@@ -185,10 +186,11 @@ A birth or death is just a single instance, not a quantity of things.
 The problem in both these chains seem to be that one goes from a synset which represents something that happened at a
 single instance in time, to a synset which describes a quantity of things.
 The cause of the error then is an inconsistency within the hypernym relation in WordNet.
-We have reported this error to the maintainers of WordNet, and they will be fixed in a future public release of WordNet
+
+I have reported this error to the maintainers of WordNet, and they will be fixed in a future public release of WordNet
 (C. Fellbaum, personal communication, May 13, 2013).
 
-We also analyzed the results where the hypernym then siblings algorithm mapped incorrectly.
+I also analyzed the results where the hypernym then siblings algorithm mapped incorrectly.
 The distribution of incorrect mappings can be seen in figure \ref{fig:incorrect}(page \pageref{fig:incorrect}).
 
 \begin{figure}[ht]
@@ -221,8 +223,8 @@ The distribution of incorrect mappings can be seen in figure \ref{fig:incorrect}
 	\label{fig:incorrect}
 \end{figure}
 
-We picked the two most common incorrect mappings as objects of further study.
-We went through all the cases of incorrect mapping to schema:Place.
+The two most common incorrect mappings were picked as objects of further study.
+I went through all the cases of incorrect mapping to schema:Place.
 This examination showed that in 45 of the 46 cases the mapping to schema:Place came as a result of
 the synset being a hyponym of whole\#n\#2, which has the sibling geological\_formation\#n\#1 which again has a mapping to
 schema:Landform, a sub type of schema:Place.
@@ -258,10 +260,10 @@ and which had a more balanced approach to the world would result in better resul
 As it stands it is clear that the hypernyms first algorithm out performed the hypernym then siblings algorithm,
 and is the one that will be used in the artefact.
 The fact that its mappings were incorrect or questionable in 6\% of the instances analyzed is unfortunate.
-The cause of the errors were however found to be outside the system we have developed for this thesis,
+The cause of the errors were however found to be outside the system I have developed for this thesis,
 and they have been reported.
 This gives us reason to hope that the error rate of the system will go down as the tools it depends on are improved.
-It also suggests that we should create some error reporting mechanism that we can use to give feedback to the maintainers
+It also suggests that I should create some error reporting mechanism that can be used to give feedback to the maintainers
 when incorrect mappings or hypernym relations occur.
 %Noun list from http://www.desiquintans.com/articles.php?page=nounlist
 
@@ -269,19 +271,19 @@ when incorrect mappings or hypernym relations occur.
 %https://github.com/EivindEE/Master-thesis/blob/master/AlgComparison/compare-different
 
 \section{Testing against existing markup}
-One of our success criteria was that it should be possible to mark up HTML as well or better than what is on the web now.
-To test if we managed this we used pages that were already marked up with schema.org markup,
+One of the success criteria was that the artefact should be able to mark up HTML as well or better than what is on the web now.
+To test if we managed this I used webpages that were already marked up with schema.org markup,
 and tried to generate similar markup using \theartefact\ before comparing the results to see if the metadata created
 by the tool was of a similar quality.
 
 \subsection{Method}
-The method that we used to mark up and compare the sites followed a simple process.
+The method that I used to mark up and compare the sites followed a simple process.
 Webpages were picked from a list of sites using the schema.org ontology for metadata that is available on GitHub
 \footnote{\url{https://github.com/LawrenceWoodman/mida/wiki/Sites-Using-Microdata}}.
 
 The markup of webpages that were picked were examined to find which things that were marked up,
 and which schema.org types they were marked up as.
-This process was selected to make sure we would be able to compare the results.
+This process was selected to make sure that it would be possible to compare the results.
 
 The pages were imported into the artefact, and the markup would be recreated by selecting text,
 and if necessary supply keywords to disambiguate the content.
@@ -296,11 +298,12 @@ The structured data testing tool shows the metadata that is read and extracted b
 It was used to check if the metadata available to Google was the same.
 The tool was used on both the original page and the page marked up by the artefact so that one could judge if the
 extracted metadata was the same.
-We could not use the RDFa distiller as it is created to distill RDFa, not microdata.
+The RDFa distiller could not be used to compare the documents as it is created to distill RDFa not microdata,
+which was used to include metadata on the pages tested against.
 The RDFa distiller parses the webpage and extracts the RDFa, displaying it as some RDF format.
 It was used to see that the markup that was created was valid RDFa and that it could be translated to RDF.
 
-The pages we marked up using this process where:
+The pages that were marked up using this process were:
 \begin{itemize}
 	\item A restaurant review from the Telegraph
 	\item A tour operators customer feedback page
@@ -313,8 +316,8 @@ The full HTML of the webpages before and after they were marked up using \theart
 \url{https://github.com/EivindEE/Master-thesis/tree/master/WildTesting}.
 
 Most of the metadata on the webpages that were marked up was metadata about larger sections of the page.
-The most prevalent type used on the pages we marked up was schema:Review.
-The artefact we developed is targeted towards disambiguating single words as described in section \ref{Interaction}.
+The most prevalent type used on the pages marked up was schema:Review.
+The artefact I developed is targeted towards disambiguating single words as described in section \ref{Interaction}.
 When marking up the text this meant one had to decide whether to markup the same section of the text as used in the original page,
 or if one should select a single word in the section describing its content.
 Should one for example select the header review, or the entire review itself?
@@ -349,8 +352,8 @@ The metadata generated in these instances turned out to be of equal quality as t
 but also showed that the tool could do more to promote attributes that are required by search engines.
 
 \subsection{Comparison of the results}
-We found that there are some schema.org types that we are not able to reach with the current system.
-In particular we have found out the system does not have a way to reach the aggregated schema.org types.
+During testing it was noticed that there are some schema.org types that the system was not able to reach.
+In particular it was discovered that the system does not have a way to reach the aggregated schema.org types.
 At the time of writing the aggregate types in schema.org are schema:AggregateRating and schema:AggregateOffer.
 The type schema:AggregateRating is meant to represent the average rating that a rated object has received.
 The type schema:AggregateOffer on the other hand represents a collection of offers for a given product.
@@ -359,12 +362,9 @@ is that they represent the plurality of the super type.
 The system uses WordNet to represent and disambiguate words, and as its basis for mapping natural language to ontologies.
 WordNet is a dictionary type system, which does not separate between the different grammatical numbers of a given word,
 as they all represent the same concept.
-This could be an issue for the system as a whole since it means that the language we use as an intermediary between natural language
-and the ontologies does not capture all of the complexity of the ontologies we wish to map to.
+This could be an issue for the system as a whole since it means that the language used as an intermediary between natural language
+and the ontologies does not capture all of the complexity of the ontologies the system is supposed to map to.
 When these types were used in the documents they were instead mapped to their direct super type.
-
-The exception we had to this was when the webpages used invalid types or properties in their metadata.
-In the pages we checked we found one instance of invalid metadata.
 
 Apart from this the results were found to be satisfactory,
 and the tool was able to recreate all the metadata that was present on the original webpages.
@@ -379,10 +379,10 @@ These results show that the tool is able to create metadata of equal quality as 
 \label{Rendering}
 One of the criteria for the artefact was that it should leave the visual representation of the system unchanged.
 The system is meant to let users add metadata to existing webpages, and should not modify their appearance.
-We did a comparison of the webpages before and after adding metadata.
+I did a comparison of the webpages before and after adding metadata.
 You can see an example of the telegraph website before adding metadata in figure \ref{TelegraphOriginal},
 and after in \ref{TelegraphData}.
-We have cropped out the side margins and the header of the website in the images to make it easier to see the content of the sites.
+The side margins and the header of the website has been cropped out in the images to make it easier to see the content of the sites.
 
 \fig{TelegraphOriginal}{The Telegraph webpage before the metadata was added}
 \fig{TelegraphData}{The Telegraph webpage with metadata added}
@@ -391,8 +391,8 @@ Looking at the figures we can see that the overall layout of the images is uncha
 There are however some changes to the HTML.
 
 To make the webpage appear the same when viewed on the URL the user is given when the page is exported
-we replace relative URLs tied to images and \nom{CSS}{Cascading Style Sheets} with absolute URLs.
-For simplicity we only change the URLs that start at the root of the domain.
+the relative URLs tied to images and \nom{CSS}{Cascading Style Sheets} have been replace with absolute URLs.
+To keep the code simpel I decided to only change the URLs that start at the root of the domain.
 So if there was an image on the page \texttt{http://example.org} which pointed to the source \texttt{/image.png}
 then the source would be changed to \texttt{http://example.org/image.png}.
 This change is not communicated to the user, which is unfortunate,
@@ -402,40 +402,40 @@ As one can see from the images there are some sections of the website which are 
 are displayed as loading.
 The switch from relative to absolute URLs have only been done for images and CSS,
 which means that some of the JavaScript modules that the website depends on will not be loaded into the webpage.
-We wanted to leave the HTML as much intact as possible,
+I wanted to leave the HTML as much intact as possible,
 and since the scripts have yet seemed crucial to display the page properly it was decided to leave them as they were.
 It should be noted that this means that the page will sometimes miss some content, as visible in the figures.
 
 One issue that might arise is if some of the content on the site, either CSS or JavaScript,
 depend on the order of the elements or their direct placement in the hierarchy.
-Since \theartefact\ is intended to add metadata to user selected sections of the page we need to create our own
+Since \theartefact\ is intended to add metadata to user selected sections of the page the system had to  to create its own
 HTML elements to attach the metadata to, since that's the only reliable way to talk about just that section.
 There are CSS selectors that select either direct children or the n-th children of an element.
-Since we need to add elements it might be that the element we add cause another element to either not be the direct
+Since the system needs to add elements it might be that the element that was added cause another element to either not be the direct
 child of the former parent, or that it changes the elements number amongst the children.
 In a similar way, DOM manipulation in JavaScript sometimes uses the children of an element or the index of an element
 in a list of children.
-We have not found any way to avoid this issue,
+I have not found any way to avoid this issue,
 and can only hope that most developers depend on id and class attributes instead of the specific location in the DOM.
 
 \section{Analysis of usage data}
-In addition to the testing described earlier in this chapter we have also released the webapp on the internet.
+In addition to the testing described earlier in this chapter I have also released the webapp on the internet.
 This has allowed us to see how users who do not know the system would interact with it,
 and if they could use it to add metadata.
 
-The data we have at this point is inconclusive, but can hopefully give some indication of how the tool will be used.
-The usage data we have collected contains the IP of the user.
-We have used this information to exclude users from the UiB domain,
+The data that has been gathered at this point is inconclusive, but can hopefully give some indication of how the tool will be used.
+The usage data that has been collected contains the IP of the user.
+This information was used to exclude users from the UiB domain,
 as this data would mostly consist of usage tied to testing or debugging the system in the development phase.
 The usage data consists of the data from the 8\textsuperscript{th}	 of April to the 12\textsuperscript{th} of May.
 
 As mentioned, the tool is mainly targeted towards adding metadata to single words, with adding data to sections being
 a secondary means of input.
 This is consistent with how the users have used \theartefact.
-From the usage data we have we can see that of the 298 of the text selections requests we have received,
+From the usage data collected we can see that of the 298 of the text selections requests the server has received,
 only 12, or about 4\%, have been for selections so big that they have been categorized as sections of text.
 The other 96\% of the selections were of single words or of single entities or concepts like "Alexander Graham Bell" or
 "semantically classified lexical databases".
 
-We have not found any cases of the users have used the resulting HTML on their webpages,
+I have not found any cases of the users have used the resulting HTML on their webpages,
 so it is not possible to say anything about their satisfaction with the page at this point.

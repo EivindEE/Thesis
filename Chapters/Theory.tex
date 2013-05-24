@@ -4,15 +4,16 @@
 \label{Theory} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 \lhead{Chapter \ref{Theory}. \emph{Theory}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
 
-In this chapter we are going to review some of the research done on user generated metadata and ontologies.
-We will also introduce the core vocabularies and tool we will use in the development of the artefact,
+In this chapter I am going to review some of the research done on user generated metadata and ontologies.
+I will also introduce the core vocabularies and tool will be used in the development of the artefact,
 and describe their origins and the state of research tied to them at the present.
 
 \section{Ontology and folksonomy}
 One of the central concepts in semantic web technology is that of the ontology.
 In philosophy Ontology is the branch dealing with the study of which things 'exists', and if it is possible to categorize these things.
 For artificial intelligence \citet{Gruber1993} explained it as "an explicit specification of a conceptualization".
-That is, than one commits to a given conceptualization of the domain in question, and formalize how we describe and reason about these conceptualizations.
+That is, than one commits to a given conceptualization of the domain in question,
+and formalize how one describes and reason about these conceptualizations.
 
 \citet{Guarino1998} provided a description, which might be simpler, in which an ontology was described as a shared vocabulary
 concerning some specific domain where the assumptions regarding each term in the vocabulary was made explicit.
@@ -133,33 +134,18 @@ This was based in part on work done by \citet{Fillenbaum1965}, which showed that
 associate words with other words from the same syntactical category.
 
 This way of categorizing the words is able to take advantage of the fact that the different syntactical categories have different semantic structures.
-In this thesis we will use the noun category of WordNet, and benefit from it's topological hierarchy.
-For completeness we'll also mention that verbs are organized as entailment relations,
-while adjectives and adverbs are organized as N-dimentional hyperspaces\citep{Miller1990}.
+This thesis will use the noun category of WordNet, and benefit from it's topological hierarchy.
 
 The word 'word' is ambiguous as it can be used to describe the representation of a word, and its underlying semantics.
 Natural language is built on conventions that tie together utterances or symbols, with some thing or idea.
 A symbol or utterance is the form of a word, while the thing or idea it represents is the words meaning.
-We can represent this idea using Table \ref{table:LexicalMatrix}( see page \pageref{table:LexicalMatrix}).
+This idea can be represent as in table \ref{table:LexicalMatrix}( see page \pageref{table:LexicalMatrix}).
 The table shows a lexical matrix, which means to make explicit the relation between form $F$ and meaning $M$.
 The forms and meanings are linked using entries $E_{(x,y)}$ that would state that meaning $M_x$ has the form $F_y$.
 It also shows how both a single form can refer to several meanings,
 and how a single meaning can be represented using several forms.
 Within the categories mentioned WordNet then tries to organize the words not by form,
 but by similarity of meaning.
-
-This organization is done by grouping words that are synonyms into sets.
-We will describe these sets of synonyms (\nom{synset}{A set of words with similar meanings.}s), by enclosing one or more word forms in curly brackets.
-We could for example use the synset \{dog, domestic dog, Canis familiaris\} to describe the common dog.
-When precision is not the point we will use a short form like \{dog\} to describe the same meaning.
-To organize words into synsets in this way one first needs to have a clear idea about what one means by synonymy.
-A strict definition of synonymy would claim that for form $F$ and $F'$ to be synonymous one must be able
-to replace one with the other in any sentence without changing the truth-value of that sentence.
-This is similar to using Leibniz law of identity to qualify synonymy.
-WordNet uses a weaker definition where one says that whether two forms are synonyms is dependent on the
-semantic context that they are in, and that two words can be synonyms with respect to this semantic context\citep{Miller1990}.
-This weaker definition still necessitates that words must be from the same syntactic category to be synonymous,
-and explains together with \citet{Fillenbaum1965} why it's useful to separate the syntactic categories.
 
 \begin{table}[ht]
 	\centering
@@ -180,13 +166,31 @@ and explains together with \citet{Fillenbaum1965} why it's useful to separate th
 	\label{table:LexicalMatrix}
 \end{table}
 
+This organization is done by grouping words that are synonyms into sets.
+These sets of synonyms (\nom{synset}{A set of words with similar meanings.}s), will be described by enclosing one or more word forms in curly brackets.
+The synset \{dog, domestic dog, Canis familiaris\} will for example be used to describe the common dog.
+When precision is not the point I will use a short form like \{dog\} to describe the same meaning.
+Later, when referring to a specific synset I will use the form dog\#n\#1.
+The first part here referes to the form of the word.
+The second part is the grammatical group of the synset, in this case n for noun.
+The third part is the numbering of the synset, used to separate it from the other meanings of the word "dog".
+
+To organize words into synsets in this way one first needs to have a clear idea about what one means by synonymy.
+A strict definition of synonymy would claim that for form $F$ and $F'$ to be synonymous one must be able
+to replace one with the other in any sentence without changing the truth-value of that sentence.
+This is similar to using Leibniz law of identity to qualify synonymy.
+WordNet uses a weaker definition where one says that whether two forms are synonyms is dependent on the
+semantic context that they are in, and that two words can be synonyms with respect to this semantic context\citep{Miller1990}.
+This weaker definition still necessitates that words must be from the same syntactic category to be synonymous,
+and explains together with \citet{Fillenbaum1965} why it's useful to separate the syntactic categories.
+
 \subsection{Hyponymy and hypernymy}
 \label{Hypernymy}
 Hyponymy and hypernymy is the main way that nouns are organized in WordNet.
 Hypo- and hypernymy are a different type of relation between words than synonymy.
 While synonymy is a relation between different forms of a word,
 hypo- and hypernymy are relations between word meanings.
-The two are the inverse relation of each other and we will explain them by defining what makes something a hypernym.
+The two are the inverse relation of each other and I will explain them by defining what makes something a hypernym.
 The concept $M$ is the hypernym of some other concept $M'$ if $M$ is such that native speakers of English would agree
 with claims of the type "$M'$ is a type of $M$".
 As an example: \{animal\} would be a hypernym of \{dog\},
