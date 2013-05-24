@@ -7,7 +7,7 @@
 \lhead{Chapter \ref{AnalysisAndDiscussion}. \emph{Analysis and Discussion}}
 
 In this chapter I will analyze different parts of the system and discuss their appropriateness in solving the
-problems tied to our research question.
+problems tied to the research question.
 I will start with comparing the mapping algorithms to see if one of them performs better then the other.
 Then I will look into the questions of whether I was able to generate metadata of equal or better quality than that
 which is already available, and if the system is capable of adding the metadata without changing the way the webpage is displayed.
@@ -35,7 +35,7 @@ As one can read from the numbers it table \ref{table:AlgorithmResults} the resul
 display no difference between the two algorithms when mapping from WordNet to SUMO.
 The two algorithms return identical mappings in 100\% of the test cases.
 This indicates that there must have been a mapping either directly from the synset,
-or from the direct hypernym of the synset for each of the 4350 synsets in our test.
+or from the direct hypernym of the synset for each of the 4350 synsets in the test.
 This makes it hard to say anything relevant about the algorithms from these results.
 
 \begin{table}[ht] %%%% Should I change the results so that the no results found are ignored?
@@ -272,7 +272,7 @@ when incorrect mappings or hypernym relations occur.
 
 \section{Testing against existing markup}
 One of the success criteria was that the artefact should be able to mark up HTML as well or better than what is on the web now.
-To test if we managed this I used webpages that were already marked up with schema.org markup,
+To test if \theartefact\ managed this I used webpages that were already marked up with schema.org markup,
 and tried to generate similar markup using \theartefact\ before comparing the results to see if the metadata created
 by the tool was of a similar quality.
 
