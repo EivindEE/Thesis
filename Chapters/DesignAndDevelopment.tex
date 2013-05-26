@@ -173,6 +173,11 @@ Lexitags also returns the top-level resources from schema.org as shown in figure
 These are sorted to the bottom of the list as these are fallbacks for when none of the of the terms suggested for
 the word turn out to be reasonable suggestions for the selected text.
 
+A special case for images was also developed,
+as these are object on a webpage that were assumed users would be interested in marking up,
+but do not contain any text that can be disambiguated.
+This special case kicks in when the selection highlighted contains an image tag, but no text.
+
 \subsection{Adding types}
 
 To select one of the terms from the list as the meaning of the selected text the user clicks the sense in the list see in
