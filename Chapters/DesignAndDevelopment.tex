@@ -531,8 +531,7 @@ and them looking at them in the same order as the hypernyms.
 It will start looking at the siblings of the synset and see if any of them have a mapping.
 As long as there are ontologies without mappings it will then follow the hypernym chain upward again,
 this time looking at the siblings of the hypernyms.
-If the mapping that are found belongs to a sibling of the synset or one of its hypernyms the algorithm will use the super type of the mapped
-type as the type that is mapped to.
+If the mapping that is found belongs to a sibling then the algorithm map to the super-type of the type that it maps to.
 
 \subsection{Hypernym then siblings}
 The hypernym first algorithm is conservative.
@@ -542,10 +541,12 @@ of abstraction than the synset.
 My other try at creating an algorithm tries to stay at a closer level of abstraction by looking at the siblings earlier
 in the traversal.
 
-The algorithm still starts by looking at the hypernym.
-Since the algorithm use the super type of the mapped type when looking at sibling synsets,
-it is reasonable to assume that a mapping from the hypernym would be at an equal level of abstraction as the
-super type of a sibling mapping.
+The algorithm also starts by looking at the hypernym.
+When a mapping is found from a sibling we use the super-type of the mapped type, not the type it self.
+Since WordNet has a very large vocabulary,
+it is reasonable to assume that a mapping from the hypernym would be closer or at least as close in meaning as a
+mapping to the super-type found through a sibling.
+
 The algorithm diverges from the hypernyms first by looking at the siblings of the synset after looking at the hypernym.
 It will then follow the same procedure up the chain, first looking at each synsets hypernym,
 then looking at its siblings before moving up the chain and repeating the process.
