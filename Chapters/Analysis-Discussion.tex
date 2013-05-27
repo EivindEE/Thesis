@@ -180,12 +180,11 @@ In schema.org the type schema:Quantity is described as "[q]uantities such as dis
 The synset measure\#n\#2 is described as "how much there is or how many there are of something that you can quantify".
 The mapping between these appears reasonable and do not seem to be the cause of error.
 
-What makes the mappings seem unreasonable is that the synset one starts with in some way or another points towards
-something that happens at a single instance in time.
-A birth or death is just a single instance, not a quantity of things.
-The problem in both these chains seem to be that one goes from a synset which represents something that happened at a
+What makes the mappings seem unreasonable is that the synsets that were mapped incorrectly represent events that happen at a single instance in time.
+The problem in the chains seem to be that one goes from a synset which represents something that happened at a
 single instance in time, to a synset which describes a quantity of things.
-The cause of the error then is an inconsistency within the hypernym relation in WordNet.
+Using the "is-a" test, it does not seem reasonable that an english user would say that a birth is a type of quantity.
+The cause of the errors then is an inconsistency within the hypernym relation in WordNet.
 
 I have reported this error to the maintainers of WordNet, and they will be fixed in a future public release of WordNet
 (C. Fellbaum, personal communication, May 13, 2013).
@@ -233,11 +232,16 @@ schema:TouristAttraction.
 
 For the mappings to schema:Landform all of the incorrect mappings came as a result of the synsets being hyponyms of part\#n\#3.
 That synset has the hypernym thing\#n\#12, which has the hyponym body\_of\_water\#n\#1.
-Body\_of\_water\#n\#1 maps to schema:BodyOfWater, which again is a sub type of schema:Landscape.
+Body\_of\_water\#n\#1 maps to schema:BodyOfWater, which again is a sub type of schema:Landform.
 Common for all these mappings is that the hypernyms are reasonable.
 There is no reason to believe that these are cases where the hypernym chain breaks the semantics of the synset.
 The mappings from WordNet to schema.org also seem to be sound.
-This means that the source of the change in semantics must be looking at the siblings of the synset or its hypernyms.
+
+The analysis seems to exclude both the hypernym relation and the mappings from WordNet to schema.org as causes for the incorrect mappings.
+That leaves the possibility that using the siblings caused the error.
+Using the mappings from the siblings were wrong in these cases,
+as the sibling had some other semantic value than the synset for which the algorithm tried to find a mapping.
+
 There were instances of siblings both of the original synset and of the hypernyms,
 so it does not appear that closeness to the synset needs to have any influence on whether or not the sibling gives
 an accurate mapping for the synset.
