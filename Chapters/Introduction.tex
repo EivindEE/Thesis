@@ -62,13 +62,13 @@ Adding metadata shouldn't really be that hard.
 Humans are good at knowing what things are.
 We know what the things on websites mean, and which concepts they are meant to convey.
 Natural language is mainly ambiguous to computers, not human beings.
-I want to see if I can create a tool that lets users use their knowledge of natural language and the concepts it conveys
+I want to create a tool that lets users use their knowledge of natural language and the concepts it conveys
 to create metadata by disambiguating the language for the computer, and letting it create the mappings and the elements on the webpage.
 
 The aim of this thesis will be to develop a prototype artefact that will let users add metadata to webpages using natural language.
-I want the prototype to map to the schema.org ontology,
+The prototype should map to the schema.org ontology,
 as using this ontology can increase the visibility of the webpage in search results in the most popular search engines.
-I also want the tool to be able to express meaning in other ontologies, so that it can help create a rich web of interconnected data.
+The tool should also be able to express meaning in other ontologies, so that it can help create a rich web of interconnected data.
 
 The prototype tool will be created using Node.js\footnote{\url{http://nodejs.org}},
 a JavaScript platform based on Google Chromes JavaScript runtime,
@@ -112,44 +112,13 @@ There are several sub questions that will need to examined to answer this questi
 
 In addition I will also need to solve the technical problems of how to import and export webpages from the artefact,
 and how to save the resulting documents on the server.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%In this thesis I want to see if it is feasible to use WordNet synsets as an intermediary
-%to find mappings from natural languages into formal ontologies using mapping files.
-%The thesis will look at different strategies for mapping synsets to ontologies.
-%The strategies will try to balance finding mappings which are at an equal,
-%
-%or similar level of abstraction with having a low level of incorrect mappings.
-%In the cases where there are incorrect mappings,
-%we will try to analyze the results to see if we can find the cause of the mistakes to see if they are caused by the
-%mapping algorithms, or by incomplete or erroneous mappings.
-%
-%We will also look at how the different strategies work when used in the wild,
-%and see if the potential mistakes we find
-%in the previous section will create practical difficulties for the tool.
-%The combination of these results should give us enough information to
-%\subsection{Goals}
-%
-%The tool should be able to:
-%\begin{itemize}
-%	\item Let users add metadata using natural language
-%	\item Let users disambiguate
-%	\item Create mappings into several existing ontologies
-%	\item Be flexible enough that new ontologies can be added
-%\end{itemize}
-%
-%\subsection{Sub-questions}
-%Insert research sub-goals
 
 \section{Target audience}
 The main goal of the work with \theartefact\ is to lower the barrier of entry for enhancing websites with metadata.
 I want to make metadata accessible to content creators on the web that do not know enough about semantic web technologies
 to add this data them selves.
 
-Due to availability of English natural language resources I will for this thesis focus development on mapping English text,
+Due to availability of English natural language resources this thesis will focus development on mapping English text,
 and limit the target group to users who write content in English.
 I will also assume that the users control the HTML of their webpages,
 and that being provided with a new HTML document will allow the user to update their documents.

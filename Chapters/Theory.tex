@@ -4,8 +4,8 @@
 \label{Theory} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 \lhead{Chapter \ref{Theory}. \emph{Theory}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
 
-In this chapter I am going to review some of the research done on user generated metadata and ontologies.
-I will also introduce the core vocabularies and tool will be used in the development of the artefact,
+This chapter will give a review of some of the research done on user generated metadata and ontologies.
+It will also introduce the core vocabularies and tool will be used in the development of the artefact,
 and describe their origins and the state of research tied to them at the present.
 
 \section{Ontology and folksonomy}
@@ -169,8 +169,8 @@ but by similarity of meaning.
 This organization is done by grouping words that are synonyms into sets.
 These sets of synonyms (\nom{synset}{A set of words with similar meanings.}s), will be described by enclosing one or more word forms in curly brackets.
 The synset \{dog, domestic dog, Canis familiaris\} will for example be used to describe the common dog.
-When precision is not the point I will use a short form like \{dog\} to describe the same meaning.
-Later, when referring to a specific synset I will use the form dog\#n\#1.
+When precision is not the point a short form like \{dog\} will be used to describe the same meaning.
+Later, when referring to a specific synset the form dog\#n\#1 will be used.
 The first part here referes to the form of the word.
 The second part is the grammatical group of the synset, in this case n for noun.
 The third part is the numbering of the synset, used to separate it from the other meanings of the word "dog".
@@ -296,6 +296,10 @@ The sense the user chooses will then be stored as a reference to one of the voca
 The vocabularies used by lexitags are WordNet and DBPedia.
 Since WordNet mainly contains dictionary words,
 DBPedia was chosen to complement it to cover things like names, places, or compound terms.
+
+The lexitags server is used in \theartefact\ to find mappings from the natural language concepts to WordNet.
+The artefact will treat the keywords that the user selects on the page as tags,
+and use the lexitags interface to find disambiguated synsets describing the concepts they represent.
 
 \section{Suggested upper merged ontology}
 The suggested upper merged ontology(\nom{SUMO}{Suggested upper merged ontology}) was created based on work from the Standard Upper Ontology(\nom{SUO}{Standard Upper Ontology}),

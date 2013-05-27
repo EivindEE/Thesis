@@ -6,12 +6,12 @@
 
 \lhead{Chapter \ref{AnalysisAndDiscussion}. \emph{Analysis and Discussion}}
 
-In this chapter I will analyze different parts of the system and discuss their appropriateness in solving the
+This chapter will contain an analysis of the different parts of the system and discuss their appropriateness in solving the
 problems tied to the research question.
-I will start with comparing the mapping algorithms to see if one of them performs better then the other.
-Then I will look into the questions of whether I was able to generate metadata of equal or better quality than that
+The chapter will start with comparing the mapping algorithms to see if one of them performs better then the other.
+It will then try to answer the questions of whether I was able to generate metadata of equal or better quality than that
 which is already available, and if the system is capable of adding the metadata without changing the way the webpage is displayed.
-I will also look at the usage data the system has received at this point and see how it corresponds with the expected use of the system.
+It will end with an overview of the usage data the system has received at this point and see how it corresponds with the expected use of the system.
 
 \section{Comparing the algorithms}
 \label{ComparingAlgorithms}
@@ -20,9 +20,9 @@ This list was sent through the lexitags server to get synsets that corresponded 
 Both these lists were preprocessed to remove duplicates and to format them as JavaScript objects
 \footnote{\url{https://github.com/EivindEE/Madame/tree/master/testing}}.
 The final list of synsets contained 4350 unique synsets.
-I wrote a short script that was used to run the synsets through the best-fit algorithms,
+A short script was written that was used to run the synsets through the best-fit algorithms,
 and to write a report of the results.
-For the schema.org version of the test I wrote the average depth of the mapped type,
+For the schema.org version of the test the script wrote the average depth of the mapped type,
 as well as the total number of times the two algorithms had the same and different mappings.
 The depth was calculated as the distance from the root node in the tree,
 i.e. schema:Thing itself had a depth of 0,
@@ -190,7 +190,7 @@ The cause of the error then is an inconsistency within the hypernym relation in 
 I have reported this error to the maintainers of WordNet, and they will be fixed in a future public release of WordNet
 (C. Fellbaum, personal communication, May 13, 2013).
 
-I also analyzed the results where the hypernym then siblings algorithm mapped incorrectly.
+The results where the hypernym then siblings algorithm mapped incorrectly were also analyzed.
 The distribution of incorrect mappings can be seen in figure \ref{fig:incorrect}(page \pageref{fig:incorrect}).
 
 \begin{figure}[ht]
@@ -260,10 +260,10 @@ and which had a more balanced approach to the world would result in better resul
 As it stands it is clear that the hypernyms first algorithm out performed the hypernym then siblings algorithm,
 and is the one that will be used in the artefact.
 The fact that its mappings were incorrect or questionable in 6\% of the instances analyzed is unfortunate.
-The cause of the errors were however found to be outside the system I have developed for this thesis,
+The cause of the errors were however found to be outside the system that has been developed for this thesis,
 and they have been reported.
 This gives us reason to hope that the error rate of the system will go down as the tools it depends on are improved.
-It also suggests that I should create some error reporting mechanism that can be used to give feedback to the maintainers
+It also suggests that some error reporting mechanism should be created to give feedback to the maintainers
 when incorrect mappings or hypernym relations occur.
 %Noun list from http://www.desiquintans.com/articles.php?page=nounlist
 
@@ -277,7 +277,7 @@ and tried to generate similar markup using \theartefact\ before comparing the re
 by the tool was of a similar quality.
 
 \subsection{Method}
-The method that I used to mark up and compare the sites followed a simple process.
+The method that was used to mark up and compare the sites followed a simple process.
 Webpages were picked from a list of sites using the schema.org ontology for metadata that is available on GitHub
 \footnote{\url{https://github.com/LawrenceWoodman/mida/wiki/Sites-Using-Microdata}}.
 
@@ -317,7 +317,7 @@ The full HTML of the webpages before and after they were marked up using \theart
 
 Most of the metadata on the webpages that were marked up was metadata about larger sections of the page.
 The most prevalent type used on the pages marked up was schema:Review.
-The artefact I developed is targeted towards disambiguating single words as described in section \ref{Interaction}.
+The artefact is targeted towards disambiguating single words as described in section \ref{Interaction}.
 When marking up the text this meant one had to decide whether to markup the same section of the text as used in the original page,
 or if one should select a single word in the section describing its content.
 Should one for example select the header review, or the entire review itself?
@@ -407,7 +407,7 @@ These results show that the tool is able to create metadata of equal quality as 
 One of the criteria for the artefact was that it should leave the visual representation of the system unchanged.
 The system is meant to let users add metadata to existing webpages, and should not modify their appearance.
 I did a comparison of the webpages before and after adding metadata.
-You can see an example of the telegraph website before adding metadata in figure \ref{TelegraphOriginal},
+An example of the telegraph website before adding metadata can be seen in figure \ref{TelegraphOriginal},
 and after in \ref{TelegraphData}.
 The side margins and the header of the website has been cropped out in the images to make it easier to see the content of the sites.
 
@@ -419,7 +419,7 @@ There are however some changes to the HTML.
 
 To make the webpage appear the same when viewed on the URL the user is given when the page is exported
 the relative URLs tied to images and \nom{CSS}{Cascading Style Sheets} have been replace with absolute URLs.
-To keep the code simpel I decided to only change the URLs that start at the root of the domain.
+To keep the code simpel only the URLs that start at the root of the domain were changed.
 So if there was an image on the page \texttt{http://example.org} which pointed to the source \texttt{/image.png}
 then the source would be changed to \texttt{http://example.org/image.png}.
 This change is not communicated to the user, which is unfortunate,
@@ -429,7 +429,7 @@ As one can see from the images there are some sections of the website which are 
 are displayed as loading.
 The switch from relative to absolute URLs have only been done for images and CSS,
 which means that some of the JavaScript modules that the website depends on will not be loaded into the webpage.
-I wanted to leave the HTML as much intact as possible,
+The tool tries to leave the HTML as much intact as possible,
 and since the scripts have yet seemed crucial to display the page properly it was decided to leave them as they were.
 It should be noted that this means that the page will sometimes miss some content, as visible in the figures.
 
@@ -446,7 +446,7 @@ I have not found any way to avoid this issue,
 and can only hope that most developers depend on id and class attributes instead of the specific location in the DOM.
 
 \section{Analysis of usage data}
-In addition to the testing described earlier in this chapter I have also released the webapp on the internet.
+In addition to the testing described earlier in this chapter the webapp  has also been released on the internet.
 This has allowed us to see how users who do not know the system would interact with it,
 and if they could use it to add metadata.
 

@@ -15,7 +15,7 @@ I wanted to improve the situation by making it possible to add metadata about ar
 My goal when starting work with this thesis was to create a prototype of a system that would allow users to add metadata to webpages by using natural language,
 without requiring the to know the formal underpinnings of ontologies.
 
-I formalized a research question that stated:
+A research question was formalized that stated:
 
 \emph{"Is it possible to create a tool which allows naïve users to easily add metadata to their websites using natural language?"}
 
@@ -35,14 +35,14 @@ if the synset itself did not contain a direct mapping to an ontology.
 I examined the two algorithms for finding the best mapping from a given synset into the ontologies the system was mapping to.
 These were later evaluated to find which of them gave the best mappings.
 
-I also created a webapp which lets users add metadata to webpages by selecting content on the page,
+A webapp was created to lets users add metadata to webpages by selecting content on the page,
 and disambiguating the selection by clicking on suggested interpretations of the selection.
 The webapp also allows users to import and export webpages into the webapp for mark up.
 
 \section{Findings}
 I will now summarize the results of the analysis that was done in chapter \ref{AnalysisAndDiscussion}.
 
-The results I got to a large degree supports the feasibility of using WordNet as a way to represent natural language
+The results found to a large degree supports the feasibility of using WordNet as a way to represent natural language
 when mapping to formal ontologies.
 Some cases where the integrity of the hypernym relation was violated was found.
 These errors have been reported to the maintainers of WordNet, and they will be fixed in the next public  release (C. Fellbaum, personal communication, May 1, 2013 and May 13, 2013).
@@ -53,29 +53,33 @@ There were only a few instances in the ontologies that were utilized in the thes
 The analysis as described in section \ref{ComparingAlgorithms} of the algorithm that relied on
 using siblings of synsets as a basis for mapping to ontologies showed us that this either this approach is unfruitful,
 or at least that the current method of using siblings as a grounds for mapping is to naïve.
-My study has found no reason to believe that siblings reliably tell us anything about the semantic properties of a synset.
+As shown in table \ref{table:AlgorithmResults} the algorithms agreed in 75\% of the cases,
+but in the cases where they gave different mappings the error rate for the hypernym then siblings was very high.
+This indicates that the current implementation is to naïve to correctly use sibling synsets to map to formal ontologies,
+and that further research is needed to see if the approach can be improved.
 
-I did on the other hand find that using hypernyms as a basis for mapping gives correct mappings.
+It was found that using hypernyms as a basis for mapping gave correct mappings.
 The incorrect mappings that were discovered during analysis were found to be caused by errors outside of the system.
 One should continue to look for further discrepancies in the future to help the development of these tools as well.
 The hypernyms first approach does however result in high-level mappings, and could benefit from further refinement.
 
 The metadata that was created using \theartefact\ is comparable to that present at current websites which use schema.org to
 enrich their content.
-I also found that the tool could help users avoid using incorrect types and properties,
+The testing also showed that the tool could help users avoid using incorrect types and properties,
 since it limits the properties allowed to add to those that are defined as belonging to the type.
 
 As described in section \ref{Rendering} the testing of how the webpages were rendered after metadata was added by the tool
 showed that the documents were displayed in the same manner before and after metadata was added.
 My analysis did uncover cases in which adding metadata could potentially change how the page was displayed.
-The tests I performed did however find that the system was able to add metadata to the webpages without changing the way they were displayed in the browser.
+The tests did however find that the system was able to add metadata to the webpages without changing the way they were displayed in the browser.
 
 
 \section{Further work}
 The goal of this thesis has been to create a functioning prototype of an artefact that allows users to add metadata
 to webpages by using natural language.
-As argued I believe that I have managed to create a system that fulfills the goals I set at the outset.
-I now see several new interesting ways the tool could be developed further to increase its value to users.
+The system has been able to fullfil the most basic requirements, and shown that the concept is feasible.
+There are now several new interesting ways the tool could be developed further to increase its value to users,
+and to researchers.
 
 It would be interesting have mappings to more ontologies,
 and one could offer the user a chance to say what the topic of the page was.
