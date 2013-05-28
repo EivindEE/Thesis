@@ -291,7 +291,16 @@ This process was selected to make sure that it would be possible to compare the 
 
 The pages were imported into the artefact, and the markup would be recreated by selecting text,
 and if necessary supply keywords to disambiguate the content.
-It was attempted to add the metadata as faithfully as possible to make comparison simpler
+For some sections supplying keywords were required as the text didn't contain keywords that signaled the meaning of the content.
+There were several reasons for this.
+In some cases the keyword was displayed on the webpage as an image,
+so instead of having the term "review" in a header or in text it appeared as part of an image on the page.
+It could also be that the individual words on the page did not represent the concept.
+In other cases the difficulty was tied to mapping to functional concepts.
+For example is being for sale not an inherent property of thing it self,
+making mappings to products difficult using descriptions of the thing.
+
+Metadata was added as faithfully as possible to make comparison simpler.
 When the markup process was complete, the webpages would be exported and the resulting webpage would be analyzed.
 The original was used as a gold standard which the marked up pages could be compared to.
 
@@ -302,6 +311,7 @@ The structured data testing tool shows the metadata that is read and extracted b
 It was used to check if the metadata available to Google was the same.
 The tool was used on both the original page and the page marked up by the artefact so that one could judge if the
 extracted metadata was the same.
+
 The RDFa distiller could not be used to compare the documents as it is created to distill RDFa not microdata,
 which was used to include metadata on the pages tested against.
 The RDFa distiller parses the webpage and extracts the RDFa, displaying it as some RDF format.
@@ -327,8 +337,12 @@ or if one should select a single word in the section describing its content.
 Should one for example select the header review, or the entire review itself?
 Choosing the first option would give the metadata a different structure,
 while selecting the second option would require the user to provide a keyword describing the topic of the section.
-Which of these strategies one chooses does not change the meaning of the metadata which is created by the tool.
-A combination of these two strategies was used when marking up the pages.
+There is little practical difference between the two strategies.
+Selecting a section might make it easier for humans looking at the markup to find out which part of the page the type referes to,
+but \theartefact\ doesn't use the content of the tag to add information so there is no difference in the semantic meaning of the metadata that is added.
+Neither should there be any difference in how the webpages are displayed after the metadata is added.
+Marking up an larger section does however increase the amount of places where an error could occur.
+A combination of these two strategies was tried when marking up the pages.
 
 \subsection{An issue with the testing tool}
 An issue that was discovered when analyzing the resulting markup with the structured data tool was that
