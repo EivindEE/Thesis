@@ -149,7 +149,7 @@
         stringstyle=\color[rgb]{0.7,0,0} }
 \usepackage[pdfpagemode={UseOutlines},bookmarks=true,bookmarksopen=true,
    bookmarksopenlevel=0,bookmarksnumbered=true,hypertexnames=false,
-   colorlinks,linkcolor={blue},citecolor={blue},urlcolor={red},
+   colorlinks=false,linkcolor={blue},citecolor={blue},urlcolor={red},
    pdfstartview={FitV},unicode,breaklinks=true]{hyperref}
 \pdfstringdefDisableCommands{
    \let\\\space
