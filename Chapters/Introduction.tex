@@ -63,11 +63,11 @@ Humans are good at knowing what things are.
 We know what the things on websites mean, and which concepts they are meant to convey.
 Natural language is mainly ambiguous to computers, not human beings.
 I want to create a tool that lets users use their knowledge of natural language and the concepts it conveys
-to create metadata by disambiguating the language for the computer, and letting it create the mappings and the elements on the webpage.
+to create metadata by disambiguating the language for the computer, and letting it create the mappings and the elements on the web page.
 
-The aim of this thesis will be to develop a prototype artefact that will let users add metadata to webpages using natural language.
+The aim of this thesis will be to develop a prototype artefact that will let users add metadata to web pages using natural language.
 The prototype should map to the schema.org ontology,
-as using this ontology can increase the visibility of the webpage in search results in the most popular search engines.
+as using this ontology can increase the visibility of the web page in search results in the most popular search engines.
 The tool should also be able to express meaning in other ontologies, so that it can help create a rich web of interconnected data.
 
 The prototype tool will be created using Node.js\footnote{\url{http://nodejs.org}},
@@ -103,14 +103,14 @@ and the different modules will be created in an iterative way to get working pro
 
 There are several sub questions that will need to examined to answer this question.
 \begin{itemize}
-	\item How should users pick the parts of a webpage they want to add metadata to, and find the concepts it describes using natural language?
+	\item How should users pick the parts of a web page they want to add metadata to, and find the concepts it describes using natural language?
 	\item Is WordNet suitable for representing disambiguated concepts from natural language in a way that will allow us to map these concepts to formal ontologies?
 	\item How should an algorithm be implement to finds mappings from the natural language concept to types in
 			formal ontologies in a way that preserves the semantic content of the concept?
-	\item Is it possible to add metadata to webpages in such a way that it does not change the way the page is rendered by browsers?
+	\item Is it possible to add metadata to web pages in such a way that it does not change the way the page is rendered by browsers?
 \end{itemize}
 
-In addition I will also need to solve the technical problems of how to import and export webpages from the artefact,
+In addition I will also need to solve the technical problems of how to import and export web pages from the artefact,
 and how to save the resulting documents on the server.
 
 \section{Target audience}
@@ -120,6 +120,6 @@ to add this data them selves.
 
 Due to availability of English natural language resources this thesis will focus development on mapping English text,
 and limit the target group to users who write content in English.
-I will also assume that the users control the HTML of their webpages,
+I will also assume that the users control the HTML of their web pages,
 and that being provided with a new HTML document will allow the user to update their documents.
 

@@ -25,10 +25,10 @@ the different part were to give an short explanation of the development process.
 The first iteration started with a technical peak exploring different tools and frameworks for development with JavaScript.
 I wanted to find tools that could reduce development time by reducing the amount of repetitive work done in the project.
 
-It was decided that the webpage should use Twitter bootstrap\footnote{\url{http://twitter.github.io/bootstrap/}} as a grid system.
-Using a standard grid system makes it easier to create a webpage that looks OK,
+It was decided that the web page should use Twitter bootstrap\footnote{\url{http://twitter.github.io/bootstrap/}} as a grid system.
+Using a standard grid system makes it easier to create a web page that looks OK,
 and reduces the amount of time needed to set up a scaffold.
-Since the visual aspect of the webpage was not an important aspect of the work a simple grid system like bootstrap
+Since the visual aspect of the web page was not an important aspect of the work a simple grid system like bootstrap
 eased the development burden.
 
 It was decided to use SASS\footnote{\url{http://sass-lang.com}} to write the style sheets.
@@ -49,7 +49,7 @@ Grunt.js is a task manager that can run certain tasks when specified events are 
 The project was set up so that each time a JavaScript or SASS file was saved the task manager compiled the SASS document,
 and concatenated the public JavaScript files.
 Concatenating the JavaScript files meant that it was unnecessary to update the HTML when a new JavaScript file was created or deleted,
-since the webpage only needed to include that one file.
+since the web page only needed to include that one file.
 
 Node.js was chosen as the development platform of the project.
 Setting up a basic server in node.js can be done in a single line of code.
@@ -103,7 +103,7 @@ marked up using \theartefact.
 
 \subsection{Iteration 4}
 The export module was developed in the fourth iteration.
-This module would take the webpage that the user had imported into the system and create a new HTML document.
+This module would take the web page that the user had imported into the system and create a new HTML document.
 This document would be stored in the database, and would be accessible for the user through a URL which was provided when the page was exported.
 
 Adding properties to entities was also developed during this stage.
@@ -175,7 +175,7 @@ These are sorted to the bottom of the list as these are fallbacks for when none 
 the word turn out to be reasonable suggestions for the selected text.
 
 A special case for images was also developed,
-as these are object on a webpage that were assumed users would be interested in marking up,
+as these are object on a web page that were assumed users would be interested in marking up,
 but do not contain any text that can be disambiguated.
 This special case kicks in when the selection highlighted contains an image tag, but no text.
 
@@ -235,7 +235,7 @@ One way to get a well-formed HTML document would be to close and open the HTML t
 
 \texttt{<p>some text </p><tag><p> in a p</p> <p> plus some </p></tag><p>  other text </p>}
 
-Solving the problem in this manner would change the structure and rendering of the webpage,
+Solving the problem in this manner would change the structure and rendering of the web page,
 as it would create new block elements.
 This is not a tenable solution, as one of the goals of of this thesis is to not change the way the document is displayed.
 The solution that was found was to instead expand the range of the selection so that it covered a larger part of the document:
@@ -265,7 +265,7 @@ closest common node.
 These elements are then surround with the metadata tag.
 This metadata element is styled with a distinct color to let the user know that the text is tagged.
 
-\section{Importing webpages}
+\section{Importing web pages}
 One of the issues that came up early was how to import and display the websites that the user wanted to add metadata to.
 Early attempts tried using the iframe\footnote{http://www.w3.org/TR/html5/embedded-content-0.html\#the-iframe-element}
 element of \nom{HTML}{HyperText Markup Language}.
@@ -279,7 +279,7 @@ to keep the interaction confined to the content the user is meant to tag.
 The id of this tag is also used to tell if a certain element is a part of the user content section by checking if it is
 the child of the element.
 
-The user writes the URL of the webpage into an input field on the top of the webapp as shown in figure \ref{MadameHeader}.
+The user writes the URL of the web page into an input field on the top of the webapp as shown in figure \ref{MadameHeader}.
 \fig{MadameHeader}{The header of the \theartefact\ webapp} % IMAGE OF THE HEADER OF MADAME
 The server will fetch the document stored at that location.
 I created a proxy to get the html from other websites.
@@ -573,7 +573,7 @@ This is treated as a separate task as it pertains not to the content of the page
 It is also not a part of the schema.org ontology, but is included as it is a natural way to increase the visibility of
 the website in search results using metadata.
 
-\theartefact uses MongoDB\footnote{\url{http://www.mongodb.org}} as a database for storing the webpages after the user has added metadata.
+\theartefact uses MongoDB\footnote{\url{http://www.mongodb.org}} as a database for storing the web pages after the user has added metadata.
 MongoDB is a NoSQL database that uses JavaScript as its database interaction language.
 MongoDB uses a dynamic schema for storing data,
 meaning that each document in a collection does not need to have the same structure.
@@ -584,6 +584,6 @@ Mongoose allows one to abstract a lot of the database logic away and simplifies 
 When receiving a document to store the module removes all the extra comments that were added when the document was
 imported, and puts the document back in its original state.
 The database also stores the namespaces used in the document and the date on which the document was created.
-When the document has been stored successfully the URL of the newly created webpage is returned to the user as shown in
+When the document has been stored successfully the URL of the newly created web page is returned to the user as shown in
 figure \ref{SidebarExported} on page \pageref{SidebarExported}.
 If there was an error during the process the user is alerted about what went wrong.
