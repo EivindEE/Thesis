@@ -25,10 +25,10 @@ the different part were to give an short explanation of the development process.
 The first iteration started with a technical peak exploring different tools and frameworks for development with JavaScript.
 I wanted to find tools that could reduce development time by reducing the amount of repetitive work done in the project.
 
-It was decided that the web page should use Twitter bootstrap\footnote{\url{http://twitter.github.io/bootstrap/}} as a grid system.
-Using a standard grid system makes it easier to create a web page that looks OK,
+It was decided that the Web page should use Twitter bootstrap\footnote{\url{http://twitter.github.io/bootstrap/}} as a grid system.
+Using a standard grid system makes it easier to create a Web page that looks OK,
 and reduces the amount of time needed to set up a scaffold.
-Since the visual aspect of the web page was not an important aspect of the work a simple grid system like bootstrap
+Since the visual aspect of the Web page was not an important aspect of the work a simple grid system like bootstrap
 eased the development burden.
 
 It was decided to use SASS\footnote{\url{http://sass-lang.com}} to write the style sheets.
@@ -49,18 +49,18 @@ Grunt.js is a task manager that can run certain tasks when specified events are 
 The project was set up so that each time a JavaScript or SASS file was saved the task manager compiled the SASS document,
 and concatenated the public JavaScript files.
 Concatenating the JavaScript files meant that it was unnecessary to update the HTML when a new JavaScript file was created or deleted,
-since the web page only needed to include that one file.
+since the Web page only needed to include that one file.
 
 Node.js was chosen as the development platform of the project.
 Setting up a basic server in node.js can be done in a single line of code.
 Using this basic server requires a lot of low level handling of requests and responses,
 including parsing request URL to find the correct handler.
 To abstract these low level concepts away \theartefact\ uses express\footnote{\url{http://expressjs.com}},
-a web app framework which simplifies routing requests to the correct handler and handling static files.
+a Web app framework which simplifies routing requests to the correct handler and handling static files.
 It was also decided to use the jade\footnote{\url{http://jade-lang.com}}
-templating language to generate the HTML that was used on the website.
+templating language to generate the HTML that was used on the Web site.
 Using a templating language made the distinction between structure and content clearer,
-and enabled reuse of structure and content between different versions of the website during development.
+and enabled reuse of structure and content between different versions of the Web site during development.
 
 The technological peak also included getting to know the DOM, the API used for manipulating HTML documents.
 The problem that was tried to solve during this technical peak was how to find minimal legal ranges.
@@ -98,12 +98,12 @@ The algorithms will be discussed further in section \ref{BestFitMapping}.
 The two strategies used by these algorithms were to either look at all the hypernyms of the synsets before looking at other senses,
 or to look alternately at the direct hypernym and then the siblings of the synset.
 
-This was also the iteration where development started on  a mechanism for fetching HTML from other websites so that they could be
+This was also the iteration where development started on  a mechanism for fetching HTML from other Web sites so that they could be
 marked up using \theartefact.
 
 \subsection{Iteration 4}
 The export module was developed in the fourth iteration.
-This module would take the web page that the user had imported into the system and create a new HTML document.
+This module would take the Web page that the user had imported into the system and create a new HTML document.
 This document would be stored in the database, and would be accessible for the user through a URL which was provided when the page was exported.
 
 Adding properties to entities was also developed during this stage.
@@ -127,7 +127,7 @@ The artefact was divided into several modules which function independently of ea
 The modules were loosely coupled so that each module could be changed or modified without affecting the other modules.
 The modules that were created were:
 \begin{itemize}
-	\item The web front end
+	\item The Web front end
 	\item A module that fetched and processed the HTML from the sites that the user wanted to mark up
 	\item A module for fetching possible disambiguating terms from lexitags
 	\item A module for finding the best-fit mappings for SUMO and schema.org
@@ -137,7 +137,7 @@ The modules that were created were:
 
 \section{Interaction method}
 \label{Interaction}
-When first faced with the problem of how to let users interact with the web app I thought that using the highlighting or
+When first faced with the problem of how to let users interact with the Web app I thought that using the highlighting or
 selection of text to be the most intuitive approach.
 This also appeared to be the simplest interaction method to implement.
 The simple case of taking selected text and displaying it in the console can be implemented as in listing \ref{DOMSelection}.
@@ -149,11 +149,11 @@ The simple case of taking selected text and displaying it in the console can be 
 	document.addEventListener('mouseup', logSelection);
 \end{lstlisting}
 
-The "mouseup" event is triggered every time the user has pressed and then released the mouse pointer on the website.
+The "mouseup" event is triggered every time the user has pressed and then released the mouse pointer on the Web site.
 This event is not available on mobile and tablet type browsers,
 but adding listeners for corresponding events should not be difficult if there should be a need for this at a later stage.
 
-In the web app the selected text is sent to the web server to find possible disambiguations for the text.
+In the Web app the selected text is sent to the Web server to find possible disambiguations for the text.
 The lexitags service that the system uses for disambiguation now is targeted towards disambiguating single words.
 It does handle some composite terms and some proper nouns, but this is outside the normal use case.
 The lexitags service is designed to disambiguate single tags, not large paragraphs of text.
@@ -163,7 +163,7 @@ the query is instead replaced with a shorter query indicating that the selection
 
 The response from the server is a JSON string containing the terms that were found to be possible senses of the selected text.
 Each of these senses have an explanation property which gives a short textual description of the meaning of the sense.
-These senses are displayed as a list on the web site.
+These senses are displayed as a list on the Web site.
 The senses that are returned come from different sources.
 They can come either from WordNet and take the form of WordNet synsets, or they can be resources from DBPedia.
 Both of these can be used to generate mappings,
@@ -175,7 +175,7 @@ These are sorted to the bottom of the list as these are fallbacks for when none 
 the word turn out to be reasonable suggestions for the selected text.
 
 A special case for images was also developed,
-as these are object on a web page that were assumed users would be interested in marking up,
+as these are object on a Web page that were assumed users would be interested in marking up,
 but do not contain any text that can be disambiguated.
 This special case kicks in when the selection highlighted contains an image tag, but no text.
 
@@ -199,7 +199,7 @@ For each of the types in schema.org the JSON file provides the properties specif
 and all the properties it has inherited from its super types.
 The information about which properties a type can have is combined with a short description of what the property represents,
 and information about the range of the property, that is the range of values that are valid values of the property.
-The resulting JSON object is then returned to the website.
+The resulting JSON object is then returned to the Web site.
 These properties are then added to the metadata element as separate elements,
 with the description and range stored as data attributes of the element.
 
@@ -209,7 +209,7 @@ Users can click text that has been tagged with metadata.
 This triggers a popover view that displays the properties that the element can have,
 and which types of values are allowed for each property as shown in figure \ref{PropertiesFull}.
 \fig{PropertiesFull}{{The properties popover for schema:Event}} % IMAGE OF PROPERTY SELECTION BOX
-If the property allows other schema.org types as their value the webapp does a scan of the content of the website to check if
+If the property allows other schema.org types as their value the Web application does a scan of the content of the Web site to check if
 there are elements of the correct type on the page.
 Elements of the correct type that are found are put in a combo box and can be selected as values for the property.
 In all cases the user is presented with the option of writing the value of the property in an input field.
@@ -227,7 +227,7 @@ If we consider the simple case:
 
 \texttt{<p>some text \hl{in a p</p> <p>` plus some} other text </p>}
 
-If the webapp simply inserted a tag it would produce invalid HTML since it would create overlapping elements.
+If the Web application simply inserted a tag it would produce invalid HTML since it would create overlapping elements.
 
 \texttt{<p>`some text <tag> in a p</p> <p> plus some </tag>  other text </p>}
 
@@ -235,7 +235,7 @@ One way to get a well-formed HTML document would be to close and open the HTML t
 
 \texttt{<p>some text </p><tag><p> in a p</p> <p> plus some </p></tag><p>  other text </p>}
 
-Solving the problem in this manner would change the structure and rendering of the web page,
+Solving the problem in this manner would change the structure and rendering of the Web page,
 as it would create new block elements.
 This is not a tenable solution, as one of the goals of of this thesis is to not change the way the document is displayed.
 The solution that was found was to instead expand the range of the selection so that it covered a larger part of the document:
@@ -247,7 +247,7 @@ This could easily lead to overlapping elements in the HTML as shown above.
 To avoid this malformed HTML the system checks the range of the selected text and see if surrounding it with a tag
 containing metadata would result in a well-formed document, and modify the range if needed.
 If the start and end of the selection are in the same element then adding metadata is safe.
-If that is not the case then the webapp will find the smallest change that can be made to the scope of the range to make it safe.
+If that is not the case then the Web application will find the smallest change that can be made to the scope of the range to make it safe.
 There are two general cases her, when either the start or the end of the range is in a descendant element of the other,
 and when both start and end are descendants of a common element but not of each other.
 
@@ -260,42 +260,42 @@ descended from which.
 When the elements are not descendants of each other then the only option is that they must be descendants of some other element.
 If nothing else they must both be descendants of the root element.
 The approach for this is similar to what is done for elements that are descendants of each other,
-but instead of finding the ancestor which is the direct child of the other node the webapp finds the one which is a child of the
+but instead of finding the ancestor which is the direct child of the other node the Web application finds the one which is a child of the
 closest common node.
 These elements are then surround with the metadata tag.
 This metadata element is styled with a distinct color to let the user know that the text is tagged.
 
-\section{Importing web pages}
-One of the issues that came up early was how to import and display the websites that the user wanted to add metadata to.
+\section{Importing Web pages}
+One of the issues that came up early was how to import and display the Web sites that the user wanted to add metadata to.
 Early attempts tried using the iframe\footnote{http://www.w3.org/TR/html5/embedded-content-0.html\#the-iframe-element}
 element of \nom{HTML}{HyperText Markup Language}.
-Embedding the target website in an iframe was the first try as it would allow the page to display in the same manner
+Embedding the target Web site in an iframe was the first try as it would allow the page to display in the same manner
 as it does when accessed directly.
 Using the iframe element in this manner would however constitute cross-domain communication and is not allowed.
 The solution that is used in the system now uses a module on the server to fetch the HTML of the document the user wants to enrich.
-The HTML that is imported is now appended to a content element in the webapp.
-The JavaScript events used in the webapp are attached to this element,
+The HTML that is imported is now appended to a content element in the Web application.
+The JavaScript events used in the Web application are attached to this element,
 to keep the interaction confined to the content the user is meant to tag.
 The id of this tag is also used to tell if a certain element is a part of the user content section by checking if it is
 the child of the element.
 
-The user writes the URL of the web page into an input field on the top of the webapp as shown in figure \ref{MadameHeader}.
-\fig{MadameHeader}{The header of the \theartefact\ webapp} % IMAGE OF THE HEADER OF MADAME
+The user writes the URL of the Web page into an input field on the top of the Web application as shown in figure \ref{MadameHeader}.
+\fig{MadameHeader}{The header of the \theartefact\ Web application} % IMAGE OF THE HEADER OF MADAME
 The server will fetch the document stored at that location.
-I created a proxy to get the html from other websites.
+I created a proxy to get the html from other Web sites.
 The proxy would take a URL and get the resource located there.
 If the resource is not of the right type i.e. not a HTML document with a body element,
 the proxy would return an error.
 When the resource has been downloaded the content of the body element of the document is parsed to comment out code that
-could be harmful, that could make the page display incorrectly, or that could disrupt the way the webapp functions.
+could be harmful, that could make the page display incorrectly, or that could disrupt the way the Web application functions.
 The parts of the page that are comment out are the script, iframe and comment elements.
-The script elements could disrupt the way the web app works, either by overwriting the behavior of functions,
-or otherwise alter the behavior of the web app.
+The script elements could disrupt the way the Web app works, either by overwriting the behavior of functions,
+or otherwise alter the behavior of the Web app.
 In addition the script elements are not visible on the page so interacting with them would be hard.
 Removing them was also convenient during development.
 The scripts in the tags would often rely on variables or functions that should have been loaded elsewhere,
 and they would clutter the console making it more difficult to find the relevant information.
-Iframes were excluded since they could make the web app appear to be inconsistent.
+Iframes were excluded since they could make the Web app appear to be inconsistent.
 The iframes look like a part of the page,
 but it would not be possible to alter their content since the HTML belongs to a different document.
 The difference between the document and the iframe would be invisible to the user,
@@ -305,7 +305,7 @@ Since the system uses comments to remove iframes and scripts, and since these el
 the content of the comments would sometimes be displayed as text elements on the page.
 
 \Theartefact\ is only designed to add metadata to the body element of the document,
-so the page is split into body and head parts before it is returned to the webapp.
+so the page is split into body and head parts before it is returned to the Web application.
 The document is returned as a JSON string with one property containing the processed body,
 and one containing the content of the head.
 
@@ -321,7 +321,7 @@ JavaScript objects are themselves dictionaries, making it natural to choose to t
 The structure of the objects is very simple,
 the synsets are used as the keys to entities in the target ontologies as seen in listing \ref{wn2schemaMapping}.
 
-\begin{lstlisting}[label=wn2schemaMapping, caption={Excerpt from the \href{https://github.com/EivindEE/Madame/blob/master/mappings/wn2schema.js}{wn2schema.js} mapping file}]
+\begin{lstlisting}[label=wn2schemaMapping, caption={Excerpt from the WordNet to schema.org (\href{https://github.com/EivindEE/Madame/blob/master/mappings/wn2schema.js}{wn2schema.js}) mapping file}]
 exports.mapping = {
 	"abstraction#n#6": "Intangible",
 	"accounting_firm#n#1": "AccountingService",
@@ -370,7 +370,7 @@ the generalization of the process at a later stage.
 
 \section{Building the hypernym chain}
 \label{BuildingTheHypernymChain}
-Many synsets that the users will select as representing the concepts in the web app will be more specific than
+Many synsets that the users will select as representing the concepts in the Web app will be more specific than
 the ones used in ontologies \theartefact\ maps to.
 This means that the tool needs some way of generalizing the synsets.
 This thesis examines two approaches to finding mappings from the synset to the ontologies.
@@ -564,16 +564,16 @@ Further refinement is likely possible of this assumption does not hold.
 
 \section{Exporting the document}
 To export a page after adding metadata the user clicks on the export tab in the sidebar and on the export button.
-This will provide the user with a link the website with the metadata added as shown in figure \ref{SidebarExported}.
+This will provide the user with a link the Web site with the metadata added as shown in figure \ref{SidebarExported}.
 \fig{SidebarExported}{The export tab after exporting the current page} % IMAGE OF EXPORT PANE
-The exported site is parsed to put the JavaScript and iframes back in so that the website look the same as it did
+The exported site is parsed to put the JavaScript and iframes back in so that the Web site look the same as it did
 before it was imported into \theartefact.
 On the export pane the user is given the option to add a Google plus id to an authorship tag on the page.
 This is treated as a separate task as it pertains not to the content of the page, but to the page itself.
 It is also not a part of the schema.org ontology, but is included as it is a natural way to increase the visibility of
-the website in search results using metadata.
+the Web site in search results using metadata.
 
-\theartefact uses MongoDB\footnote{\url{http://www.mongodb.org}} as a database for storing the web pages after the user has added metadata.
+\theartefact uses MongoDB\footnote{\url{http://www.mongodb.org}} as a database for storing the Web pages after the user has added metadata.
 MongoDB is a NoSQL database that uses JavaScript as its database interaction language.
 MongoDB uses a dynamic schema for storing data,
 meaning that each document in a collection does not need to have the same structure.
@@ -584,6 +584,6 @@ Mongoose allows one to abstract a lot of the database logic away and simplifies 
 When receiving a document to store the module removes all the extra comments that were added when the document was
 imported, and puts the document back in its original state.
 The database also stores the namespaces used in the document and the date on which the document was created.
-When the document has been stored successfully the URL of the newly created web page is returned to the user as shown in
+When the document has been stored successfully the URL of the newly created Web page is returned to the user as shown in
 figure \ref{SidebarExported} on page \pageref{SidebarExported}.
 If there was an error during the process the user is alerted about what went wrong.

@@ -10,7 +10,7 @@ This chapter will contain an analysis of the different parts of the system and d
 problems tied to the research question.
 The chapter will start with comparing the mapping algorithms to see if one of them performs better then the other.
 It will then try to answer the questions of whether I was able to generate metadata of equal or better quality than that
-which is already available, and if the system is capable of adding the metadata without changing the way the web page is displayed.
+which is already available, and if the system is capable of adding the metadata without changing the way the Web page is displayed.
 It will end with an overview of the usage data the system has received at this point and see how it corresponds with the expected use of the system.
 
 \section{Comparing the algorithms}
@@ -275,17 +275,17 @@ when incorrect mappings or hypernym relations occur.
 %https://github.com/EivindEE/Master-thesis/blob/master/AlgComparison/compare-different
 
 \section{Testing against existing markup}
-One of the success criteria was that the artefact should be able to mark up HTML as well or better than what is on the web now.
-To test if \theartefact\ managed this I used web pages that were already marked up with schema.org markup,
+One of the success criteria was that the artefact should be able to mark up HTML as well or better than what is on the Web now.
+To test if \theartefact\ managed this I used Web pages that were already marked up with schema.org markup,
 and tried to generate similar markup using \theartefact\ before comparing the results to see if the metadata created
 by the tool was of a similar quality.
 
-\subsection{Method}
+\subsection{Method for comparing the results}
 The method that was used to mark up and compare the sites followed a simple process.
 Web pages were picked from a list of sites using the schema.org ontology for metadata that is available on GitHub
 \footnote{\url{https://github.com/LawrenceWoodman/mida/wiki/Sites-Using-Microdata}}.
 
-The markup of the web pages that were picked was examined to find which things that were marked up,
+The markup of the Web pages that were picked was examined to find which things that were marked up,
 and which schema.org types they were marked up as.
 This process was selected to make sure that it would be possible to compare the results.
 
@@ -293,7 +293,7 @@ The pages were imported into the artefact, and the markup would be recreated by 
 and if necessary supply keywords to disambiguate the content.
 For some sections supplying keywords were required as the text didn't contain keywords that signaled the meaning of the content.
 There were several reasons for this.
-In some cases the keyword was displayed on the web page as an image,
+In some cases the keyword was displayed on the Web page as an image,
 so instead of having the term "review" in a header or in text it appeared as part of an image on the page.
 It could also be that the individual words on the page did not represent the concept.
 In other cases the difficulty was tied to mapping to functional concepts.
@@ -301,7 +301,7 @@ For example is being for sale not an inherent property of thing it self,
 making mappings to products difficult using descriptions of the thing.
 
 Metadata was added as faithfully as possible to make comparison simpler.
-When the markup process was complete, the web pages would be exported and the resulting web page would be analyzed.
+When the markup process was complete, the Web pages would be exported and the resulting Web page would be analyzed.
 The original was used as a gold standard which the marked up pages could be compared to.
 
 The analysis of the metadata would be performed by using Google's structured data testing tool
@@ -314,7 +314,7 @@ extracted metadata was the same.
 
 The RDFa distiller could not be used to compare the documents as it is created to distill RDFa not microdata,
 which was used to include metadata on the pages tested against.
-The RDFa distiller parses the web page and extracts the RDFa, displaying it as some RDF format.
+The RDFa distiller parses the Web page and extracts the RDFa, displaying it as some RDF format.
 It was used to see that the markup that was created was valid RDFa and that it could be translated to RDF.
 
 The pages that were marked up using this process were:
@@ -326,10 +326,10 @@ The pages that were marked up using this process were:
 	\item A movie review sites review of a film
 \end{itemize}
 
-The full HTML of the web pages before and after they were marked up using \theartefact\ can be found at
+The full HTML of the Web pages before and after they were marked up using \theartefact\ can be found at
 \url{https://github.com/EivindEE/Master-thesis/tree/master/WildTesting}.
 
-Most of the metadata on the web pages that were marked up was metadata about larger sections of the page.
+Most of the metadata on the Web pages that were marked up was metadata about larger sections of the page.
 The most prevalent type used on the pages marked up was schema:Review.
 The artefact is targeted towards disambiguating single words as described in section \ref{Interaction}.
 When marking up the text this meant one had to decide whether to markup the same section of the text as used in the original page,
@@ -340,7 +340,7 @@ while selecting the second option would require the user to provide a keyword de
 There is little practical difference between the two strategies.
 Selecting a section might make it easier for humans looking at the markup to find out which part of the page the type refers to,
 but \theartefact\ doesn't use the content of the tag to add information so there is no difference in the semantic meaning of the metadata that is added.
-Neither should there be any difference in how the web pages are displayed after the metadata is added.
+Neither should there be any difference in how the Web pages are displayed after the metadata is added.
 Marking up an larger section does however increase the amount of places where an error could occur.
 A combination of these two strategies was tried when marking up the pages.
 
@@ -356,7 +356,7 @@ When analyzing a schema:Product without a name value the error message reads:
 
 The documentation on the schema.org homepage does not give any indication that schema types have required properties.
 The initial reaction to this was annoyance that these fields were required by RDFa but not by microdata.
-Closer inspection of the unmodified web pages however revealed that when using the microdata format these types
+Closer inspection of the unmodified Web pages however revealed that when using the microdata format these types
 were ignored without warning.
 It is positive that the RDFa created by the artefact gives an error message instead of failing silently,
 but it is not good that the testing tool describes a field as required when this is not mentioned in the documentation.
@@ -383,7 +383,7 @@ as they all represent the same concept.
 This could be an issue for the system as a whole since it means that the language used as an intermediary between natural language
 and the ontologies does not capture all of the complexity of the ontologies the system is supposed to map to.
 
-The schema.org types that were used on the web pages were( the number of times used in parenthesis):
+The schema.org types that were used on the Web pages were( the number of times used in parenthesis):
 
 \begin{itemize}
 	\item Review (11)
@@ -397,7 +397,7 @@ The schema.org types that were used on the web pages were( the number of times u
 	\item People (3 - non-existing type)
 \end{itemize}
 
-The types that the web pages mapped to were so high level that they all had natural direct mappings,
+The types that the Web pages mapped to were so high level that they all had natural direct mappings,
 meaning that the best-fit algorithm did not have to be used.
 Adding the properties to these were simple,
 as the tool provided a list of the properties that the type was able to have.
@@ -407,7 +407,7 @@ The page with the movie review it was found that the author of the HTML had ille
 The movie review page referred to people as schema:People, while the correct type in schema.org is schema:Person.
 The page used this pseudo-type to refer to multiple people by providing a name property to the type for each person.
 This usage in not possible in \theartefact\ as it does not allow multiple properties.
-The web page also used the property name "publishdate" while the correct name of the property is "datePublished".
+The Web page also used the property name "publishdate" while the correct name of the property is "datePublished".
 
 Mistakes like these are simple to make since it is natural for humans to think that people and person,
 or publishing date and date published are two ways of saying the same thing.
@@ -415,27 +415,27 @@ This is however the ambiguity that we want to remove for computers by using meta
 An advantage of using a tool like \theartefact\ is that one can be sure not to use incorrect types or properties such as this.
 The tool will only allow types and properties that exist in the schemas that are included.
 
-\Theartefact\ was able to create mappings to all the types that were used on the web pages.
+\Theartefact\ was able to create mappings to all the types that were used on the Web pages.
 It was also able to add all the properties that the types had.
 In addition it was able to correct incorrect markup.
-These results show that the tool is able to create metadata of equal quality as that which is present on the web now.
+These results show that the tool is able to create metadata of equal quality as that which is present on the Web now.
 
 \section{Browser rendering}
 \label{Rendering}
 One of the criteria for the artefact was that it should leave the visual representation of the system unchanged.
-The system is meant to let users add metadata to existing web pages, and should not modify their appearance.
-I did a comparison of the web pages before and after adding metadata.
-An example of the telegraph website before adding metadata can be seen in figure \ref{TelegraphOriginal},
+The system is meant to let users add metadata to existing Web pages, and should not modify their appearance.
+I did a comparison of the Web pages before and after adding metadata.
+An example of the telegraph Web site before adding metadata can be seen in figure \ref{TelegraphOriginal},
 and after in \ref{TelegraphData}.
-The side margins and the header of the website has been cropped out in the images to make it easier to see the content of the sites.
+The side margins and the header of the Web site has been cropped out in the images to make it easier to see the content of the sites.
 
-\fig{TelegraphOriginal}{The Telegraph web page before the metadata was added}
-\fig{TelegraphData}{The Telegraph web page with metadata added}
+\fig{TelegraphOriginal}{The Telegraph Web page before the metadata was added}
+\fig{TelegraphData}{The Telegraph Web page with metadata added}
 
 Looking at the figures we can see that the overall layout of the images is unchanged.
 There are however some changes to the HTML.
 
-To make the web page appear the same when viewed on the URL the user is given when the page is exported
+To make the Web page appear the same when viewed on the URL the user is given when the page is exported
 the relative URLs tied to images and \nom{CSS}{Cascading Style Sheets} have been replace with absolute URLs.
 To keep the code simple only the URLs that start at the root of the domain were changed.
 So if there was an image on the page \texttt{http://example.org} which pointed to the source \texttt{/image.png}
@@ -443,10 +443,10 @@ then the source would be changed to \texttt{http://example.org/image.png}.
 This change is not communicated to the user, which is unfortunate,
 but it is possible to change if it leads to issues.
 
-As one can see from the images there are some sections of the website which are not displayed, or more precisely they
+As one can see from the images there are some sections of the Web site which are not displayed, or more precisely they
 are displayed as loading.
 The switch from relative to absolute URLs have only been done for images and CSS,
-which means that some of the JavaScript modules that the website depends on will not be loaded into the web page.
+which means that some of the JavaScript modules that the Web site depends on will not be loaded into the Web page.
 The tool tries to leave the HTML as much intact as possible,
 and since the scripts have yet seemed crucial to display the page properly it was decided to leave them as they were.
 It should be noted that this means that the page will sometimes miss some content, as visible in the figures.
@@ -464,7 +464,7 @@ I have not found any way to avoid this issue,
 and can only hope that most developers depend on id and class attributes instead of the specific location in the DOM.
 
 \section{Analysis of usage data}
-In addition to the testing described earlier in this chapter the webapp  has also been released on the Internet.
+In addition to the testing described earlier in this chapter the Web application  has also been released on the Internet.
 This has allowed us to see how users who do not know the system would interact with it,
 and if they could use it to add metadata.
 
@@ -482,5 +482,5 @@ only 12, or about 4\%, have been for selections so big that they have been categ
 The other 96\% of the selections were of single words or of single entities or concepts like "Alexander Graham Bell" or
 "semantically classified lexical databases".
 
-I have not found any cases of the users have used the resulting HTML on their web pages,
+I have not found any cases of the users have used the resulting HTML on their Web pages,
 so it is not possible to say anything about their satisfaction with the page at this point.

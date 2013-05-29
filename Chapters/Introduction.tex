@@ -15,7 +15,7 @@
 The Internet is now an ingrained part of our everyday life,
 and the amount of content and services that are available through it is growing at an ever increasing rate.
 For all this information to be of use to humans it is necessary to have some interface through which to access the parts of it that are relevant to us.
-\citet{Shirky2007} tells of the early attempts to structure the web,
+\citet{Shirky2007} tells of the early attempts to structure the Web,
 using ontologies and hierarchies created by experts.
 This soon got clunky as the number of documents increased,
 and this way of organizing information fell out of favor to be replaced by searching for information using keywords.
@@ -25,8 +25,8 @@ It is this phase of organizing information we are in now.
 With searching as it works today users have to manually check the results from the search engine,
 and compare the results from several documents, following links as is necessary.
 Instead of forcing users to go through this process,
-this new idea was to enrich the documents we put on the web with metadata that could be read and reasoned about by computers.
-By doing this we could move the tedious task of siphoning though websites looking for relevant information from users
+this new idea was to enrich the documents we put on the Web with metadata that could be read and reasoned about by computers.
+By doing this we could move the tedious task of siphoning though Web sites looking for relevant information from users
 over to specialized software agents that could collect information on the topic and return the answer to the user.
 
 This does create some extra work for content creators on the Internet.
@@ -38,7 +38,7 @@ and knowledge about how those ontologies are structured to use them in the corre
 
 Ontology is the philosophical discipline of finding out which things exist,
 the manner in which one can say that these exist and how these can be categorized.
-When talking about ontologies in the context of the semantic web,
+When talking about ontologies in the context of the semantic Web,
 an ontology can be explained as a collection of things that one can describe using the ontology,
 and how these things can relate to each other.
 
@@ -52,7 +52,7 @@ Should this trend continue, we are going to need better ways of searching throug
 We are going to need to be able to search for content in a way that lets us search for concepts, not only keywords.
 What we want is to have linked semantic data that help move the burden of finding relevant content from us over to machines.
 
-At the moment, adding semantic markup to websites is unfeasible for most content creators on the web.
+At the moment, adding semantic markup to Web sites is unfeasible for most content creators on the Web.
 Adding proper metadata does not only mean that you need to know HTML,
 but also that you need to understand the concept of ontologies, and know of the different ontologies that exist.
 In addition you need to know of the implementation of \nom{RDFa}{Resource Description Framework in attributes}, microdata or microformats
@@ -60,15 +60,15 @@ as well as the content of the specific ontologies you intent to use on your site
 
 Adding metadata shouldn't really be that hard.
 Humans are good at knowing what things are.
-We know what the things on websites mean, and which concepts they are meant to convey.
+We know what the things on Web sites mean, and which concepts they are meant to convey.
 Natural language is mainly ambiguous to computers, not human beings.
 I want to create a tool that lets users use their knowledge of natural language and the concepts it conveys
-to create metadata by disambiguating the language for the computer, and letting it create the mappings and the elements on the web page.
+to create metadata by disambiguating the language for the computer, and letting it create the mappings and the elements on the Web page.
 
-The aim of this thesis will be to develop a prototype artefact that will let users add metadata to web pages using natural language.
+The aim of this thesis will be to develop a prototype artefact that will let users add metadata to Web pages using natural language.
 The prototype should map to the schema.org ontology,
-as using this ontology can increase the visibility of the web page in search results in the most popular search engines.
-The tool should also be able to express meaning in other ontologies, so that it can help create a rich web of interconnected data.
+as using this ontology can increase the visibility of the Web page in search results in the most popular search engines.
+The tool should also be able to express meaning in other ontologies, so that it can help create a rich Web of interconnected data.
 
 The prototype tool will be created using Node.js\footnote{\url{http://nodejs.org}},
 a JavaScript platform based on Google Chromes JavaScript runtime,
@@ -83,43 +83,43 @@ server side, client side and in database communication, inspired me to try using
 I choose to develop using node.js because it's a new and exciting technology that would make it possible to write
 the entire app using one programming language for front-end, server side and as the database query language.
 
-Creating a web app allows the work to consist both of back end server side components, and front-end work.
+Creating a Web app allows the work to consist both of back end server side components, and front-end work.
 
 %----------------------------------------------------------------------------------------
 %	SECTION 3: Research Questions
 %----------------------------------------------------------------------------------------
 
-\section{Research Question}
+\section{Research question}
 The main research question in this thesis is:
 
-\emph{"Is it possible to create a tool which allows naïve users to easily add metadata to their websites using natural language?"}
+\emph{"Is it possible to create a tool which allows naïve users to easily add metadata to their Web sites using natural language?"}
 
 In this context we should understand "naïve users" as users who do not have any training in the use of semantic technologies,
 and who do not have any knowledge about the ontologies used for testing in this thesis.
 
 To answer this question I will develop a tool called \theartefact, a play on the goal "MetADAta MAde Easy".
-The tool will consist of a logical backend tied to a web front-end,
+The tool will consist of a logical backend tied to a Web front-end,
 and the different modules will be created in an iterative way to get working proofs of concepts for testing early.
 
 There are several sub questions that will need to examined to answer this question.
 \begin{itemize}
-	\item How should users pick the parts of a web page they want to add metadata to, and find the concepts it describes using natural language?
+	\item How should users pick the parts of a Web page they want to add metadata to, and find the concepts it describes using natural language?
 	\item Is WordNet suitable for representing disambiguated concepts from natural language in a way that will allow us to map these concepts to formal ontologies?
 	\item How should an algorithm be implement to finds mappings from the natural language concept to types in
 			formal ontologies in a way that preserves the semantic content of the concept?
-	\item Is it possible to add metadata to web pages in such a way that it does not change the way the page is rendered by browsers?
+	\item Is it possible to add metadata to Web pages in such a way that it does not change the way the page is rendered by browsers?
 \end{itemize}
 
-In addition I will also need to solve the technical problems of how to import and export web pages from the artefact,
+In addition I will also need to solve the technical problems of how to import and export Web pages from the artefact,
 and how to save the resulting documents on the server.
 
 \section{Target audience}
-The main goal of the work with \theartefact\ is to lower the barrier of entry for enhancing websites with metadata.
-I want to make metadata accessible to content creators on the web that do not know enough about semantic web technologies
+The main goal of the work with \theartefact\ is to lower the barrier of entry for enhancing Web sites with metadata.
+I want to make metadata accessible to content creators on the Web that do not know enough about semantic Web technologies
 to add this data them selves.
 
 Due to availability of English natural language resources this thesis will focus development on mapping English text,
 and limit the target group to users who write content in English.
-I will also assume that the users control the HTML of their web pages,
+I will also assume that the users control the HTML of their Web pages,
 and that being provided with a new HTML document will allow the user to update their documents.
 

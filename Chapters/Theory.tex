@@ -9,7 +9,7 @@ It will also introduce the core vocabularies and tool will be used in the develo
 and describe their origins and the state of research tied to them at the present.
 
 \section{Ontology and folksonomy}
-One of the central concepts in semantic web technology is that of the ontology.
+One of the central concepts in semantic Web technology is that of the ontology.
 In philosophy Ontology is the branch dealing with the study of which things 'exists', and if it is possible to categorize these things.
 For artificial intelligence \citet{Gruber1993} explained it as "an explicit specification of a conceptualization".
 That is, than one commits to a given conceptualization of the domain in question,
@@ -50,7 +50,7 @@ For users tags are convenient, since adding additional tags can make it easier f
 This is especially true for multimedia content, which we don't yet have good tools for searching in \citep{Weinberger2008}.
 Tags provide metadata about content in a way that makes sense to humans.
 From an information retrieval perspective this is interesting since it means that humans in some way add meaning to the content.
-There however are several problems with using tags as the basis of a semantic web.
+There however are several problems with using tags as the basis of a semantic Web.
 \citet{Tang2009} mention several.
 Tags are supposed to be written in natural language, and natural language has words that are synonyms (words that are written in different ways,
 but mean the same), homonyms (words with different meanings that are written in the same way), or polynyms (a word that can have several meanings)
@@ -76,14 +76,14 @@ The method does get good results in creating the hierarchy, but does also show s
 \citet{Weinberger2008} suggests a method for removing ambiguity from tags,
  by suggesting additional tags to the user when the tag entered can belong to one of several distinct sets
 
-While there are many difficulties attached to merging the social and semantic web,
+While there are many difficulties attached to merging the social and semantic Web,
 and with lifting semantic data from tags, there are many researchers who stress the need for this \citep{Passant2007,Mika2005, Gruber2007}.
 \citet{Veres2011} suggested one method one could use to merge these two approaches.
 The idea presented involved disambiguating the tag at insertion time.
 This idea and the implementation of a system that disambiguates tags will be discussed later in the chapter.
 
 \subsection{RDF}
-On the semantic web, ontologies are represented using collection of \nom{RDF}{Resource Description Framework} triples.
+On the semantic Web, ontologies are represented using collection of \nom{RDF}{Resource Description Framework} triples.
 These triples are in the form of <subject, predicate, object>, much like simple declarative sentences \citep{Berners-Lee2001}.
 Let's suppose we wanted to say that I know my supervisor Csaba.
 An informal triple describing this could be
@@ -246,7 +246,7 @@ Wikipedia is a successful open collaborative information project,
 with about 4.2 million articles in English and 30 million all together
 \footnote{As of 2013-04-16: \url{http://en.wikipedia.org/wiki/Wikipedia:Size_of_Wikipedia}}.
 The justification for the ontology is similar to the criticism mentioned by \citet{Shirky2007}
-that it's difficult to know how a schema or ontology is going to be used before it's released on the web.
+that it's difficult to know how a schema or ontology is going to be used before it's released on the Web.
 Instead of starting with an ontology then the work with DBPedia examine how one can extract unstructured data
 from Wikipedia and transform it into a machine readable ontology.
 The main contributions of the project has been\citep{Auer2007}:
@@ -278,19 +278,19 @@ making sure it's up to date with the newest terms and information.
 
 \section{Lexitags}
 \label{Lexitags}
-\citet{Veres2011} marks one of the differences between the Web 2.0, or the social web and the semantic web as the
-fact that the social web is based on giving users the ability to create free form, unstructured data or content.
-The semantic web on the other hand is based on having a structure that allows for automatic machine processing of the content.
-The advantage of the social web is that it provides a very low threshold for content providers,
+\citet{Veres2011} marks one of the differences between the Web 2.0, or the social Web and the semantic Web as the
+fact that the social Web is based on giving users the ability to create free form, unstructured data or content.
+The semantic Web on the other hand is based on having a structure that allows for automatic machine processing of the content.
+The advantage of the social Web is that it provides a very low threshold for content providers,
 but the lack of structure can provide long term difficulties since it can become hard to retrieve older content.
-The semantic web on the other hand has a higher threshold,
+The semantic Web on the other hand has a higher threshold,
 but the structure makes retrieving the correct content easier,
 since machines can reason about the content and be made responsible for finding the correct content.
 The goal then would be to create a system that feels like a social system at input time,
 but which creates structured markup that can be searched like a semantic system at retrieval time.
 
 Analysis of tags by \citet{Tonkin2006} from delicious\footnote{\url{https://delicious.com}} and Flickr\footnote{\url{http://www.flickr.com}},
-two websites that are focused on user generated content and tags,
+two Web sites that are focused on user generated content and tags,
 showed that a large amount of the tags were "sloppy".
 Sloppy tags could mean that the tags were misspelled,
 that users had made compounded words my merging several words into one tag
@@ -337,7 +337,7 @@ In addition to these types there is a unifying top-level type called entity, whi
 Before the merge could start, the different ontologies were translated into the same knowledge representation format,
 to make sure they conformed to the same syntax\citep{Niles2001}.
 SUMO is written in the SUO knowledge interchange format,
-but is also translated to the web ontology language(\nom{OWL}{Web Ontology Language})\citep{Benzmuller2012}.
+but is also translated to the Web Ontology Language(\nom{OWL}{Web Ontology Language})\citep{Benzmuller2012}.
 Then the ontologies that contained the highest-level concepts were merged by unifying those concepts that were equal,
 and positioning the other concepts in relation to them.
 This upmost level was then used as a basis for aligning the other lower level ontologies\citep{Niles2001}.
@@ -357,7 +357,7 @@ term in the final ontology.
 In the last case the terms has overlapping meaning.
 In these cases one either kept both the terms, or picked which one to use in the merged ontology.
 
-\fig{SUMOUpper}{{The upper levels of SUMO. Adapted from \protect \citet{Niles2001}}}
+\fig{SUMOUpper}{{The upper levels of SUMO, adapted from \protect \citet{Niles2001}}}
 
 \section{Schema.org}
 \label{schemadotorg}
