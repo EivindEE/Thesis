@@ -17,13 +17,13 @@ and the amount of content and services that are available through it is growing 
 For all this information to be of use to humans it is necessary to have some interface through which to access the parts of it that are relevant to us.
 \citet{Shirky2007} tells of the early attempts to structure the Web,
 using ontologies and hierarchies created by experts.
-This soon got clunky as the number of documents increased,
-and this way of organizing information fell out of favor to be replaced by searching for information using keywords.
+This soon got clunky as the number of documents increased.
+Trying to organize the content of the Internet fell out of favor and was replaced by searching for information using keywords.
 It is this phase of organizing information we are in now.
 
 \citet{Berners-Lee2001} suggested that we could do better than keyword matching.
-With searching as it works today users have to manually check the results from the search engine,
-and compare the results from several documents, following links as is necessary.
+Keyword searches mean that users have to look though lists of results and compare documents to find the best match.
+It can also mean following leads and clicking through links to find the content one is after.
 Instead of forcing users to go through this process,
 this new idea was to enrich the documents we put on the Web with metadata that could be read and reasoned about by computers.
 By doing this we could move the tedious task of siphoning though Web sites looking for relevant information from users
@@ -52,7 +52,7 @@ Should this trend continue, we are going to need better ways of searching throug
 We are going to need to be able to search for content in a way that lets us search for concepts, not only keywords.
 What we want is to have linked semantic data that help move the burden of finding relevant content from us over to machines.
 
-At the moment, adding semantic markup to Web sites is unfeasible for most content creators on the Web.
+At the moment, adding semantic markup to Web sites is not feasible for most content creators on the Web.
 Adding proper metadata does not only mean that you need to know HTML,
 but also that you need to understand the concept of ontologies, and know of the different ontologies that exist.
 In addition you need to know of the implementation of \nom{RDFa}{Resource Description Framework in attributes}, microdata or microformats
@@ -68,20 +68,23 @@ to create metadata by disambiguating the language for the computer, and letting 
 The aim of this thesis will be to develop a prototype artefact that will let users add metadata to Web pages using natural language.
 The prototype should map to the schema.org ontology,
 as using this ontology can increase the visibility of the Web page in search results in the most popular search engines.
-The tool should also be able to express meaning in other ontologies, so that it can help create a rich Web of interconnected data.
+The tool should also be able to express meaning in other ontologies.
+One no longer believes that one single ontology can capture all of the concepts and relationships one wants to describe,
+and instead develops different ontologies to cover different domains.
+Creating a tool that can map to different ontologies then can help create a rich Web of interconnected data.
 
 The prototype tool will be created using Node.js\footnote{\url{http://nodejs.org}},
 a JavaScript platform based on Google Chromes JavaScript runtime,
 and using MongoDB\footnote{\url{http://www.mongodb.org}} as a database solution.
 JavaScript is a good language to rapidly create prototypes, and the flexibility and simplicity inherent in using the same language
-server side, client side and in database communication, inspired me to try using and learning these tools for the thesis.
+server side, client side and in database communication, inspired me to try learning and using these tools for the thesis.
 
 %It is estimated that the amount of information created by humans before 2005,
 %
 %is smaller that the amount of information created after 2005.
 
 I choose to develop using node.js because it's a new and exciting technology that would make it possible to write
-the entire app using one programming language for front-end, server side and as the database query language.
+the entire application using one programming language for front-end, server side and as the database query language.
 
 Creating a Web application allows the work to consist both of back end server side components, and front-end work.
 
@@ -90,7 +93,7 @@ Creating a Web application allows the work to consist both of back end server si
 %----------------------------------------------------------------------------------------
 
 \section{Research question}
-The main research question in this thesis is:
+The main research question of this thesis is:
 
 \emph{"Is it possible to create a tool which allows naïve users to easily add metadata to their Web sites using natural language?"}
 

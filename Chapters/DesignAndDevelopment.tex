@@ -1,10 +1,10 @@
 % Chapter Template
 
-\chapter{Design and Development} % Main chapter title
+\chapter{Development} % Main chapter title
 
 \label{DesignAndDevelopment} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 
-\lhead{Chapter \ref{DesignAndDevelopment}. \emph{Design and Development}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
+\lhead{Chapter \ref{DesignAndDevelopment}. \emph{Development}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
 
 %----------------------------------------------------------------------------------------
 %	SECTION 1
@@ -280,7 +280,7 @@ The id of this tag is also used to tell if a certain element is a part of the us
 the child of the element.
 
 The user writes the URL of the Web page into an input field on the top of the Web application as shown in figure \ref{MadameHeader}.
-\fig{MadameHeader}{The header of the \theartefact\ Web application} % IMAGE OF THE HEADER OF MADAME
+\fig{MadameHeader}{The header of the \theartefact\ Web page} % IMAGE OF THE HEADER OF MADAME
 The server will fetch the document stored at that location.
 I created a proxy to get the html from other Web sites.
 The proxy would take a URL and get the resource located there.
@@ -345,7 +345,7 @@ the object has a property with the given name as in listing \ref{LabelExists}.
 The mapping files were to large to translate to JavaScript objects by hand, with the SUMO mapping file alone
 covering more than 82.000 mappings, so I used regular expressions to modify the files globally.
 The schema.org mapping file\footnote{\url{https://github.com/mhausenblas/schema-org-rdf}}
-that was used as the basis for the wn2schema mapping file is written in \nom{RDF/XML}{An XML representation of RDF}.
+that was used as the basis for the WordNet to schema.org mapping file is written in \nom{RDF/XML}{An XML representation of RDF}.
 The first step in creating the mapping file was to remove the parts of the file that were irrelevant to the problem at hand.
 The original file contains triples describing schema.org properties,
 the schema.org entities and the hierarchal ordering of entities.
@@ -437,7 +437,7 @@ The hypernyms are added to the end of the list when they are found.
 This means that the synsets that are at the start of the list,
 are the ones that are at the closest level of abstraction to the synset for which the chain is built.
 
-\begin{lstlisting}[float=t, language=perl, label=HypernymChainCode, caption={Excerpt from the hypernym chain Perl script}]
+\begin{lstlisting}[float=t, language=perl, label=HypernymChainCode, caption={Excerpt from the Perl script that generates the hypernym chain }]
 my @hypernym = hypernym($synset);
 my @hypernyms;
 while (@hypernym){
@@ -535,10 +535,10 @@ If the mapping that is found belongs to a sibling then the algorithm map to the 
 
 \subsection{Hypernym then siblings}
 The hypernym first algorithm is conservative.
-Since hypernymy is a "is a type of" relationship there is little chance that the resulting mappings can be mistaken.
+Since hypernymy is a "is a" relationship there is little chance that the resulting mappings can be mistaken.
 It does however move quite quickly up the hypernym chain leading to mappings to types that are at higher level
 of abstraction than the synset.
-My other try at creating an algorithm tries to stay at a closer level of abstraction by looking at the siblings earlier
+The other try at creating an algorithm tries to stay at a closer level of abstraction by looking at the siblings earlier
 in the traversal.
 
 The algorithm also starts by looking at the hypernym.
@@ -547,7 +547,7 @@ Since WordNet has a very large vocabulary,
 it is reasonable to assume that a mapping from the hypernym would be closer or at least as close in meaning as a
 mapping to the super-type found through a sibling.
 
-The algorithm diverges from the hypernyms first by looking at the siblings of the synset after looking at the hypernym.
+The hypernym then siblings algorithm diverges from the hypernyms first by looking at the siblings of the synset after looking at the hypernym.
 It will then follow the same procedure up the chain, first looking at each synsets hypernym,
 then looking at its siblings before moving up the chain and repeating the process.
 Looking again at figure \ref{HypernymChain} the algorithm will at each node first look at the node above,

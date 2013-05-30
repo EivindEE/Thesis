@@ -9,13 +9,13 @@
 This chapter will contain an analysis of the different parts of the system and discuss their appropriateness in solving the
 problems tied to the research question.
 The chapter will start with comparing the mapping algorithms to see if one of them performs better then the other.
-It will then try to answer the questions of whether I was able to generate metadata of equal or better quality than that
+It will then try to answer the questions of whether \theartefact\ was able to generate metadata of equal or better quality than that
 which is already available, and if the system is capable of adding the metadata without changing the way the Web page is displayed.
 It will end with an overview of the usage data the system has received at this point and see how it corresponds with the expected use of the system.
 
 \section{Comparing the algorithms}
 \label{ComparingAlgorithms}
-To compare the two algorithms I generated a list of English nouns.
+To compare the two algorithms a list of English nouns was generated.
 This list was sent through the lexitags server to get synsets that corresponded to the meanings of each word.
 Both these lists were preprocessed to remove duplicates and to format them as JavaScript objects
 \footnote{\url{https://github.com/EivindEE/Madame/tree/master/testing}}.
@@ -31,7 +31,7 @@ For the SUMO version the depth of each type was unavailable,
 so the test results from this test only show the agreement between the algorithms.
 The full results from the tests can be found at the URL \url{https://github.com/EivindEE/Master-thesis/tree/master/AlgComparison}.
 
-As one can read from the numbers it table \ref{table:AlgorithmResults} the results from the SUMO test
+As one can read from the numbers in table \ref{table:AlgorithmResults} the results from the SUMO test
 display no difference between the two algorithms when mapping from WordNet to SUMO.
 The two algorithms return identical mappings in 100\% of the test cases.
 This indicates that there must have been a mapping either directly from the synset,
@@ -96,7 +96,7 @@ The hypernym first algorithm maps to schema:Thing 449, and schema:Intagible 481 
 while hypernyms then siblings maps to schema:Thing 334 and schema:Intangible 81 times.
 Neither schema:Thing nor schema:Intangible are very interesting mappings in the ontology.
 As described in section \ref{schemadotorg}, schema:Thing is the most general category, meaning that every concept belongs to this category.
-On the other hand, schema:Intangible is described\footnote{\url{http://schema.org/Intangible}} as "a utility class that serves as the umbrella for a number of 'intangible' things",
+On the other hand, schema:Intangible is described as "a utility class that serves as the umbrella for a number of 'intangible' things",
 and does not have any special properties in the ontology.
 
 These results were a bit disappointing.
@@ -186,7 +186,7 @@ single instance in time, to a synset which describes a quantity of things.
 Using the "is-a" test, it does not seem reasonable that an english user would say that a birth is a type of quantity.
 The cause of the errors then is an inconsistency within the hypernym relation in WordNet.
 
-I have reported this error to the maintainers of WordNet, and they will be fixed in a future public release of WordNet
+I have reported these errors to the maintainers of WordNet, and they will be fixed in a future public release of WordNet
 (C. Fellbaum, personal communication, May 13, 2013).
 
 The results where the hypernym then siblings algorithm mapped incorrectly were also analyzed.
@@ -470,7 +470,7 @@ and if they could use it to add metadata.
 
 The data that has been gathered at this point is inconclusive, but can hopefully give some indication of how the tool will be used.
 The usage data that has been collected contains the IP of the user.
-This information was used to exclude users from the university of Bergen IP-range,
+This information was used to exclude users from the University of Bergen IP-range,
 as this data would mostly consist of usage tied to testing or debugging the system in the development phase.
 The usage data consists of the data from the 8\textsuperscript{th}	 of April to the 12\textsuperscript{th} of May.
 
