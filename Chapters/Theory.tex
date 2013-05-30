@@ -9,7 +9,7 @@ It will also introduce the core vocabularies and tool will be used in the develo
 and describe their origins and the state of research tied to them at the present.
 
 \section{Ontology and folksonomy}
-One of the central concepts in semantic Web technology is that of the ontology.
+One of the central concepts in Semantic Web technology is that of the ontology.
 In philosophy Ontology is the branch dealing with the study of which things 'exists', and if it is possible to categorize these things.
 For artificial intelligence \citet{Gruber1993} explained it as "an explicit specification of a conceptualization".
 That is, than one commits to a given conceptualization of the domain in question,
@@ -50,14 +50,13 @@ For users tags are convenient, since adding additional tags can make it easier f
 This is especially true for multimedia content, which we don't yet have good tools for searching in \citep{Weinberger2008}.
 Tags provide metadata about content in a way that makes sense to humans.
 From an information retrieval perspective this is interesting since it means that humans in some way add meaning to the content.
-There however are several problems with using tags as the basis of a semantic Web.
+There however are several problems with using tags as the basis of a Semantic Web.
 \citet{Tang2009} mention several.
 Tags are supposed to be written in natural language, and natural language has words that are synonyms (words that are written in different ways,
 but mean the same), homonyms (words with different meanings that are written in the same way), or polynyms (a word that can have several meanings)
 making it unsuitable for computer reasoning since they are ambiguous \citep{Passant2008}.
 As \citet{Golder2005} mentions, users also operate on different levels of abstraction, which can make it harder to find interesting resources.
 In addition to this comes the problem of non-dictionary words, both new, or compound words, or simply words that have been misspelled\citep{Tonkin2006}.
-
 
 There has been done a lot of research into how one can lift semantic data out of these unstructured tags.
 \citet{Golder2005} has done research into the statistical analysis of tags.
@@ -82,7 +81,7 @@ The idea presented involved disambiguating the tag at insertion time.
 This idea and the implementation of a system that disambiguates tags will be discussed later in the chapter.
 
 \subsection{RDF}
-On the semantic Web, ontologies are represented using collection of \nom{RDF}{Resource Description Framework} triples.
+On the Semantic Web, ontologies are represented using collection of \nom{RDF}{Resource Description Framework} triples.
 These triples are in the form of <subject, predicate, object>, much like simple declarative sentences \citep{Berners-Lee2001}.
 Let's suppose we wanted to say that I know my supervisor Csaba.
 An informal triple describing this could be
@@ -277,12 +276,12 @@ making sure it's up to date with the newest terms and information.
 
 \section{Lexitags}
 \label{Lexitags}
-\citet{Veres2011} marks one of the differences between the Web 2.0, or the social Web and the semantic Web as the
+\citet{Veres2011} marks one of the differences between the Web 2.0, or the social Web and the Semantic Web as the
 fact that the social Web is based on giving users the ability to create free form, unstructured data or content.
-The semantic Web on the other hand is based on having a structure that allows for automatic machine processing of the content.
+The Semantic Web on the other hand is based on having a structure that allows for automatic machine processing of the content.
 The advantage of the social Web is that it provides a very low threshold for content providers,
 but the lack of structure can provide long term difficulties since it can become hard to retrieve older content.
-The semantic Web on the other hand has a higher threshold,
+The Semantic Web on the other hand has a higher threshold,
 but the structure makes retrieving the correct content easier,
 since machines can reason about the content and be made responsible for finding the correct content.
 The goal then would be to create a system that feels like a social system at input time,
