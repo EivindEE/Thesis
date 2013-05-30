@@ -10,16 +10,16 @@
 %	SECTION 1
 %----------------------------------------------------------------------------------------
 
-Describe the process of development,
+This chapter will describe the process of development,
 and which parts of \theartefact\ which were developed during the different stages of development.
-I am then going to give a high level overview of the system.
+It will then go on to give a high level overview of the system.
 After giving an outline of the development process and the system,
 the main parts of the system will be described in greater detail.
 
 \section{The different phases of development}
 This section will outline the main sequence in which work on \theartefact\ was done.
 The overview of the iterations will explain when the initial development of
-the different part were to give an short explanation of the development process.
+the different parts were started to give an short explanation of the development process.
 
 \subsection{Iteration 1}
 The first iteration started with a technical peak exploring different tools and frameworks for development with JavaScript.
@@ -33,7 +33,7 @@ eased the development burden.
 
 It was decided to use SASS\footnote{\url{http://sass-lang.com}} to write the style sheets.
 It has a syntax that is similar to that of CSS.
-In addition to the regular syntax of CSS it also includes the possibility of using variable.
+In addition to the regular syntax of CSS it also includes the possibility of using variables.
 This makes it possible to make global changes while only modifying one line in the style sheet.
 SASS compiles to standard CSS.
 
@@ -56,7 +56,7 @@ Setting up a basic server in node.js can be done in a single line of code.
 Using this basic server requires a lot of low level handling of requests and responses,
 including parsing request URL to find the correct handler.
 To abstract these low level concepts away \theartefact\ uses express\footnote{\url{http://expressjs.com}},
-a Web app framework which simplifies routing requests to the correct handler and handling static files.
+a Web application framework which simplifies routing requests to the correct handler and handling static files.
 It was also decided to use the jade\footnote{\url{http://jade-lang.com}}
 templating language to generate the HTML that was used on the Web site.
 Using a templating language made the distinction between structure and content clearer,
@@ -137,7 +137,7 @@ The modules that were created were:
 
 \section{Interaction method}
 \label{Interaction}
-When first faced with the problem of how to let users interact with the Web app I thought that using the highlighting or
+When first faced with the problem of how to let users interact with the Web application I thought that using the highlighting or
 selection of text to be the most intuitive approach.
 This also appeared to be the simplest interaction method to implement.
 The simple case of taking selected text and displaying it in the console can be implemented as in listing \ref{DOMSelection}.
@@ -153,7 +153,7 @@ The "mouseup" event is triggered every time the user has pressed and then releas
 This event is not available on mobile and tablet type browsers,
 but adding listeners for corresponding events should not be difficult if there should be a need for this at a later stage.
 
-In the Web app the selected text is sent to the Web server to find possible disambiguations for the text.
+In the Web application the selected text is sent to the Web server to find possible disambiguations for the text.
 The lexitags service that the system uses for disambiguation now is targeted towards disambiguating single words.
 It does handle some composite terms and some proper nouns, but this is outside the normal use case.
 The lexitags service is designed to disambiguate single tags, not large paragraphs of text.
@@ -237,7 +237,7 @@ One way to get a well-formed HTML document would be to close and open the HTML t
 
 Solving the problem in this manner would change the structure and rendering of the Web page,
 as it would create new block elements.
-This is not a tenable solution, as one of the goals of of this thesis is to not change the way the document is displayed.
+This is not a tenable solution, as one of the goals of this thesis is to not change the way the document is displayed.
 The solution that was found was to instead expand the range of the selection so that it covered a larger part of the document:
 
 \texttt{<tag><p>some text in a p</p> <p> plus some other text </p></tag>}
@@ -289,13 +289,13 @@ the proxy would return an error.
 When the resource has been downloaded the content of the body element of the document is parsed to comment out code that
 could be harmful, that could make the page display incorrectly, or that could disrupt the way the Web application functions.
 The parts of the page that are comment out are the script, iframe and comment elements.
-The script elements could disrupt the way the Web app works, either by overwriting the behavior of functions,
-or otherwise alter the behavior of the Web app.
+The script elements could disrupt the way the Web application works, either by overwriting the behavior of functions,
+or otherwise alter the behavior of the Web application.
 In addition the script elements are not visible on the page so interacting with them would be hard.
 Removing them was also convenient during development.
 The scripts in the tags would often rely on variables or functions that should have been loaded elsewhere,
 and they would clutter the console making it more difficult to find the relevant information.
-Iframes were excluded since they could make the Web app appear to be inconsistent.
+Iframes were excluded since they could make the Web application appear to be inconsistent.
 The iframes look like a part of the page,
 but it would not be possible to alter their content since the HTML belongs to a different document.
 The difference between the document and the iframe would be invisible to the user,
@@ -370,7 +370,7 @@ the generalization of the process at a later stage.
 
 \section{Building the hypernym chain}
 \label{BuildingTheHypernymChain}
-Many synsets that the users will select as representing the concepts in the Web app will be more specific than
+Many synsets that the users will select as representing the concepts in the Web application will be more specific than
 the ones used in ontologies \theartefact\ maps to.
 This means that the tool needs some way of generalizing the synsets.
 This thesis examines two approaches to finding mappings from the synset to the ontologies.
