@@ -170,7 +170,7 @@ Both of these can be used to generate mappings,
 but the most interesting mapping for this thesis lies in generating mappings from WordNet so the synsets are given preference in the list.
 DBPedia does not have a standardized way of finding the super type of a resource,
 so if the resource does not have a schema.org mapping it is difficult to find generalizations that do.
-Lexitags also returns the top-level resources from schema.org as shown in figure \ref{TopLevelSchemaOrg}(page \pageref{TopLevelSchemaOrg}).
+Lexitags also returns the top-level resources from schema.org as shown in figure \ref{TopLevelSchemaOrg} (page \pageref{TopLevelSchemaOrg}).
 These are sorted to the bottom of the list as these are fallbacks for when none of the of the terms suggested for
 the word turn out to be reasonable suggestions for the selected text.
 
@@ -185,7 +185,7 @@ To select one of the terms from the list as the meaning of the selected text the
 figure \ref{SidebarMeanings}.
 \fig{SidebarMeanings}{The list of possible interpretations of "discoveries"} % IMAGE OF LIST OF INTERPRETATIONS
 When a sense is clicked it is sent to the server to be mapped.
-The servers uses the best-fit algorithm described in \ref{BestFitMapping}(page \pageref{BestFitMapping}) to find the ontology references
+The servers uses the best-fit algorithm described in \ref{BestFitMapping} (page \pageref{BestFitMapping}) to find the ontology references
 that fits the sense best and attaches these references to the selection using RDFa.
 The algorithm used to attach the metadata to the selection can handle an arbitrary amount of namespaces and references.
 If there is duplication of references these will be dropped.
@@ -440,7 +440,7 @@ are the ones that are at the closest level of abstraction to the synset for whic
 \begin{lstlisting}[float=t, language=perl, label=HypernymChainCode, caption={Excerpt from the hypernym chain Perl script}]
 my @hypernym = hypernym($synset);
 my @hypernyms;
-while ( @hypernym){
+while (@hypernym){
 	my $hypernym = shift @hypernym;
 	push(@hypernym, hypernym($hypernym));
 	push(@hypernyms, $hypernym);
