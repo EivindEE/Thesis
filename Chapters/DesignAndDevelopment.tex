@@ -331,7 +331,7 @@ exports.mapping = {
 };
 \end{lstlisting}
 
-Since \theartefact uses JavaScript objects to represent the mappings,
+Since \theartefact\ uses JavaScript objects to represent the mappings,
 querying a mapping object to check if it contains a mapping for a certain synset would then just consist of checking if
 the object has a property with the given name as in listing \ref{LabelExists}.
 \begin{lstlisting}[label=LabelExists,caption=Testing if a mapping exists]
@@ -573,7 +573,7 @@ This is treated as a separate task as it pertains not to the content of the page
 It is also not a part of the schema.org ontology, but is included as it is a natural way to increase the visibility of
 the Web site in search results using metadata.
 
-\theartefact uses MongoDB\footnote{\url{http://www.mongodb.org}} as a database for storing the Web pages after the user has added metadata.
+\theartefact\ uses MongoDB\footnote{\url{http://www.mongodb.org}} as a database for storing the Web pages after the user has added metadata.
 MongoDB is a NoSQL database that uses JavaScript as its database interaction language.
 MongoDB uses a dynamic schema for storing data,
 meaning that each document in a collection does not need to have the same structure.
