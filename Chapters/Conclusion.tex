@@ -48,14 +48,6 @@ I found that WordNet was unable to capture the grammatical number of natural lan
 This means that the tool won't have any way to distinguish between ontological types that differ in this respect.
 There were only a few instances in the ontologies that were utilized in the thesis of this flaw hindering the completeness of the mapping.
 
-The analysis as described in section \ref{ComparingAlgorithms} of the algorithm that relied on
-using siblings of synsets as a basis for mapping to ontologies showed us that this either this approach is unfruitful,
-or at least that the current method of using siblings as a grounds for mapping is to naïve.
-As shown in table \ref{table:AlgorithmResults} the algorithms agreed in 75\% of the cases,
-but in the cases where they gave different mappings the error rate for the hypernym then siblings was very high.
-This indicates that the current implementation is to naïve to correctly use sibling synsets to map to formal ontologies,
-and that further research is needed to see if the approach can be improved.
-
 It was found that using hypernyms as a basis for mapping gave correct mappings.
 The incorrect mappings that were discovered during analysis were found to be caused by errors outside of the system.
 One should continue to look for further discrepancies in the future to help the development of these tools as well.
