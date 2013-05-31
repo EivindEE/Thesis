@@ -56,7 +56,7 @@ The two algorithms still perform fairly equally.
 Reading from table \ref{table:AlgorithmResults} we can see that the algorithms are equal in 75\% of the cases,
 but we can examine the 25\% that are different and see which perform better in those cases.
 We can also see that the algorithms were unable to find a mapping in 13.7\% of the cases.
-These cases can't tell us much about which algorithm should be preferred,
+These cases cannot tell us much about which algorithm should be preferred,
 but could be a good starting point for finding parts of the WordNet to schema.org mapping which could be enhanced.
 
 The prediction made beforehand was that the hypernyms first approach would have fewer incorrect mappings,
@@ -105,7 +105,7 @@ As mentioned in section \ref{schemadotorg} the schema.org ontology is geared tow
 The synsets that were used in this test covered a wide variety of topics.
 The top-level categories of schema.org were shown in figure \ref {TopLevelSchemaOrg} on page \pageref{TopLevelSchemaOrg}
 When looking at the results it is the necessary to keep in mind that
-synsets that do not belong to any of those 10 categories can't have a better mapping than schema:Thing in the ontology.
+synsets that do not belong to any of those 10 categories cannot have a better mapping than schema:Thing in the ontology.
 
 \subsection{Correctness of the algorithms}
 To find which algorithm performed best it was decided to check the results where the algorithms gave different mappings.
@@ -116,7 +116,7 @@ The process consisted of looking up each synset that was mapped,
 and the types it had been mapped to and check if the two corresponded.
 The results were divided into three categories.
 If it was clear that the synset and type corresponded, they were marked as correct.
-If it was clear that they didn't correspond they were marked as incorrect.
+If it was clear that they did not correspond they were marked as incorrect.
 There were also some cases where it was unclear whether or not a mapping was correct.
 
 It was decided that it was necessary to include a category for unclear mappings to highlight the fact that some of the categories
@@ -291,7 +291,7 @@ This process was selected to make sure that it would be possible to compare the 
 
 The pages were imported into the artefact, and the markup would be recreated by selecting text,
 and if necessary supply keywords to disambiguate the content.
-For some sections supplying keywords were required as the text didn't contain keywords that signaled the meaning of the content.
+For some sections supplying keywords were required as the text did not contain keywords that signaled the meaning of the content.
 There were several reasons for this.
 In some cases the keyword was displayed on the Web page as an image,
 so instead of having the term "review" in a header or in text it appeared as part of an image on the page.
@@ -338,7 +338,7 @@ Choosing the first option would give the metadata a different structure,
 while selecting the second option would require the user to provide a keyword describing the topic of the section.
 There is little practical difference between the two strategies.
 Selecting a section might make it easier for humans looking at the markup to find out which part of the page the type refers to,
-but \theartefact\ doesn't use the content of the tag to add information so there is no difference in the semantic meaning of the metadata that is added.
+but \theartefact\ does not use the content of the tag to add information so there is no difference in the semantic meaning of the metadata that is added.
 Neither should there be any difference in how the Web pages are displayed after the metadata is added.
 Marking up an larger section does however increase the amount of places where an error could occur.
 A combination of these two strategies was tried when marking up the pages.
@@ -453,7 +453,7 @@ It should be noted that this means that the page will sometimes miss some conten
 One issue that might arise is if some of the content on the site, either CSS or JavaScript,
 depend on the order of the elements or their direct placement in the hierarchy.
 Since \theartefact\ is intended to add metadata to user selected sections of the page the system had to  to create its own
-HTML elements to attach the metadata to, since that's the only reliable way to talk about just that section.
+HTML elements to attach the metadata to, since that is the only reliable way to talk about just that section.
 There are CSS selectors that select either direct children or the n-th children of an element.
 Since the system needs to add elements it might be that the element that was added cause another element to either not be the direct
 child of the former parent, or that it changes the elements number amongst the children.

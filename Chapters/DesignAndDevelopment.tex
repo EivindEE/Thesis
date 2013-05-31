@@ -41,7 +41,7 @@ JavaScript lacks a good IDE so it would be helpful to have some tool that would 
 code was consistent and that the syntax was correct.
 I decided to use JSLint\footnote{\url{http://www.JSLint.com}} to validate the code.
 Using a linter eases development as it enforces a particular coding standard for the project.
-The way the project was set up, the project wouldn't build without it passing the linting test.
+The way the project was set up, the project would not build without it passing the linting test.
 
 Since the project depended on compiling the style sheets and linting the code it was decided to use grunt.js\footnote{\url{http://gruntjs.com}}
 to automate this process.
@@ -222,7 +222,7 @@ One of the difficult aspects of adding the metadata to the selections was making
 after the metadata was inserted.
 
 Special care needs to be taken with the ranges of the selection.
-Since the system need to insert the metadata into tags it can't just use the user range without some checks.
+Since the system need to insert the metadata into tags it cannot just use the user range without some checks.
 If we consider the simple case:
 
 \texttt{<p>some text \hl{in a p</p> <p>` plus some} other text </p>}
@@ -498,7 +498,7 @@ This error has been reported to the maintainers of WordNet and will be fixed in 
 
 The main problem this caused was that it made it unclear if both hypernyms would maintain the meaning of a synset,
 when the synset had more than one hypernym.
-It's not possible to choose a strategy where one only picks one of the hypernyms since the system has no way of
+It is not possible to choose a strategy where one only picks one of the hypernyms since the system has no way of
 knowing which of the hypernyms to choose.
 
 The system now handles cases where a synset has multiple hypernyms by aborting the generation of the hypernym chain,

@@ -47,7 +47,7 @@ That is, ontologies are created by experts as ways on conceptualizing a domain, 
 Folksonomies grew as a subject of research as it became popular for users to tag content on the Internet with keywords they felt were relevant.
 
 For users tags are convenient, since adding additional tags can make it easier for humans to search and browse collections.
-This is especially true for multimedia content, which we don't yet have good tools for searching in \citep{Weinberger2008}.
+This is especially true for multimedia content, which we do not yet have good tools for searching in \citep{Weinberger2008}.
 Tags provide metadata about content in a way that makes sense to humans.
 From an information retrieval perspective this is interesting since it means that humans in some way add meaning to the content.
 There however are several problems with using tags as the basis of a Semantic Web.
@@ -83,7 +83,7 @@ This idea and the implementation of a system that disambiguates tags will be dis
 \subsection{RDF}
 On the Semantic Web, ontologies are represented using collection of \nom{RDF}{Resource Description Framework} triples.
 These triples are in the form of <subject, predicate, object>, much like simple declarative sentences \citep{Berners-Lee2001}.
-Let's suppose we wanted to say that I know my supervisor Csaba.
+Let us suppose we wanted to say that I know my supervisor Csaba.
 An informal triple describing this could be
 \begin{verbatim}
      <Eivind, knows, Csaba>
@@ -136,7 +136,7 @@ This was based in part on work done by \citet{Fillenbaum1965}, which showed that
 associate words with other words from the same syntactical category.
 
 This way of categorizing the words is able to take advantage of the fact that the different syntactical categories have different semantic structures.
-This thesis will use the noun category of WordNet, and benefit from it's topological hierarchy.
+This thesis will use the noun category of WordNet, and benefit from its topological hierarchy.
 
 The word 'word' is ambiguous as it can be used to describe the representation of a word, and its underlying semantics.
 Natural language is built on conventions that tie together utterances or symbols, with some thing or idea.
@@ -188,7 +188,7 @@ This is similar to using Leibniz law of identity to qualify synonymy.
 WordNet uses a weaker definition where one says that whether two forms are synonyms is dependent on the
 semantic context that they are in, and that two words can be synonyms with respect to this semantic context\citep{Miller1990}.
 This weaker definition still necessitates that words must be from the same syntactic category to be synonymous,
-and explains together with \citet{Fillenbaum1965} why it's useful to separate the syntactic categories.
+and explains together with \citet{Fillenbaum1965} why it is useful to separate the syntactic categories.
 
 \subsection{Hyponymy and hypernymy}
 \label{Hypernymy}
@@ -244,7 +244,7 @@ Wikipedia is a successful open collaborative information project,
 with about 4.2 million articles in English and 30 million all together
 \footnote{As of 2013-04-16: \url{http://en.wikipedia.org/wiki/Wikipedia:Size_of_Wikipedia}}.
 The justification for the ontology is similar to the criticism mentioned by \citet{Shirky2007}
-that it's difficult to know how a schema or ontology is going to be used before it's released on the Web.
+that it is difficult to know how a schema or ontology is going to be used before it is released on the Web.
 Instead of starting with an ontology then the work with DBPedia examine how one can extract unstructured data
 from Wikipedia and transform it into a machine readable ontology.
 The main contributions of the project has been\citep{Auer2007}:
@@ -262,7 +262,7 @@ The algorithm used looks through templates that have a high probability of conta
 These templates are parsed looking for pairs of attributes and values.
 The attributes correspond to predicates, and the values to objects of RDF statements.
 The subject of the statements would be the topic of the page itself,
-and it's given a unique URI in the DBPedia namespace by using it's Wikipedia URL.
+and it is given a unique URI in the DBPedia namespace by using its Wikipedia URL.
 
 There is also some post processing of the results to enhance the data further.
 If the object of the statement is another Wikipedia resource,
@@ -270,7 +270,7 @@ the same process that exists for the subject is used to find the targets URL and
 In the cases where the object is a literal of a known type, then the data type information is added.
 
 DBPedia is not a static ontology and in continuously being updated with data from Wikipedia,
-making sure it's up to date with the newest terms and information.
+making sure it is up to date with the newest terms and information.
 
 
 
@@ -342,8 +342,8 @@ This upmost level was then used as a basis for aligning the other lower level on
 
 
 Merging the lower level terms fell into four general cases.
-In the simplest case the term didn't correspond to terms in the other ontologies,
-but was useful and suitable, and didn't break with any of the philosophical decisions made.
+In the simplest case the term did not correspond to terms in the other ontologies,
+but was useful and suitable, and did not break with any of the philosophical decisions made.
 
 Other terms were found to be unsuitable for SUMO.
 Since SUMO was supposed to be a top-level ontology terms that were to narrow,
